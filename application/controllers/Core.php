@@ -1,0 +1,412 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Core extends CI_Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Core_model', 'mcore');
+    }
+
+    public function data_dosen()
+    {
+        $data['dosen'] = $this->mcore->getAllMulti('master_dosen')->result_array();
+        $this->load->view('core/table_dosen', $data);
+    }
+
+    public function data_kurikulum()
+    {
+        $data['kurikulum'] = $this->mcore->getAllMulti('master_kurikulum')->result_array();
+        $this->load->view('core/table_kurikulum', $data);
+    }
+
+    public function detail_kurikulum($id)
+    {
+        $data['matkul'] = $this->mcore->detailKurikulum_matkul($id)->result_array();
+        $data['detail'] = $this->mcore->detailKurikulum($id)->row_array();
+        $this->load->view('core/table_matkul', $data);
+    }
+
+    public function data_gedung()
+    {
+        // sleep(5);
+        $data['gedung'] = $this->mcore->getAllMulti('master_gedung')->result_array();
+        $this->load->view('core/table_gedung', $data);
+    }
+
+    public function data_ruangan($id)
+    {
+        $data['ruangan'] = $this->mcore->ruanganByid($id)->result_array();
+        $this->load->view('core/table_ruangan', $data);
+    }
+
+    public function input_ruangan()
+    {
+        $nama_ruangan = $_POST['nama_ruangan'];
+
+        $i = 0;
+        foreach ($nama_ruangan as $get) {
+            $data = [
+                'id_gedung' => $this->input->post('id'),
+                'nama_ruangan' => $_POST['nama_ruangan'][$i]
+            ];
+            $i++;
+            $this->db->insert('master_ruangan', $data);
+        }
+    }
+
+    public function hapus_ruangan()
+    {
+        $id = $this->input->post('id');
+        $this->db->where('id_ruangan', $id);
+        $this->db->delete('master_ruangan');
+    }
+
+    public function mahasiwa()
+    {
+        $this->load->view('admin/mahasiswa/mahasiswa_list');
+    }
+
+    public function data_prodi()
+    {
+        $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
+        $this->load->view('core/table_prodi', $data);
+    }
+
+    public function data_mahasiswa()
+    {
+        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
+        $results = $this->mperkuliahan->getDataMahasiswa();
+        $data = [];
+        $no = $_POST['start'];
+
+        foreach ($results as $result) {
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $result->nama_mahasiswa;
+            $row[] = $result->nim;
+            $row[] = $result->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan';
+            $row[] = $result->nama_agama;
+            $row[] = $result->tanggal_lahir;
+            $row[] = $result->nama_program_studi;
+            $row[] = substr($result->nama_periode_masuk, 0, 4);
+            $data[] = $row;
+        }
+
+        $output = array(
+            'draw' => $_POST['draw'],
+            'recordsTotal' => $this->mperkuliahan->count_all_data(),
+            'recordsFiltered' => $this->mperkuliahan->count_filtered_data(),
+            'data' => $data
+        );
+
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+    }
+
+    public function data_perkuliahan()
+    {
+        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
+        $results = $this->mperkuliahan->getDataPerkuliahan();
+        $data = [];
+        $no = $_POST['start'];
+
+        foreach ($results as $result) {
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $result->semester_perkuliahan;
+            $row[] = '<a href="' . base_url('#detail_perkuliahan?token=') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
+            $row[] = $result->nama_mata_kuliah;
+            $row[] = $result->nama_kelas;
+            $row[] = $result->kuota_kelas;
+            $row[] = '';
+            $row[] = $result->nama_ruangan;
+            $row[] = $result->jam_awal . '-' . $result->jam_akhir;
+            $data[] = $row;
+        }
+
+        $output = array(
+            'draw' => $_POST['draw'],
+            'recordsTotal' => $this->mperkuliahan->count_all_data_perkuliahan(),
+            'recordsFiltered' => $this->mperkuliahan->count_filtered_data_perkuliahan(),
+            'data' => $data
+        );
+
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+    }
+
+    public function select_ruangan_detail()
+    {
+        $id = $_GET['id'];
+
+        $data = $this->db->query("SELECT * FROM master_ruangan join master_gedung on master_gedung.id_gedung = master_ruangan.id_gedung")->result_array();
+        $output = '<option value=""></option>';
+
+        foreach ($data as $get) {
+            if ($get['id_ruangan'] == $id) {
+                $output .= '<option selected value="' . $get["id_ruangan"] . '">' . $get["nama_gedung"] . " &nbsp; - " . $get['nama_ruangan'] .  '</option>';
+            } else {
+                $output .= '<option value="' . $get["id_ruangan"] . '">' . $get["nama_gedung"] . " &nbsp; - &nbsp; " . $get['nama_ruangan'] .  '</option>';
+            }
+        }
+
+        echo $output;
+    }
+
+    public function select_gedung()
+    {
+        $data = $this->mcore->getAllMulti('master_gedung')->result_array();
+        $output = '<option value=""></option>';
+        foreach ($data as $get) {
+            $output .= '<option value="' . $get["id_gedung"] . '">' . $get["nama_gedung"] . " &nbsp; " . $get['nama_panjang'] .  '</option>';
+        }
+
+        echo $output;
+    }
+
+    public function select_ruangan()
+    {
+        $id = $_POST['idGedung'];
+        if ($id !== "") {
+            $data = $this->db->get_where('master_ruangan', ['id_gedung' => $id])->result_array();
+            $output = '<option value=""></option>';
+            foreach ($data as $get) {
+                $output .= '<option value="' . $get['id_ruangan'] . '">' . $get["nama_ruangan"] . '</option>';
+            }
+        } else {
+            $output = '<option value="">--Tolong pilih data--</option>';
+        }
+        echo  $output;
+    }
+
+    public function data_perkuliahan_kelas_tambah()
+    {
+        $this->load->helper('string');
+        $token = random_string('md5');
+
+        $data = [
+            'id_perkuliahan_kelas' => random_string('alnum'),
+            'token' => $token,
+            'id_prodi' => $this->input->post('id_prodi'),
+            'id_matkul' => $this->input->post('id_matkul'),
+            'semester_perkuliahan' => $this->input->post('semester_perkuliahan'),
+            'id_ruangan' => $this->input->post('id_ruangan'),
+            'nama_kelas' => $this->input->post('nama_kelas'),
+            'jam_awal' => $this->input->post('jam_awal'),
+            'jam_akhir' => $this->input->post('jam_akhir'),
+            'kuota_kelas' => $this->input->post('kuota_kelas')
+        ];
+
+
+        echo json_encode($data);
+
+        $this->mcore->inputMulti('perkuliahan_kelas', $data);
+    }
+
+    public function perkuliahan_kelas_detail()
+    {
+        $token = $_GET['token'];
+        $data['detail'] = $this->mcore->getKelasPerkuliahanDetail($token)->row_array();
+        $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
+        $data['matkul'] = $this->mcore->getAllMulti('master_matkul')->result_array();
+        $data['gedung'] = $this->mcore->getAllMulti('master_gedung')->result_array();
+        $data['gedung'] = $this->mcore->ruanganByGedung()->result_array();
+        $data['dosen'] = $this->mcore->getAllMulti('master_dosen')->result_array();
+        $this->load->view('core/detail_perkuliahan_kelas', $data);
+    }
+
+    public function hapus_perkuliahan()
+    {
+        $id = $_POST['id'];
+        $this->db->where('id_perkuliahan_kelas', $id);
+        $this->db->delete('perkuliahan_kelas');
+    }
+
+    public function data_perkuliahan_dosen()
+    {
+        $data['dosen'] = $this->mcore->getDosenPerkuliahan($_GET['token'])->result_array();
+        $this->load->view('core/table_perkuliahan_dosen', $data);
+    }
+
+    public function aktifitas_dosen()
+    {
+        $data = [
+            'id_perkuliahan_kelas' => $this->input->post('id_perkuliahan_kelas'),
+            'id_dosen' => $this->input->post('id_dosen'),
+            'bobot_sks' => $this->input->post('bobot_sks'),
+            'jumlah_rencana_pertemuan' => $this->input->post('jumlah_rencana_pertemuan'),
+            'jenis_evaluasi' => $this->input->post('jenis_evaluasi'),
+        ];
+        $this->mcore->inputMulti('perkuliahan_dosen', $data);
+    }
+
+    public function autofill_mahasiswa()
+    {
+        // $er = "Mahasiswa Tidak Ditemukan";
+        if (isset($_GET['term'])) {
+            $result = $this->mcore->mahasiswaAutoFill($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row) {
+                    $arr_result[] =  [
+                        'label' => $row->nim . " - " . $row->nama_mahasiswa,
+                        'nim' => $row->nim
+                    ];
+                }
+                echo json_encode($arr_result);
+            }
+        }
+    }
+
+    public function add_mhsKrs()
+    {
+        $data = [
+            'id_perkuliahan_kelas' => $this->input->post('id_perkuliahan_kelas'),
+            'nim' => $this->input->post('id_mhs')
+        ];
+        echo json_encode($data);
+        $this->mcore->inputMulti('perkuliahan_mahasiswa', $data);
+    }
+
+    public function data_krs($id)
+    {
+        $data['krs'] = $this->mcore->getKrs($id)->result_array();
+        $this->load->view('core/table_krs', $data);
+    }
+
+    public function hapus_krs()
+    {
+        $id = $_POST['id'];
+        $this->db->where('id_perkuliahan_mhs', $id);
+        $this->db->delete('perkuliahan_mahasiswa');
+    }
+
+    public function select_angkatan()
+    {
+        $data = $this->mcore->getAngkatan()->result_array();
+        $output = '<option value=""></option>';
+        foreach ($data as $get) {
+            $output .= '<option value="' . $get["id_periode_crop"] . '">' . $get["id_periode_crop"] . '</option>';
+        }
+
+        echo $output;
+    }
+
+    public function select_prodi()
+    {
+        $data = $this->mcore->getAllMulti('master_prodi')->result_array();
+        $output = '<option value=""></option>';
+        foreach ($data as $get) {
+            $output .= '<option value="' . $get["id_prodi"] . '">' . $get['nama_jenjang_pendidikan'] . " " . $get["nama_program_studi"] . '</option>';
+        }
+
+        echo $output;
+    }
+
+    public function tampil_mhs_angkatan()
+    {
+        // sleep(3);
+        $angkatan = $_GET['angkatan'];
+        $prodi = $_GET['prodi'];
+        $id_perkuliahan = $_GET['idperkuliahan'];
+
+        if (empty($prodi)) {
+            $data = $this->mcore->select_kolektif_angkatan($angkatan)->result_array();
+        } else {
+            $data = $this->mcore->select_kolektif_prodi($angkatan, $prodi)->result_array();
+        }
+
+        $output = '';
+
+        $i = 1;
+        foreach ($data as $get) {
+
+            $cek = $this->db->query("SELECT nim from perkuliahan_mahasiswa where nim = '$get[nim]' and id_perkuliahan_kelas = '$id_perkuliahan'")->num_rows();
+
+            if ($cek > 0) {
+                $output .= '<tr class="bg-light">';
+                $output .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" checked disabled name="id_mahasiswa[]" id="id_mahasiswa[]" value="' . $get['nim'] . '"></td>';
+            } else {
+                $output .= '<tr>';
+                $output .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_mahasiswa[]" id="id_mahasiswa[]" value="' . $get['nim'] . '"></td>';
+            }
+
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
+    }
+
+    public function input_krs()
+    {
+        $id_mahasiswa = $_POST['id_mahasiswa'];
+
+        $i = 0;
+        foreach ($id_mahasiswa as $get) {
+            $data[] = [
+                'id_perkuliahan_kelas' => $this->input->post('id_perkuliahan_kelas'),
+                'nim' => $_POST['id_mahasiswa'][$i]
+            ];
+            $i++;
+            // $this->db->insert('master_ruangan', $data);
+        }
+
+        $this->db->insert_batch('perkuliahan_mahasiswa', $data);
+        echo json_encode($data);
+    }
+
+    public function data_nilai_perkuliahan()
+    {
+        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
+        $results = $this->mperkuliahan->getDataPerkuliahan();
+        $data = [];
+        $no = $_POST['start'];
+
+        foreach ($results as $result) {
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $result->semester_perkuliahan;
+            $row[] = '<a href="' . base_url('#detail_nilai_perkuliahan/') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
+            $row[] = $result->nama_mata_kuliah;
+            $row[] = $result->nama_kelas;
+            $data[] = $row;
+        }
+
+        $output = array(
+            'draw' => $_POST['draw'],
+            'recordsTotal' => $this->mperkuliahan->count_all_data_perkuliahan(),
+            'recordsFiltered' => $this->mperkuliahan->count_filtered_data_perkuliahan(),
+            'data' => $data
+        );
+
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+    }
+
+    public function data_nilai($id)
+    {
+        $data = $this->mcore->getDetailNilaiPerkuliahan($id)->result_array();
+
+        $output = '';
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+            $output .= '<td>' . $get['nilai_angka'] . '</td>';
+            $output .= '<td>' . $get['nilai_huruf'] . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
+    }
+}
+
+/* End of file Core.php and path \application\controllers\Core.php */

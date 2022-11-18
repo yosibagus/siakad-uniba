@@ -1,0 +1,12 @@
+@import url('admin/vendors/feather/feather.css');
+@import url('admin/vendors/ti-icons/css/themify-icons.css');
+@import url('admin/vendors/css/vendor.bundle.base.css');
+@import url('admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css');
+@import url('admin/vendors/ti-icons/css/themify-icons.css');
+@import url('admin/vendors/simplelineicons/css/simple-line-icons.css');
+@import url('admin/js/select.dataTables.min.css');
+@import url('admin/css/vertical-layout-light/style.css');
+@import url('sweetalert/dist/sweetalert2.min.css');
+@import url('jquery-toast/dist/jquery.toast.min.css');
+@import url('manifest.json');
+@import url('style-custom.css');
