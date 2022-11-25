@@ -6,7 +6,7 @@
 </style>
 <div class="content-inner pb-0 container-fluid">
 
-    <form method="post" action="" class="card">
+    <form method="post" action="" class="card" id="form-dosen">
         <div class="card-body">
             <div class="d-flex bd-highlight mb-2">
                 <div class="pt-2 flex-grow-1 bd-highlight">
@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <label class="control-label col-sm-2 align-self-center mb-0" for="nama_dosen">Nama Lengkap <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="nama_dosen" autofocus class="form-control" id="nama_dosen" placeholder="Nama Lengkap (DOSEN)">
+                        <input type="nama_dosen" autofocus class="form-control" id="nama_dosen" name="nama_dosen" placeholder="Nama Lengkap (DOSEN)">
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
                             <label for="status">Status <span class="text-danger">*</span></label>
                             <select name="status" id="status" class="form-control">
                                 <option value=""></option>
-                                <option value="Aktif">Aktif</option>
+                                <option value="Aktif" selected>Aktif</option>
                                 <option value="Non-Aktif">Non-Aktif</option>
                             </select>
                         </div>
@@ -111,4 +111,31 @@
             allowClear: true
         });
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#form-dosen").on('submit', function(e) {
+            e.preventDefault();
+            var data = $('#form-dosen').serialize();
+            $.ajax({
+                type: 'POST',
+                url: "<?= base_url('core/data_dosen_tambah') ?>",
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                    // console.log(data);
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Data Berhasil Ditambahkan',
+                        showHideTransition: 'slide',
+                        icon: 'success',
+                        position: 'top-right'
+                    })
+                    // $('.toast').toast('show');
+                    window.location.href = '<?= base_url('#dosen') ?>';
+                }
+            });
+        })
+    })
 </script>

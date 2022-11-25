@@ -128,7 +128,7 @@
         <div class="tab-content iq-tab-fade-up" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home-11" role="tabpanel" aria-labelledby="nav-home-11-tab">
                 <!-- DOSEN -->
-                <div class="container p-3">
+                <div class="p-3">
                     <button class="btn btn-info btn-sm text-white mb-2" id="tambah-form"><i class="bi bi-plus-lg"></i> Aktifitas Mengajar Dosen</button>
 
                     <div class="d-flex bd-highlight">
@@ -215,7 +215,7 @@
 
             </div>
             <div class="tab-pane fade" id="nav-profile-11" role="tabpanel" aria-labelledby="nav-profile-11-tab">
-                <div class="container p-4">
+                <div class="p-4">
                     <!-- tambah data mahasiswa kelas -->
                     <div class="card" style="background: #e0f7fa; box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);">
                         <div class="card-body text-black">

@@ -54,6 +54,41 @@ class Api extends CI_Controller
         // $this->db->insert_batch('master_kurikulum', $result);
     }
 
+    public function getDosen()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => '',
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => 'POST',
+            CURLOPT_POSTFIELDS     => '{
+				"act":"GetListDosen",
+				"token" : "' . $this->getToken() . '",
+				"username":"071098",
+				"password":"m4dh4ry"
+			}',
+
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        foreach ($data['data'] as $get) {
+            $result[] = $get;
+        }
+
+        echo json_encode($result);
+    }
+
 
     public function getKurikulum()
     {
@@ -160,7 +195,7 @@ class Api extends CI_Controller
         }
 
         echo json_encode($result);
-        $this->db->insert_batch('master_matkul', $result);
+        //$this->db->insert_batch('master_matkul', $result);
     }
 
     public function getkelasPerkuliahan()
@@ -331,7 +366,7 @@ class Api extends CI_Controller
 
     public function getNilai()
     {
-        $id_prodi = "3d034b09-ce2c-4dee-b461-69519bdfba4a";
+        $id_prodi = "d1cc4baf-4926-42da-ac18-63398da29f5a";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
@@ -370,7 +405,7 @@ class Api extends CI_Controller
             ];
         }
         echo json_encode($result);
-        // $this->db->insert_batch('perkuliahan_nilai', $result);
+        //$this->db->insert_batch('perkuliahan_nilai', $result);
     }
 }
 

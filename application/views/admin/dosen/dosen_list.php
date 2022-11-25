@@ -20,6 +20,7 @@
                             <th>Agama</th>
                             <th>Tanggal Lahir</th>
                             <th>Status</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tmp-dosen"></tbody>
@@ -28,7 +29,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function() {
@@ -52,4 +52,27 @@
 
     });
 
+    $(document).on('click', '.hapus-dosen', function() {
+        var id = $(this).attr('id');
+        $.ajax({
+            type: 'POST',
+            url: "<?= base_url('core/data_dosen_hapus') ?>",
+            data: {
+                'id': id
+            },
+            success: function() {
+                $.toast({
+                    heading: 'Success',
+                    text: 'Data Berhasil Hapus',
+                    showHideTransition: 'slide',
+                    icon: 'success',
+                    position: 'top-right'
+                });
+                tampil_data();
+            },
+            error: function(response) {
+                console.log(response.responseText);
+            }
+        })
+    })
 </script>

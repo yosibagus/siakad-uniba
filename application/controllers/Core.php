@@ -16,6 +16,33 @@ class Core extends CI_Controller
         $this->load->view('core/table_dosen', $data);
     }
 
+    public function data_dosen_tambah()
+    {
+        $this->load->helper('string');
+
+        $id_dosen = md5(random_string('numeric'));
+        $data = [
+            'id_dosen'      => $id_dosen,
+            'nik'           => $this->input->post('nik'),
+            'nama_dosen'    => $this->input->post('nama_dosen'),
+            'nidn'          => $this->input->post('nidn'),
+            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+            'nama_agama'    => $this->input->post('nama_agama'),
+            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+            'status'        => $this->input->post('status')
+        ];
+
+        echo json_encode($data);
+        $this->mcore->inputMulti('master_dosen', $data);
+    }
+
+    public function data_dosen_hapus()
+    {
+        $id = $_POST['id'];
+        $this->db->where('id_dosen', $id);
+        $this->db->delete('master_dosen');
+    }
+
     public function data_kurikulum()
     {
         $data['kurikulum'] = $this->mcore->getAllMulti('master_kurikulum')->result_array();
@@ -107,12 +134,16 @@ class Core extends CI_Controller
 
     public function data_perkuliahan()
     {
+        error_reporting(0);
         $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
         $results = $this->mperkuliahan->getDataPerkuliahan();
         $data = [];
         $no = $_POST['start'];
 
         foreach ($results as $result) {
+
+            $dosen = $this->mcore->getDosenPerkuliahan($result->id_perkuliahan_kelas)->row();
+
             $row = array();
             $row[] = ++$no;
             $row[] = $result->semester_perkuliahan;
@@ -120,7 +151,7 @@ class Core extends CI_Controller
             $row[] = $result->nama_mata_kuliah;
             $row[] = $result->nama_kelas;
             $row[] = $result->kuota_kelas;
-            $row[] = '';
+            $row[] = $dosen->nama_dosen;
             $row[] = $result->nama_ruangan;
             $row[] = $result->jam_awal . '-' . $result->jam_akhir;
             $data[] = $row;
@@ -197,7 +228,6 @@ class Core extends CI_Controller
             'jam_akhir' => $this->input->post('jam_akhir'),
             'kuota_kelas' => $this->input->post('kuota_kelas')
         ];
-
 
         echo json_encode($data);
 
