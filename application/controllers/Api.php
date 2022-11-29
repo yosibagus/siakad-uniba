@@ -83,10 +83,21 @@ class Api extends CI_Controller
         $data = json_decode($response, true);
 
         foreach ($data['data'] as $get) {
-            $result[] = $get;
+            $result[] = [
+                'nama_dosen' => $get['nama_dosen'],
+                'id_dosen' => $get['id_dosen'],
+                'nik' => '',
+                'nidn' => $get['nidn'],
+                'jenis_kelamin' => $get['jenis_kelamin'],
+                'nama_agama' => $get['nama_agama'],
+                'tanggal_lahir' => $get['tanggal_lahir'],
+                'status' => $get['nama_status_aktif']
+            ];
         }
 
         echo json_encode($result);
+
+        $this->db->insert_batch('master_dosen', $result);
     }
 
 

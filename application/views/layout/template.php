@@ -463,7 +463,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
+                            <!-- <li class="nav-item dropdown">
                                 <a href="#" class="nav-link ps-3" id="notification-drop" data-bs-toggle="dropdown">
                                     <div class="btn btn-primary btn-icon btn-sm rounded-pill btn-action">
                                         <span class="btn-inner">
@@ -643,7 +643,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                             <li class="nav-item dropdown" id="itemdropdown1">
                                 <a class="py-0 nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="btn btn-primary btn-icon btn-sm rounded-pill">
@@ -667,7 +667,7 @@
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth/sign-in.html">Logout</a>
+                                        <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">Logout</a>
                                     </li>
                                 </ul>
                             </li>

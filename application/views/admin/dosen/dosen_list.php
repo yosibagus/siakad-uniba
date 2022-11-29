@@ -50,29 +50,43 @@
             })
         }
 
-    });
+        $(document).on('click', '.hapus-dosen', function() {
+            var id = $(this).attr('id');
+            Swal.fire({
+                title: 'Pemberitahuan!',
+                text: "Yakin data akan dihapus permanen?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?= base_url('core/data_dosen_hapus') ?>",
+                        data: {
+                            'id': id
+                        },
+                        success: function() {
+                            $.toast({
+                                heading: 'Success',
+                                text: 'Data Berhasil Hapus',
+                                showHideTransition: 'slide',
+                                icon: 'success',
+                                position: 'top-right'
+                            });
 
-    $(document).on('click', '.hapus-dosen', function() {
-        var id = $(this).attr('id');
-        $.ajax({
-            type: 'POST',
-            url: "<?= base_url('core/data_dosen_hapus') ?>",
-            data: {
-                'id': id
-            },
-            success: function() {
-                $.toast({
-                    heading: 'Success',
-                    text: 'Data Berhasil Hapus',
-                    showHideTransition: 'slide',
-                    icon: 'success',
-                    position: 'top-right'
-                });
-                tampil_data();
-            },
-            error: function(response) {
-                console.log(response.responseText);
-            }
+                            tampil_data();
+                            $('#myTable').DataTable();
+                        },
+                        error: function(response) {
+                            console.log(response.responseText);
+                        }
+                    })
+                }
+            })
         })
-    })
+
+    });
 </script>
