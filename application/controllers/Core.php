@@ -153,7 +153,7 @@ class Core extends CI_Controller
             $row[] = $result->kuota_kelas;
             $row[] = $dosen->nama_dosen;
             $row[] = $result->nama_ruangan;
-            $row[] = $result->jam_awal . '-' . $result->jam_akhir;
+            $row[] = $result->hari . ", " . $result->jam_awal . '-' . $result->jam_akhir;
             $data[] = $row;
         }
 
@@ -224,6 +224,7 @@ class Core extends CI_Controller
             'semester_perkuliahan' => $this->input->post('semester_perkuliahan'),
             'id_ruangan' => $this->input->post('id_ruangan'),
             'nama_kelas' => $this->input->post('nama_kelas'),
+            'hari' => $this->input->post('hari'),
             'jam_awal' => $this->input->post('jam_awal'),
             'jam_akhir' => $this->input->post('jam_akhir'),
             'kuota_kelas' => $this->input->post('kuota_kelas')
@@ -436,6 +437,19 @@ class Core extends CI_Controller
         }
 
         echo $output;
+    }
+
+    public function data_setting_tambah()
+    {
+        $data = [
+            'semester_berlaku_aktif' => $this->input->post('semester_berlaku_aktif'),
+            'semester_krs' => $this->input->post('semester_krs'),
+            'batas_sks_krs' => $this->input->post('batas_sks_krs')
+        ];
+
+        $this->mcore->inputMulti('settings', $data);
+
+        echo json_encode($data);
     }
 }
 

@@ -1,16 +1,13 @@
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__arrow,
+    .select2-container--default .select2-selection--single .select2-selection__clear,
+    .select2-container--classic .select2-selection--single .select2-selection__arrow {
+        height: 100%;
+        padding-right: 20px;
+    }
+</style>
 <div style="position: absolute; left:50%; top:50%;">
     <img id="loading" width="100" src="<?= base_url('assets/loading2.gif') ?>" alt="">
-</div>
-<div class="toast fixed-top" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-muted">11 mins ago</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-        Hello, world! This is a toast message.
-    </div>
 </div>
 <div class="content-inner pb-0 container-fluid">
     <form action="" method="post" id="form-perkuliahan" class="card" style="display: none;">
@@ -60,7 +57,7 @@
                             <select required name="id_matkul" id="id_matkul" class="form-control form-control-sm">
                                 <option value=""></option>
                                 <?php foreach ($matkul as $get) : ?>
-                                    <option value="<?= $get['id_matkul'] ?>"><?= $get['kode_mata_kuliah'] . " | " . $get['nama_mata_kuliah'] ?></option>
+                                    <option value="<?= $get['id_matkul'] ?>"><?= $get['kode_mata_kuliah'] . " - " . $get['nama_mata_kuliah'] . " (" . (int)($get['sks_mata_kuliah']) . " sks) Kurikulum " . $get['nama_program_studi']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <small class="text-danger" id="m-matkul"><i></i></small>
@@ -101,14 +98,29 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="hari">Hari</label>
+                                    <select name="hari" id="hari" class="form-control form-ku">
+                                        <option value=""></option>
+                                        <option value="Senin">Senin</option>
+                                        <option value="Selasa">Selasa</option>
+                                        <option value="Rabu">Rabu</option>
+                                        <option value="Kamis">Kamis</option>
+                                        <option value="Jumat">Jum'at</option>
+                                        <option value="Sabtu">Sabtu</option>
+                                    </select>
+                                    <small class="text-danger" id="m-hari"><i></i></small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="jam_awal">Jam Awal</label>
                                     <input type="time" required name="jam_awal" id="jam_awal" class="form-control form-ku">
                                     <small class="text-danger" id="m-jamawal"><i></i></small>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="jam_akhir">Jam Akhir</label>
                                     <input type="time" required name="jam_akhir" id="jam_akhir" class="form-control form-ku">
@@ -142,7 +154,7 @@
                 data: data,
                 dataType: 'json',
                 success: function(data) {
-                    //console.log(data);
+                    // console.log(data);
                     $.toast({
                         heading: 'Success',
                         text: 'Data Berhasil Ditambahkan',
@@ -174,6 +186,10 @@
         });
         $('#id_ruangan').select2({
             placeholder: 'Pilih Ruangan',
+            allowClear: true
+        });
+        $('#hari').select2({
+            placeholder: 'Pilih Hari',
             allowClear: true
         });
     });

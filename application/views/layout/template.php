@@ -172,7 +172,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link " href="#prodi">
+                        <a class="nav-link " href="#/prodi">
                             <i class="icon" data-bs-toggle="tooltip" title="Prodi" data-bs-placement="right">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M18.8088 9.021C18.3573 9.021 17.7592 9.011 17.0146 9.011C15.1987 9.011 13.7055 7.508 13.7055 5.675V2.459C13.7055 2.206 13.5036 2 13.253 2H7.96363C5.49517 2 3.5 4.026 3.5 6.509V17.284C3.5 19.889 5.59022 22 8.16958 22H16.0463C18.5058 22 20.5 19.987 20.5 17.502V9.471C20.5 9.217 20.299 9.012 20.0475 9.013C19.6247 9.016 19.1177 9.021 18.8088 9.021Z" fill="currentColor"></path>
@@ -185,7 +185,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#matakuliah">
+                        <a class="nav-link " href="#/matakuliah">
                             <i class="icon" data-bs-toggle="tooltip" title="Matakuliah" data-bs-placement="right">
                                 <svg width="20" class="icon-20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M16.191 2H7.81C4.77 2 3 3.78 3 6.83V17.16C3 20.26 4.77 22 7.81 22H16.191C19.28 22 21 20.26 21 17.16V6.83C21 3.78 19.28 2 16.191 2" fill="currentColor" />
@@ -196,7 +196,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#mahasiswa">
+                        <a class="nav-link " href="#/mahasiswa">
                             <i class="icon" data-bs-toggle="tooltip" title="Mahasiswa" data-bs-placement="right">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>
@@ -212,7 +212,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link " href="#dosen">
+                        <a class="nav-link " href="#/dosen">
                             <i class="icon" data-bs-toggle="tooltip" title="Dosen" data-bs-placement="right">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.34933 14.8577C5.38553 14.8577 2 15.47 2 17.9173C2 20.3665 5.364 20.9999 9.34933 20.9999C13.3131 20.9999 16.6987 20.3876 16.6987 17.9403C16.6987 15.4911 13.3347 14.8577 9.34933 14.8577Z" fill="currentColor"></path>
@@ -226,7 +226,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link " href="#gedung">
+                        <a class="nav-link " href="#/gedung">
                             <i class="icon" data-bs-toggle="tooltip" title="Gedung" data-bs-placement="right">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.14373 20.7821V17.7152C9.14372 16.9381 9.77567 16.3067 10.5584 16.3018H13.4326C14.2189 16.3018 14.8563 16.9346 14.8563 17.7152V20.7732C14.8562 21.4473 15.404 21.9951 16.0829 22H18.0438C18.9596 22.0023 19.8388 21.6428 20.4872 21.0007C21.1356 20.3586 21.5 19.4868 21.5 18.5775V9.86585C21.5 9.13139 21.1721 8.43471 20.6046 7.9635L13.943 2.67427C12.7785 1.74912 11.1154 1.77901 9.98539 2.74538L3.46701 7.9635C2.87274 8.42082 2.51755 9.11956 2.5 9.86585V18.5686C2.5 20.4637 4.04738 22 5.95617 22H7.87229C8.19917 22.0023 8.51349 21.8751 8.74547 21.6464C8.97746 21.4178 9.10793 21.1067 9.10792 20.7821H9.14373Z" fill="currentColor"></path>
@@ -246,7 +246,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#kurikulum">
+                        <a class="nav-link" href="#/kurikulum">
                             <i class="icon" data-bs-toggle="tooltip" title="Kurikulum" data-bs-placement="right">
                                 <svg width="20" class="icon-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M2 11.0786C2.05 13.4166 2.19 17.4156 2.21 17.8566C2.281 18.7996 2.642 19.7526 3.204 20.4246C3.986 21.3676 4.949 21.7886 6.292 21.7886C8.148 21.7986 10.194 21.7986 12.181 21.7986C14.176 21.7986 16.112 21.7986 17.747 21.7886C19.071 21.7886 20.064 21.3566 20.836 20.4246C21.398 19.7526 21.759 18.7896 21.81 17.8566C21.83 17.4856 21.93 13.1446 21.99 11.0786H2Z" fill="currentColor"></path>
@@ -259,7 +259,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#kelas_perkuliahan">
+                        <a class="nav-link " href="#/kelas_perkuliahan">
                             <i class="icon" data-bs-toggle="tooltip" title="Kelas Perkuliahan" data-bs-placement="right">
                                 <svg width="20" class="icon-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M13.7505 9.70303V7.68318C13.354 7.68318 13.0251 7.36377 13.0251 6.97859V4.57356C13.0251 4.2532 12.764 4.00049 12.4352 4.00049H5.7911C3.70213 4.00049 2 5.653 2 7.68318V10.1155C2 10.3043 2.07737 10.4828 2.21277 10.6143C2.34816 10.7449 2.53191 10.8201 2.72534 10.8201C3.46035 10.8201 4.02128 11.3274 4.02128 11.9944C4.02128 12.6905 3.45068 13.2448 2.73501 13.2533C2.33849 13.2533 2 13.5257 2 13.9203V16.3262C2 18.3555 3.70213 19.9995 5.78143 19.9995H12.4352C12.764 19.9995 13.0251 19.745 13.0251 19.4265V17.3963C13.0251 17.0027 13.354 16.6917 13.7505 16.6917V14.8701C13.354 14.8701 13.0251 14.5497 13.0251 14.1655V10.4076C13.0251 10.0224 13.354 9.70303 13.7505 9.70303Z" fill="currentColor"></path>
@@ -270,7 +270,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#nilai_perkuliahan">
+                        <a class="nav-link " href="#/nilai_perkuliahan">
                             <i class="icon" data-bs-toggle="tooltip" title="Nilai Perkuliahan" data-bs-placement="right">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M19.9927 18.9534H14.2984C13.7429 18.9534 13.291 19.4124 13.291 19.9767C13.291 20.5422 13.7429 21.0001 14.2984 21.0001H19.9927C20.5483 21.0001 21.0001 20.5422 21.0001 19.9767C21.0001 19.4124 20.5483 18.9534 19.9927 18.9534Z" fill="currentColor"></path>
@@ -660,8 +660,7 @@
                                         <a class="dropdown-item" href="app/user-profile.html">Profile</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="app/user-privacy-setting.html">Privacy
-                                            Setting</a>
+                                        <a class="dropdown-item" href="#global_setting">Setting Global</a>
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
@@ -1494,6 +1493,8 @@
             })
         })
     </script>
+
+
 </body>
 
 <!-- Mirrored from templates.iqonic.design/hope-ui/pro/html/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Oct 2022 04:16:33 GMT -->

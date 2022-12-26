@@ -4,6 +4,7 @@
         color: #ffffff;
     }
 </style>
+
 <form action="" method="post" id="form-perkuliahan-detail" class="card">
     <div class="card-body">
         <div class="d-flex bd-highlight mb-2">
@@ -30,12 +31,11 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="id_prodi">Program Studi <span class="text-danger">*</span></label>
-                        <select disabled style="width: 100%;" required name="id_prodi" id="id_prodi" class="form-control form-control-sm">
+                        <!-- <select disabled style="width: 100%;" required name="id_prodi" id="id_prodi" class="form-control form-control-sm">
                             <option value=""></option>
-                            <?php foreach ($prodi as $get) : ?>
-                                <option <?= $get['id_prodi'] == $detail['id_prodi'] ? 'selected' : '' ?> value="<?= $get['id_prodi'] ?>"><?= $get['nama_jenjang_pendidikan'] . " " . $get['nama_program_studi'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                            <option value="" selected><?= $detail['id_prodi'] ?></option>
+                        </select> -->
+                        <input type="text" class="form-control form-ku" value="<?= $detail['nama_program_studi'] ?>" disabled>
                         <small class="text-danger" id="m-prodi"><i></i></small>
                     </div>
                 </div>
@@ -95,14 +95,21 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="jam_awal">Hari</label>
+                                <input disabled type="text" required name="jam_awal" id="jam_awal" class="form-control form-ku" value="<?= $detail['hari'] ?>">
+                                <small class="text-danger" id="m-jamawal"><i></i></small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="jam_awal">Jam Awal</label>
                                 <input disabled type="time" required name="jam_awal" id="jam_awal" class="form-control form-ku" value="<?= $detail['jam_awal'] ?>">
                                 <small class="text-danger" id="m-jamawal"><i></i></small>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="jam_akhir">Jam Akhir</label>
                                 <input disabled type="time" required name="jam_akhir" id="jam_akhir" class="form-control form-ku" value="<?= $detail['jam_akhir'] ?>">

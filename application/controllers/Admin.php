@@ -83,7 +83,7 @@ class Admin extends CI_Controller
     {
         $this->load->model('Core_model', 'mcore');
         $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
-        $data['matkul'] = $this->mcore->getAllMulti('master_matkul')->result_array();
+        $data['matkul'] = $this->mcore->getAllMulti('master_matkuls')->result_array();
         $data['gedung'] = $this->mcore->getAllMulti('master_gedung')->result_array();
         $this->load->view('admin/perkulihan/kelas_perkuliahan_tambah', $data);
     }
@@ -112,6 +112,11 @@ class Admin extends CI_Controller
         $this->load->model('Core_model', 'mcore');
         $data['detail'] = $this->mcore->getKelasPerkuliahanDetail($id)->row_array();
         $this->load->view('admin/perkulihan/detail_nilai_perkuliahan', $data);
+    }
+
+    public function global_setting()
+    {
+        $this->load->view('admin/setting/setting');
     }
 }
 
