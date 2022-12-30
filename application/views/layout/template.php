@@ -185,7 +185,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="horizontal-menu" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="horizontal-menu" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link " href="#/dosen">
                                     <i class="icon">
@@ -240,7 +240,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="e-commerce" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="e-commerce" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="#shop-main" role="button" aria-expanded="false" aria-controls="shop-main">
                                     <i class="icon" data-bs-toggle="tooltip" title="Keuangan" data-bs-placement="right">
@@ -378,7 +378,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="mail" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="mail" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link " href="">
                                     <i class="icon">
@@ -453,7 +453,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="perkuliahan" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="perkuliahan" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link " href="#/kurikulum">
                                     <i class="icon" data-bs-toggle="tooltip" title="Kurikulum" data-bs-placement="right">
@@ -524,7 +524,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link " href="../errors/error404.html">
                                     <i class="icon" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Error 404" data-bs-original-title="Error 404">
@@ -579,7 +579,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="laporandosen" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="laporandosen" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link " href="../errors/error404.html">
                                     <i class="icon" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Error 404" data-bs-original-title="Error 404">
@@ -633,7 +633,7 @@
                                 </svg>
                             </i>
                         </a>
-                        <ul class="sub-nav collapse" id="sidebar-special" data-bs-parent="#sidebar-menu" style="">
+                        <ul class="sub-nav collapse" id="sidebar-special" data-bs-parent="#sidebar-menu">
                             <li class="nav-item">
                                 <a class="nav-link " href="#/daftar_user">
                                     <i class="icon" data-bs-toggle="tooltip" title="Daftar User" data-bs-placement="right">
