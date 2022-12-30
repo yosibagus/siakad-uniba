@@ -118,6 +118,16 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/setting/setting');
     }
+
+    public function daftar_user()
+    {
+        $this->load->view('admin/user/daftar_user');
+    }
+
+    public function generate_mahasiswa()
+    {
+        $this->load->view('admin/user/generate_mahasiswa');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

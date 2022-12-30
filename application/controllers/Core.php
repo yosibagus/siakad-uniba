@@ -391,6 +391,7 @@ class Core extends CI_Controller
         echo json_encode($data);
     }
 
+
     public function data_nilai_perkuliahan()
     {
         $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
@@ -435,7 +436,31 @@ class Core extends CI_Controller
             $output .= '<td>' . $get['nilai_huruf'] . '</td>';
             $output .= '</tr>';
         }
+        echo $output;
+    }
 
+    public function data_user()
+    {
+        $data = $this->mcore->getDataUser()->result_array();
+        $output = '';
+        $i = 1;
+        $akun = '';
+        foreach ($data as $get) {
+
+            if ($get['status_akun'] > 0) {
+                $akun = '<i class="bi bi-check-circle-fill text-success"></i>';
+            } else {
+                $akun = "tidak aktif";
+            }
+
+            $output .= '<tr>';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $akun . " " . $get['username_akun'] . '</td>';
+            $output .= '<td>' . $get['nama_akun'] . '</td>';
+            $output .= '<td>' . $get['hint'] . '</td>';
+            $output .= '<td class="text-capitalize">' . $get['role'] . '</td>';
+            $output .= '</tr>';
+        }
         echo $output;
     }
 
@@ -449,6 +474,69 @@ class Core extends CI_Controller
 
         $this->mcore->inputMulti('settings', $data);
 
+        echo json_encode($data);
+    }
+
+    public function tampil_mhs_generate()
+    {
+        $angkatan = $_GET['angkatan'];
+        $prodi = $_GET['prodi'];
+
+        if (empty($prodi)) {
+            $data = $this->mcore->select_kolektif_angkatan($angkatan)->result_array();
+        } else {
+            $data = $this->mcore->select_kolektif_prodi($angkatan, $prodi)->result_array();
+        }
+
+        $output = '';
+        $i = 1;
+        foreach ($data as $get) {
+
+
+            $cek = $this->db->get_where('tb_akun', ['id_user' => $get['id_mahasiswa']])->num_rows();
+
+            $output .= '<tr>';
+            if ($cek > 0) {
+                $output .= '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
+            } else {
+                $output .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_mahasiswa[]" id="id_mahasiswa[]" value="' . $get['id_mahasiswa'] . '"></td>';
+            }
+
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
+    }
+
+    public function input_generate_mahasiswa()
+    {
+        $id_mahasiswa = $_POST['id_mahasiswa'];
+
+        $i = 0;
+        foreach ($id_mahasiswa as $get) {
+            $id_mhs = $_POST['id_mahasiswa'][$i];
+
+            $getMhs = $this->db->get_where('master_mahasiswa', ['id_mahasiswa' => $id_mhs])->row_array();
+
+            $data[] = [
+                'id_user' => $id_mhs,
+                'nama_akun' => $getMhs['nama_mahasiswa'],
+                'username_akun' => $getMhs['nim'],
+                'email_akun' => '',
+                'password_akun' => md5(date('Ymd', strtotime($getMhs['tanggal_lahir']))),
+                'status_akun' => 1,
+                'hint' => date('Ymd', strtotime($getMhs['tanggal_lahir'])),
+                'role' => 'mahasiswa'
+            ];
+            $i++;
+        }
+
+        $this->db->insert_batch('tb_akun', $data);
         echo json_encode($data);
     }
 }

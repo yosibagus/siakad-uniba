@@ -5,7 +5,7 @@ class Auth_model extends CI_Model
 {
     public function loginAdminValidatin($username, $password)
     {
-        return $this->db->get_where('operator_sistem', ['username_operator' => $username, 'password_operator' => md5($password)]);
+        return $this->db->get_where('tb_akun', ['username_akun' => $username, 'password_akun' => md5($password)]);
     }
 }
 

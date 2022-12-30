@@ -176,6 +176,11 @@ class Core_model extends CI_Model
         $this->db->order_by('perkuliahan_nilai.nim', 'ASC');
         return $this->db->get();
     }
+
+    public function getDataUser()
+    {
+        return $this->db->get('tb_akun');
+    }
 }
 
 

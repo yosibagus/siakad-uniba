@@ -1,11 +1,3 @@
-<style>
-    .select2-container--default .select2-selection--single .select2-selection__arrow,
-    .select2-container--default .select2-selection--single .select2-selection__clear,
-    .select2-container--classic .select2-selection--single .select2-selection__arrow {
-        height: 100%;
-        padding-right: 20px;
-    }
-</style>
 <div style="position: absolute; left:50%; top:50%;">
     <img id="loading" width="100" src="<?= base_url('assets/loading2.gif') ?>" alt="">
 </div>

@@ -26,9 +26,9 @@ class Auth extends CI_Controller
                 $get = $this->mauth->loginAdminValidatin($username, $password)->row_array();
 
                 $array = array(
-                    'id_operator' => $get['id_operator'],
-                    'nama_operator' => $get['nama_operator'],
-                    'level_operator' => $get['level_operator']
+                    'id_operator' => $get['id_akun'],
+                    'nama_operator' => $get['username_akun'],
+                    'level_operator' => $get['role']
                 );
 
                 $this->session->set_userdata($array);
