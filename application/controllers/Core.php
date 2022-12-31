@@ -445,6 +445,7 @@ class Core extends CI_Controller
         $output = '';
         $i = 1;
         $akun = '';
+
         foreach ($data as $get) {
 
             if ($get['status_akun'] > 0) {
