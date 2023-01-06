@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="card" id="card-wali">
+    <div class="card" id="card-wali" style="display: none;">
         <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
             <div class="header-title">
                 <h4 class="card-title mb-0" id="nama_dosen">Daftar Wali</h4>
