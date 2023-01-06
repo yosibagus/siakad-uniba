@@ -56,10 +56,10 @@ class Core_model extends CI_Model
 
     public function getKelasPerkuliahanDetail($token)
     {
-        $this->db->select('*');
+        $this->db->select('*, master_prodi.nama_program_studi as nama_prodi');
         $this->db->from('perkuliahan_kelas');
         $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi', 'left');
-        $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
+        $this->db->join('master_matkul', 'perkuliahan_kelas.id_matkul = master_matkul.id_matkul', 'left');
         $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
         $this->db->join('master_gedung', 'master_gedung.id_gedung = master_ruangan.id_gedung', 'left');
         $this->db->where('perkuliahan_kelas.token', $token);
@@ -137,6 +137,15 @@ class Core_model extends CI_Model
         $this->db->order_by('nama_mahasiswa', 'ASC');
         $this->db->limit(10);
         return $this->db->get('master_mahasiswa')->result();
+    }
+
+    public function dosenAutoFill($title)
+    {
+        $this->db->like('nama_dosen', $title);
+        $this->db->or_like('nidn', $title);
+        $this->db->order_by('nama_dosen', 'ASC');
+        $this->db->limit(10);
+        return $this->db->get('master_dosen')->result();
     }
 
     public function getKrs($id_perkuliahan_kelas)

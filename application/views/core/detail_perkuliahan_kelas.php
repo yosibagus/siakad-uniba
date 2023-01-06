@@ -35,7 +35,7 @@
                             <option value=""></option>
                             <option value="" selected><?= $detail['id_prodi'] ?></option>
                         </select> -->
-                        <input type="text" class="form-control form-ku" value="<?= $detail['nama_program_studi'] ?>" disabled>
+                        <input type="text" class="form-control form-ku" value="S1 <?= $detail['nama_prodi'] ?>" disabled>
                         <small class="text-danger" id="m-prodi"><i></i></small>
                     </div>
                 </div>
@@ -390,7 +390,7 @@
             select: function(event, ui) {
                 // $('[name="nim_mhs"]').val(ui.item.label);
                 $('[name="id_mhs"]').val(ui.item.nim);
-                console.log(ui.item.nim);
+                // console.log(ui.item.nim);
 
             }
         })

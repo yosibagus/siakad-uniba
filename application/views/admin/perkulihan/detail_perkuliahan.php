@@ -12,8 +12,6 @@
         $("#tmp-perkuliahan_kelas_detail").fadeIn(800);
         tampil_data();
 
-        // $('#myTable').DataTable();
-
         function tampil_data() {
             $.ajax({
                 url: '<?= base_url("core/perkuliahan_kelas_detail?token=") . $_GET['token']; ?>',

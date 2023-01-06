@@ -540,6 +540,34 @@ class Core extends CI_Controller
         $this->db->insert_batch('tb_akun', $data);
         echo json_encode($data);
     }
+
+    public function autofill_dosen()
+    {
+        if (isset($_GET['term'])) {
+            $result = $this->mcore->dosenAutoFill($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row) {
+                    $arr_result[] =  [
+                        'label' => $row->nidn . " - " . $row->nama_dosen,
+                        'id_dosen' => $row->id_dosen
+                    ];
+                }
+                echo json_encode($arr_result);
+            }
+        }
+    }
+
+    public function krs_semester()
+    {
+        $data = $this->mcore->getAllMulti('settings')->result_array();
+
+        $output = '<option value=""></option>';
+        foreach ($data as $get) {
+            $output .= '<option value="' . $get["semester_krs"] . '">' . $get["semester_krs"] . '</option>';
+        }
+
+        echo $output;
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

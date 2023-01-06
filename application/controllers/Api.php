@@ -98,7 +98,7 @@ class Api extends CI_Controller
 
         echo json_encode($result);
 
-        $this->db->insert_batch('master_dosen', $result);
+        // $this->db->insert_batch('master_dosen', $result);
     }
 
 
@@ -171,7 +171,7 @@ class Api extends CI_Controller
         }
 
         echo json_encode($result);
-        $this->db->insert_batch('master_matkuls', $result);
+        // $this->db->insert_batch('master_matkuls', $result);
     }
 
     public function getMatkulKurikulum()
@@ -207,7 +207,7 @@ class Api extends CI_Controller
         }
 
         echo json_encode($result);
-        //$this->db->insert_batch('master_matkul', $result);
+        // $this->db->insert_batch('master_matkul', $result);
     }
 
     public function getkelasPerkuliahan()

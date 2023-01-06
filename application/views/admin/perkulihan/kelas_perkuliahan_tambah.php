@@ -49,7 +49,7 @@
                             <select required name="id_matkul" id="id_matkul" class="form-control form-control-sm">
                                 <option value=""></option>
                                 <?php foreach ($matkul as $get) : ?>
-                                    <option value="<?= $get['id_matkul'] ?>"><?= $get['kode_mata_kuliah'] . " - " . $get['nama_mata_kuliah'] . " (" . (int)($get['sks_mata_kuliah']) . " sks) Kurikulum " . $get['nama_program_studi']; ?></option>
+                                    <option value="<?= $get['id_matkul'] ?>"><?= $get['kode_mata_kuliah'] . " - " . $get['nama_mata_kuliah'] . " (" . (int) ($get['sks_mata_kuliah']) . " sks) " . $get['nama_kurikulum']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <small class="text-danger" id="m-matkul"><i></i></small>
