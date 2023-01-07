@@ -568,6 +568,44 @@ class Core extends CI_Controller
 
         echo $output;
     }
+
+    public function dosen_wali_tambah()
+    {
+        $this->load->helper('string');
+        $token = random_string('numeric', 10);
+        $data = [
+            'id_dosen' => $_POST['id_dosen'],
+            'semester_krs' => $_POST['semester'],
+            'token' => $token
+        ];
+
+        $this->mcore->inputMulti('dosen_wali', $data);
+
+        echo json_encode($data);
+    }
+
+    public function dosen_wali_reset()
+    {
+        $id = $this->input->post('token');
+        $this->db->where('token', $id);
+        $this->db->delete('dosen_wali');
+        echo json_encode($id);
+    }
+
+    public function mahasiswa_dosen_wali()
+    {
+        $token = $this->input->post('token');
+        $nim = $this->input->post('nim');
+
+        $data = [
+            'token' => $token,
+            'nim' => $nim
+        ];
+
+        $input = $this->mcore->inputMulti('perkuliahan_wali', $data);
+
+        echo json_encode($data);
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

@@ -35,6 +35,7 @@
                     </tr>
                 </table>
                 <button class="btn btn-info" onclick="tampilkan()"><i class="bi bi-search"></i> Tampilkan</button>
+                <input name="token" id="token" hidden type="text">
                 <button class="btn btn-warning" onclick="reset()"><i class="bi bi-arrow-clockwise"></i> Reset</button>
             </div>
         </div>
@@ -50,7 +51,8 @@
             <div class="row justify-content-center mb-4">
                 <div class="col-md-7">
                     <input type="text" class="form-control" name="nim_mahasiswa" id="nim_mahasiswa" placeholder="Ketikkan NIM/Nama mahasiswa disini">
-                    <button class="btn btn-info btn-sm wi-50 text-white mt-2"><i class="bi bi-plus"></i> Tambah Mahasiswa</button>
+                    <input type="text" name="nim" id="nim" hidden>
+                    <button class="btn btn-info btn-sm wi-50 text-white mt-2" onclick="tambahMhsDosenWali()"><i class="bi bi-plus"></i> Tambah Mahasiswa</button>
                     <a href="" class="btn btn-info btn-sm wi-50 text-white mt-2"><i class="bi bi-list-check"></i> Set Mahasiswa Kolektif</a>
                 </div>
             </div>
@@ -100,10 +102,7 @@
         $("#nim_mahasiswa").autocomplete({
             source: "<?= base_url('core/autofill_mahasiswa?') ?>",
             select: function(event, ui) {
-                // $('[name="nim_mhs"]').val(ui.item.label);
-                //$('[name="id_mhs"]').val(ui.item.nim);
-                console.log(ui.item.nim);
-
+                $('[name="nim"]').val(ui.item.nim);
             }
         })
     })
@@ -144,13 +143,82 @@
             $("#card-wali").show(1000);
             $("#nama_dosen").html(dosen + " (" + semester + ")");
             $("#peringatan").html("");
+
+            // console.log(id_dosen);
+
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('core/dosen_wali_tambah') ?>",
+                dataType: "json",
+                data: {
+                    id_dosen: id_dosen,
+                    semester: semester
+                },
+                success: function(data) {
+                    $("#token").val(data.token);
+                }
+            })
+
         }
     }
 
     function reset() {
         $("#id_dosen").val("");
+        $("#nim").val("");
         $("#dosen").val("");
         $("#semester_krs").val("").trigger("change");
         $("#card-wali").hide(1000);
+
+        var token = $("#token").val();
+
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url('core/dosen_wali_reset') ?>",
+            dataType: "json",
+            data: {
+                token: token
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        })
+    }
+
+    function tambahMhsDosenWali() {
+        var token = $("#token").val();
+        var nim = $("#nim").val();
+
+        if ($("#nim_mahasiswa").val() == "" || nim == "") {
+            $.toast({
+                heading: 'Error',
+                text: 'Data Mahasiswa Tidak Boleh Kosong!',
+                showHideTransition: 'fade',
+                icon: 'error',
+                position: 'bottom-right',
+                loader: false
+            })
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('core/mahasiswa_dosen_wali') ?>",
+                dataType: "json",
+                data: {
+                    token: token,
+                    nim: nim
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Mahasiswa Berhasil Ditambahkan',
+                        showHideTransition: 'slide',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+                    $("#nim").val("");
+                    $("#nim_mahasiswa").val("");
+                }
+            })
+        }
     }
 </script>
