@@ -34,19 +34,21 @@
 
 <script>
     $(document).ready(function() {
-        tampil_data();
+        $('#table-daftar-user').DataTable({
+            // "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "order": [],
+            // "fixedHeader": true,
+            "ajax": {
+                "url": "<?= base_url('core/data_user') ?>",
+                "type": "post"
+            },
+            "columDefs": [{
+                "target": [-1],
+                "orderable": false
+            }]
+        });
 
-        $('#table-daftar-user').DataTable();
-
-        function tampil_data() {
-            $.ajax({
-                url: '<?= base_url("core/data_user"); ?>',
-                async: false,
-                dataType: 'html',
-                success: function(data) {
-                    $("#tmp-user").html(data);
-                }
-            })
-        }
     })
 </script>

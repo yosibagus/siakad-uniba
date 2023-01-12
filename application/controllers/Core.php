@@ -441,28 +441,56 @@ class Core extends CI_Controller
 
     public function data_user()
     {
-        $data = $this->mcore->getDataUser()->result_array();
-        $output = '';
-        $i = 1;
-        $akun = '';
+        // $data = $this->mcore->getDataUser()->result_array();
+        // $output = '';
+        // $i = 1;
+        // $akun = '';
 
-        foreach ($data as $get) {
+        // foreach ($data as $get) {
 
-            if ($get['status_akun'] > 0) {
-                $akun = '<i class="bi bi-check-circle-fill text-success"></i>';
-            } else {
-                $akun = "tidak aktif";
-            }
+        //     if ($get['status_akun'] > 0) {
+        //         $akun = '<i class="bi bi-check-circle-fill text-success"></i>';
+        //     } else {
+        //         $akun = "tidak aktif";
+        //     }
 
-            $output .= '<tr>';
-            $output .= '<td class="text-center">' . $i++ . '</td>';
-            $output .= '<td class="fw-bold">' . $akun . " " . $get['username_akun'] . '</td>';
-            $output .= '<td>' . $get['nama_akun'] . '</td>';
-            $output .= '<td>' . $get['hint'] . '</td>';
-            $output .= '<td class="text-capitalize">' . $get['role'] . '</td>';
-            $output .= '</tr>';
+        //     $output .= '<tr>';
+        //     $output .= '<td class="text-center">' . $i++ . '</td>';
+        //     $output .= '<td class="fw-bold">' . $akun . " " . $get['username_akun'] . '</td>';
+        //     $output .= '<td>' . $get['nama_akun'] . '</td>';
+        //     $output .= '<td>' . $get['hint'] . '</td>';
+        //     $output .= '<td class="text-capitalize">' . $get['role'] . '</td>';
+        //     $output .= '</tr>';
+        // }
+        // echo $output;
+
+
+        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
+        $results = $this->mperkuliahan->getDataUser();
+        $data = [];
+        $no = $_POST['start'];
+
+        foreach ($results as $result) {
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $result->username_akun;
+            $row[] = $result->nama_akun;
+            $row[] = $result->hint;
+            $row[] = ucfirst($result->role);
+            //$row[] = $result->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan';
+            // $row[] = $result->nama_program_studi;
+            // $row[] = substr($result->nama_periode_masuk, 0, 4);
+            $data[] = $row;
         }
-        echo $output;
+
+        $output = array(
+            'draw' => $_POST['draw'],
+            'recordsTotal' => $this->mperkuliahan->count_all_data_user(),
+            'recordsFiltered' => $this->mperkuliahan->count_filtered_data_user(),
+            'data' => $data
+        );
+
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 
     public function data_setting_tambah()

@@ -3,6 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ServerSide_Perkuliahan_model extends CI_Model
 {
+
+    // serverside dataperkuliahan kelas
+
     var $column_order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
     var $order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
 
@@ -58,6 +61,7 @@ class ServerSide_Perkuliahan_model extends CI_Model
         return $this->db->count_all_results();
     }
 
+    // serverside data mahasiswa
 
     var $column_order = array('nama_mahasiswa', 'nim', 'jenis_kelamin', 'nama_agama', 'tanggal_lahir', 'nama_program_studi', 'nama_periode_masuk');
     var $order = array('nama_mahasiswa', 'nim', 'jenis_kelamin', 'nama_agama', 'tanggal_lahir', 'nama_program_studi', 'nama_periode_masuk');
@@ -103,6 +107,52 @@ class ServerSide_Perkuliahan_model extends CI_Model
     public function count_all_data()
     {
         $this->db->from('master_mahasiswa');
+        return $this->db->count_all_results();
+    }
+
+    // serverside table user akun
+
+    var $column_order_user = array('username_akun', 'email_akun', 'nama_akun', 'role');
+    var $order_user = array('username_akun', 'email_akun', 'nama_akun', 'role');
+
+    public function getDataUser()
+    {
+        $this->_get_data_query_user();
+        if ($_POST['length'] != -1) {
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+    private function _get_data_query_user()
+    {
+        $this->db->from('tb_akun');
+        if (isset($_POST['search']['value'])) {
+            $this->db->like('username_akun', $_POST['search']['value']);
+            $this->db->or_like('email_akun', $_POST['search']['value']);
+            $this->db->or_like('nama_akun', $_POST['search']['value']);
+            $this->db->or_like('role', $_POST['search']['value']);
+        }
+
+        if (isset($_POST['order'])) {
+            $this->db->order_by($this->order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else {
+            $this->db->order_by('id_akun', 'ASC');
+        }
+    }
+
+    public function count_filtered_data_user()
+    {
+        $this->_get_data_query_user();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_data_user()
+    {
+        $this->db->from('tb_akun');
         return $this->db->count_all_results();
     }
 }
