@@ -1880,6 +1880,7 @@
     <script src="<?= base_url('assets/admin/') ?>assets/js/sidebar28b5.js?v=2.0.0" defer></script>
     <script>
         var baseurl = "http://localhost/uniba-siakad/";
+        // var baseurl = "http://192.168.1.30/uniba-siakad/";
 
         function loadContent(hash) {
             if (hash == '') {

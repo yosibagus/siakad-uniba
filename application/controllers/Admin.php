@@ -133,6 +133,11 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/dosen/dosen_wali');
     }
+
+    public function data_wali()
+    {
+        $this->load->view('admin/dosen/data_dosen_wali');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

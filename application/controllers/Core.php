@@ -573,15 +573,33 @@ class Core extends CI_Controller
     {
         $this->load->helper('string');
         $token = random_string('numeric', 10);
-        $data = [
-            'id_dosen' => $_POST['id_dosen'],
-            'semester_krs' => $_POST['semester'],
-            'token' => $token
-        ];
+        $id_dosen = $_POST['id_dosen'];
+        $semester_krs = $_POST['semester'];
 
-        $this->mcore->inputMulti('dosen_wali', $data);
+        $cek = $this->mcore->cekDosenWali($id_dosen, $semester_krs)->num_rows();
 
-        echo json_encode($data);
+        if ($cek > 0) {
+            $val = $this->mcore->cekDosenWali($id_dosen, $semester_krs)->row_array();
+            $data = [
+                'pesan' => 409,
+                'token' => $val['token']
+            ];
+            echo json_encode($data);
+        } else {
+            $data = [
+                'id_dosen' => $id_dosen,
+                'semester_krs' => $semester_krs,
+                'token' => $token
+            ];
+
+            $this->mcore->inputMulti('dosen_wali', $data);
+
+            $pesan = [
+                'token' => $token,
+                'pesan' => 200
+            ];
+            echo json_encode($pesan);
+        }
     }
 
     public function dosen_wali_reset()
@@ -602,9 +620,58 @@ class Core extends CI_Controller
             'nim' => $nim
         ];
 
-        $input = $this->mcore->inputMulti('perkuliahan_wali', $data);
+        $this->mcore->inputMulti('perkuliahan_wali', $data);
 
         echo json_encode($data);
+    }
+
+    public function data_mahasiswa_wali()
+    {
+        $token = $this->input->post('token');
+        $output = "";
+        $data = $this->mcore->getMahasiswaDosenWali($token)->result_array();
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . $get['nama_status_mahasiswa'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
+    }
+
+    public function data_dosen_wali()
+    {
+        $data = $this->mcore->getDataDosenWali()->result_array();
+        $output = "";
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="text-center">
+            <a href="javascript:void(0);" class="btn btn-outline-danger rounded-circle btn-icon btn-sm p-2">
+            <span class="btn-inner">
+            <i class="bi bi-trash" style="font-size:11px;"></i>
+            </span>                            
+            </a></td>';
+            $output .= '<td class="fw-bold">' . $get['nama_dosen'] . '</td>';
+            $output .= '<td>' . $this->mcore->getMahasiswaDosenWali($get['token'])->num_rows() . '</td>';
+            $output .= '<td>
+                <span id="" class="bg-soft-info rounded-pill iq-custom-badge hapus-dosen" style="font-size: 12px; cursor:pointer;">Detail
+                    <button class="btn btn-info btn-sm rounded-pill iq-cancel-btn" style="padding:1px;">
+                    <i class="bi bi-search"></i>
+                    </button>
+                </span>
+            </td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
     }
 }
 

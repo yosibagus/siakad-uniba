@@ -45,6 +45,7 @@ class Api extends CI_Controller
 
         $response = curl_exec($curl);
         curl_close($curl);
+
         $data = json_decode($response, true);
 
         for ($i = 0; $i < count($data['data']); $i++) {
@@ -207,12 +208,12 @@ class Api extends CI_Controller
         }
 
         echo json_encode($result);
-        // $this->db->insert_batch('master_matkul', $result);
+        $this->db->insert_batch('master_matkul', $result);
     }
 
     public function getkelasPerkuliahan()
     {
-        $id_prodi = "d1cc4baf-4926-42da-ac18-63398da29f5a";
+        $id_prodi = $_GET['id'];
         // "filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -258,9 +259,9 @@ class Api extends CI_Controller
             ];
         }
 
-        $this->db->insert_batch('perkuliahan_kelas', $result);
+        // $this->db->insert_batch('perkuliahan_kelas', $result);
 
-        echo json_encode($result);
+        echo json_encode($response);
         // file_put_contents('./assets/getperiode.json', serialize(json_encode($data)));
     }
 

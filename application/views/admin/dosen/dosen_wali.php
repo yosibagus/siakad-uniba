@@ -5,11 +5,8 @@
                 <h4 class="card-title mb-0">Daftar Wali</h4>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="#/dosen" class="text-center btn btn-primary d-flex gap-2">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 5C2 4.44772 2.44772 4 3 4H8.66667H21C21.5523 4 22 4.44772 22 5V8H15.3333H8.66667H2V5Z" stroke="currentColor" />
-                        <path d="M6 8H2V11M6 8V20M6 8H14M6 20H3C2.44772 20 2 19.5523 2 19V11M6 20H14M14 8H22V11M14 8V20M14 20H21C21.5523 20 22 19.5523 22 19V11M2 11H22M2 14H22M2 17H22M10 8V20M18 8V20" stroke="currentColor" />
-                    </svg>
+                <a href="#/data_wali" class="text-center btn btn-primary btn-sm">
+                    <i class="bi bi-list-task"></i>
                     Daftar Dosen
                 </a>
             </div>
@@ -61,7 +58,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td>No.</td>
+                            <td width="10">No.</td>
                             <td>NIM</td>
                             <td>Nama</td>
                             <td>Prodi</td>
@@ -155,7 +152,24 @@
                     semester: semester
                 },
                 success: function(data) {
-                    $("#token").val(data.token);
+                    // console.log(data);
+                    if (data.pesan == 409) {
+                        $("#token").val(data.token);
+                        $.ajax({
+                            type: "POST",
+                            url: "<?= base_url('core/data_mahasiswa_wali') ?>",
+                            dataType: "html",
+                            data: {
+                                token: data.token
+                            },
+                            success: function(data) {
+                                $("#tmp-mhs-dosenwali").html(data);
+                            }
+                        })
+                    } else if (data.pesan == 200) {
+                        $("#token").val(data.token);
+                    }
+
                 }
             })
 
@@ -164,24 +178,25 @@
 
     function reset() {
         $("#id_dosen").val("");
+        $("#token").val("");
         $("#nim").val("");
         $("#dosen").val("");
         $("#semester_krs").val("").trigger("change");
         $("#card-wali").hide(1000);
 
-        var token = $("#token").val();
+        // var token = $("#token").val();
 
-        $.ajax({
-            type: "POST",
-            url: "<?= base_url('core/dosen_wali_reset') ?>",
-            dataType: "json",
-            data: {
-                token: token
-            },
-            success: function(data) {
-                console.log(data);
-            }
-        })
+        // $.ajax({
+        //     type: "POST",
+        //     url: "<?= base_url('core/dosen_wali_reset') ?>",
+        //     dataType: "json",
+        //     data: {
+        //         token: token
+        //     },
+        //     success: function(data) {
+        //         console.log(data);
+        //     }
+        // })
     }
 
     function tambahMhsDosenWali() {
@@ -217,6 +232,19 @@
                     });
                     $("#nim").val("");
                     $("#nim_mahasiswa").val("");
+                    $("#tmp-mhs-dosenwali").html("");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('core/data_mahasiswa_wali') ?>",
+                        dataType: "html",
+                        data: {
+                            token: token
+                        },
+                        success: function(data) {
+                            $("#tmp-mhs-dosenwali").html(data);
+                        }
+                    })
                 }
             })
         }

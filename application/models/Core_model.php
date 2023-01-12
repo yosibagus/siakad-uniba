@@ -190,6 +190,29 @@ class Core_model extends CI_Model
     {
         return $this->db->get('tb_akun');
     }
+
+    public function cekDosenWali($id_dosen, $semester)
+    {
+        return $this->db->query("SELECT token from dosen_wali where id_dosen = '$id_dosen' AND semester_krs='$semester'");
+    }
+
+    public function getMahasiswaDosenWali($token)
+    {
+        $this->db->select('*');
+        $this->db->from('perkuliahan_wali');
+        $this->db->join('master_mahasiswa', 'master_mahasiswa.nim = perkuliahan_wali.nim');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi');
+        $this->db->where('token', $token);
+        return $this->db->get();
+    }
+
+    public function getDataDosenWali()
+    {
+        $this->db->select('*');
+        $this->db->from('dosen_wali');
+        $this->db->join('master_dosen', 'master_dosen.id_dosen = dosen_wali.id_dosen');
+        return $this->db->get();
+    }
 }
 
 
