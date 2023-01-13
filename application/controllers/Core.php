@@ -709,6 +709,59 @@ class Core extends CI_Controller
 
         echo json_encode($data);
     }
+
+    public function getMahasiswaWaliKolektif()
+    {
+        $angkatan = $_GET['angkatan'];
+        $prodi = $_GET['prodi'];
+
+        if (empty($prodi)) {
+            $data = $this->mcore->select_kolektif_angkatan($angkatan)->result_array();
+        } else {
+            $data = $this->mcore->select_kolektif_prodi($angkatan, $prodi)->result_array();
+        }
+
+        $output = '';
+        $i = 1;
+        foreach ($data as $get) {
+
+            $cek = $this->db->get_where('perkuliahan_wali', ['nim' => $get['nim']])->num_rows();
+
+            $output .= '<tr>';
+            if ($cek > 0) {
+                $output .= '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
+            } else {
+                $output .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_mahasiswa[]" id="id_mahasiswa[]" value="' . $get['nim'] . '"></td>';
+            }
+
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+            // $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
+    }
+
+    public function input_generate_wali()
+    {
+        $id_mahasiswa = $_POST['id_mahasiswa'];
+
+        $i = 0;
+        foreach ($id_mahasiswa as $get) {
+            $id_mhs = $_POST['id_mahasiswa'][$i];
+            $data[] = [
+                'token' => $_POST['token'],
+                'nim' => $id_mhs
+            ];
+            $i++;
+        }
+
+        $this->db->insert_batch('perkuliahan_wali', $data);
+        echo json_encode($data);
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */
