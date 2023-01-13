@@ -12,15 +12,34 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="table-responsive" id="form-select">
+                <table class="table table-hover table-bordered table-sm">
+                    <tr>
+                        <td width="30%">Program Studi</td>
+                        <td>
+                            <select name="prodi" id="prodi" class="form-control" style="width: 100%;">
+                                <option value=""></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Angkatan</td>
+                        <td>
+                            <select name="angkatan" id="angkatan" class="form-control" style="width: 100%;">
+                                <option value=""></option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <div class="table-responsive">
                 <table id="" class="display expandable-table table table-striped table-sm dataTable no-footer">
                     <thead>
                         <tr>
                             <th width="10">No.</th>
-                            <th width="10"></th>
+                            <th>NIM</th>
                             <th>Nama</th>
-                            <th>Jumlah Mahasiswa</th>
-                            <th>Aksi</th>
+                            <th>Angkatan</th>
                         </tr>
                     </thead>
                     <tbody id="tmp-dosen-wali"></tbody>
