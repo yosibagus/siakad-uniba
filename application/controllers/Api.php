@@ -102,7 +102,6 @@ class Api extends CI_Controller
         // $this->db->insert_batch('master_dosen', $result);
     }
 
-
     public function getKurikulum()
     {
         $curl = curl_init();

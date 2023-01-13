@@ -701,6 +701,14 @@ class Core extends CI_Controller
 
         echo $output;
     }
+
+    public function getDetailWaliKolektif()
+    {
+        $token = $_GET['token'];
+        $data = $this->mcore->getDetailWaliKolektif($token)->row_array();
+
+        echo json_encode($data);
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

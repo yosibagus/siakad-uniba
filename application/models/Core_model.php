@@ -213,6 +213,15 @@ class Core_model extends CI_Model
         $this->db->join('master_dosen', 'master_dosen.id_dosen = dosen_wali.id_dosen');
         return $this->db->get();
     }
+
+    public function getDetailWaliKolektif($token)
+    {
+        $this->db->select('*');
+        $this->db->from('dosen_wali');
+        $this->db->join('master_dosen', 'master_dosen.id_dosen = dosen_wali.id_dosen');
+        $this->db->where('token', $token);
+        return $this->db->get();
+    }
 }
 
 

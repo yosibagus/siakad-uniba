@@ -50,7 +50,7 @@
                     <input type="text" class="form-control" name="nim_mahasiswa" id="nim_mahasiswa" placeholder="Ketikkan NIM/Nama mahasiswa disini">
                     <input type="text" name="nim" id="nim" hidden>
                     <button class="btn btn-info btn-sm wi-50 text-white mt-2" onclick="tambahMhsDosenWali()"><i class="bi bi-plus"></i> Tambah Mahasiswa</button>
-                    <a href="" class="btn btn-info btn-sm wi-50 text-white mt-2"><i class="bi bi-list-check"></i> Set Mahasiswa Kolektif</a>
+                    <button onclick="kolektifMhs()" class="btn btn-info btn-sm wi-50 text-white mt-2"><i class="bi bi-list-check"></i> Set Mahasiswa Kolektif</button>
                 </div>
             </div>
 
@@ -248,5 +248,10 @@
                 }
             })
         }
+    }
+
+    function kolektifMhs() {
+        var token = $("#token").val();
+        window.open("<?= base_url('/#/kolektif_wali_mhs?token=') ?>" + token, '_blank');
     }
 </script>
