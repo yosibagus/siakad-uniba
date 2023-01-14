@@ -58,6 +58,14 @@
                         </tr>
                     </table>
                 </div>
+                <div class="row justify-content-center my-3">
+                    <div class="col-md-3 text-center" id="loading-data" style="display: none;">
+                        <button class="btn btn-info" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="visually-hidden">Loading...</span> Sedang Mengambil Data ...
+                        </button>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -128,7 +136,7 @@
         $("#form-select").on('change', '#angkatan, #prodi', function() {
             var angkatan = $("#angkatan").val();
             var prodi = $("#prodi").val();
-            //$("#loading-data").fadeIn(500);
+            $("#loading-data").fadeIn(500);
             $.ajax({
                 url: "<?= base_url('core/tampil_mhs_generate') ?>",
                 method: "GET",
@@ -137,7 +145,7 @@
                     prodi: prodi
                 },
                 success: function(data) {
-                    //$("#loading-data").fadeOut(500);
+                    $("#loading-data").fadeOut(500);
                     $("#tmp-user-mhs").html(data);
                 }
             })
