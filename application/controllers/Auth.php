@@ -25,15 +25,19 @@ class Auth extends CI_Controller
             if ($cek > 0) {
                 $get = $this->mauth->loginAdminValidatin($username, $password)->row_array();
 
-                $array = array(
-                    'id_operator' => $get['id_akun'],
-                    'nama_operator' => $get['username_akun'],
-                    'level_operator' => $get['role']
-                );
+                if ($get['role'] == 'mahasiswa') {
+                    echo "Bukan Role Anda, Kunjungi siakad.unibamadura.ac.id";
+                } else {
+                    $array = array(
+                        'id_operator' => $get['id_akun'],
+                        'nama_operator' => $get['username_akun'],
+                        'level_operator' => $get['role']
+                    );
 
-                $this->session->set_userdata($array);
+                    $this->session->set_userdata($array);
 
-                echo "<script>window.location.href='" . base_url() . "'</script>";
+                    echo "<script>window.location.href='" . base_url() . "'</script>";
+                }
             } else {
                 echo "login gagal, cek username/password anda";
             }
