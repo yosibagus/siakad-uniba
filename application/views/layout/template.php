@@ -687,7 +687,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="">
+                                <a class="nav-link " href="#/generate_dosen">
                                     <i class="icon" data-bs-toggle="tooltip" title="Generate User Dosen" data-bs-placement="right">
                                         <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <g>
@@ -1779,7 +1779,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop1" aria-hidden="true">
+    <!-- <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -1845,7 +1845,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Library Bundle Script -->
 

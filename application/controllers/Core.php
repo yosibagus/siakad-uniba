@@ -762,6 +762,70 @@ class Core extends CI_Controller
         $this->db->insert_batch('perkuliahan_wali', $data);
         echo json_encode($data);
     }
+
+    public function getDataDosenGenerate()
+    {
+        if ($_GET['kategori'] == 'nidn') {
+            $data = $this->mcore->getDataDosenGenerate('nidn')->result_array();
+        } else {
+            $data = $this->mcore->getDataDosenGenerate('non')->result_array();
+        }
+
+        $output = "";
+        $i = 1;
+        foreach ($data as $get) {
+            $cek = $this->db->get_where('tb_akun', ['id_user' => $get['id_dosen']])->num_rows();
+
+            $output .= '<tr>';
+            if ($cek > 0) {
+                $output .= '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
+            } else {
+                $output .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_dosen[]" id="id_dosen[]" value="' . $get['id_dosen'] . '"></td>';
+            }
+
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nama_dosen'] . '</td>';
+            $output .= '<td>' . $get['nidn'] . '</td>';
+            $output .= '<td>' . $get['status'] . '</td>';
+            $output .= '</tr>';
+        }
+        echo $output;
+    }
+
+    public function input_generate_dosen()
+    {
+        $id_dosen = $_POST['id_dosen'];
+
+        $i = 0;
+        foreach ($id_dosen as $get) {
+            $id_dosen = $_POST['id_dosen'][$i];
+
+            $getDosen = $this->db->get_where('master_dosen', ['id_dosen' => $id_dosen])->row_array();
+            $namadosenLow = strtolower($getDosen['nama_dosen']);
+            $data[] = [
+                'id_user' => $id_dosen,
+                'nama_akun' => ucwords($namadosenLow),
+                'username_akun' => $getDosen['nidn'],
+                'email_akun' => '',
+                'password_akun' => md5(date('Ymd', strtotime($getDosen['tanggal_lahir']))),
+                'status_akun' => 1,
+                'hint' => date('Ymd', strtotime($getDosen['tanggal_lahir'])),
+                'role' => 'dosen'
+            ];
+            $i++;
+        }
+        $this->db->insert_batch('tb_akun', $data);
+        echo json_encode($data);
+    }
+
+    public function select_kategori_dosen()
+    {
+        $output = '<option value=""></option>';
+        $output .= '<option value="nidn">NIDN</option>';
+        $output .= '<option value="non-nidn">Non NIDN</option>';
+
+        echo $output;
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

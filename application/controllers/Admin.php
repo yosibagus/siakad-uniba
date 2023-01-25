@@ -129,6 +129,11 @@ class Admin extends CI_Controller
         $this->load->view('admin/user/generate_mahasiswa');
     }
 
+    public function generate_dosen()
+    {
+        $this->load->view('admin/user/generate_dosen');
+    }
+
     public function dosen_wali()
     {
         $this->load->view('admin/dosen/dosen_wali');

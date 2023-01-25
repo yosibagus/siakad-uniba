@@ -222,6 +222,15 @@ class Core_model extends CI_Model
         $this->db->where('token', $token);
         return $this->db->get();
     }
+
+    public function getDataDosenGenerate($kategori)
+    {
+        if ($kategori == 'non') {
+            return $this->db->get_where('master_dosen', ['nidn' => 0]);
+        } else {
+            return $this->db->query("SELECT * FROM master_dosen where nidn != 0");
+        }
+    }
 }
 
 
