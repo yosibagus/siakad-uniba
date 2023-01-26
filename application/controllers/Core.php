@@ -826,6 +826,28 @@ class Core extends CI_Controller
 
         echo $output;
     }
+
+    public function data_dosen_wali_mhs()
+    {
+        $id = $this->session->userdata('id_user');
+        $data = $this->mcore->getDosenWaliMahasiswa($id)->result_array();
+        $output = "";
+        $i = 1;
+        foreach ($data as $get) {
+
+            $krs = $this->mcore->hitungSksPengajuanKRS($get['nim'], $get['id_prodi'])->row_array();
+
+            $output .= '<tr>';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td style="text-align: right;">' . (int) $krs['totalSks'] . ' SKS</td>';
+            $output .= '<td class="text-center"><a href="" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
+            $output .= '<td>' . $get['nama_status_mahasiswa'] . '</td>';
+            $output .= '</tr>';
+        }
+        echo $output;
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

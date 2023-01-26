@@ -3,6 +3,7 @@
         <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
             <div class="header-title">
                 <h4 class="card-title mb-0">Daftar User</h4>
+                <span>Menampilkan dan mengelola user beserta hak akses untuk mengakses sistem</span>
             </div>
             <div class="d-flex align-items-center gap-3">
                 <a href="#/daftar_user_tambah" class="text-center btn btn-primary d-flex gap-2" data-bs-toggle="modal" data-bs-target="#new-permission">

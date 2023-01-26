@@ -4,9 +4,9 @@
         <div class="card-body">
             <h4>Data Mahasiswa</h4>
             <div class="table-responsive">
-                <table id="tableMahasiswa" class="display expandable-table table table-striped" style="width:100%">
+                <table id="tableMahasiswa" class="table table-bordered table-sm" style="width:100%">
                     <thead>
-                        <tr>
+                        <tr class="bg-primary text-white">
                             <th width="10">No</th>
                             <th data-priority="1">Nama</th>
                             <th>NPM</th>
@@ -33,6 +33,10 @@
             "processing": true,
             "serverSide": true,
             "order": [],
+            "lengthMenu": [
+                [20, 50, 100, -1],
+                [20, 50, 100, "All"]
+            ],
             // "fixedHeader": true,
             "ajax": {
                 "url": "<?= base_url('core/data_mahasiswa') ?>",

@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a class="nav-link " href="#/">
+    <a class="nav-link " href="#/validasi_krs">
         <i class="icon" data-bs-toggle="tooltip" title="Validasi KRS" data-bs-placement="right">
             <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path opacity="0.4" d="M16.3405 1.99976H7.67049C4.28049 1.99976 2.00049 4.37976 2.00049 7.91976V16.0898C2.00049 19.6198 4.28049 21.9998 7.67049 21.9998H16.3405C19.7305 21.9998 22.0005 19.6198 22.0005 16.0898V7.91976C22.0005 4.37976 19.7305 1.99976 16.3405 1.99976Z" fill="currentColor"></path>

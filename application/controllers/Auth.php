@@ -30,6 +30,7 @@ class Auth extends CI_Controller
                 } else {
                     $array = array(
                         'id_operator' => $get['id_akun'],
+                        'id_user' => $get['id_user'],
                         'nama_operator' => $get['username_akun'],
                         'level_operator' => $get['role']
                     );

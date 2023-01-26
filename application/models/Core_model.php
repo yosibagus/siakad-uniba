@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Core_model extends CI_Model
 {
+
+    public function getSemesterAktif()
+    {
+        $data = $this->db->query("SELECT * FROM settings where status_setting = 1")->row_array();
+        return $data['semester_krs'];
+    }
+
     public function getAllMulti($table)
     {
         return $this->db->get($table);
@@ -230,6 +237,33 @@ class Core_model extends CI_Model
         } else {
             return $this->db->query("SELECT * FROM master_dosen where nidn != 0");
         }
+    }
+
+    public function getDosenWaliMahasiswa($id)
+    {
+        $this->db->select('id_mahasiswa, perkuliahan_wali.nim, nama_mahasiswa, master_mahasiswa.nama_status_mahasiswa, master_mahasiswa.id_prodi');
+        $this->db->from('perkuliahan_wali');
+        $this->db->join('dosen_wali', 'dosen_wali.token = perkuliahan_wali.token');
+        $this->db->join('master_mahasiswa', 'perkuliahan_wali.nim = master_mahasiswa.nim');
+        $this->db->where('dosen_wali.id_dosen', $id);
+        return $this->db->get();
+    }
+
+    public function hitungSksPengajuanKRS($nim, $id_prodi)
+    {
+        $semester = $this->getSemesterAktif();
+        $this->db->select('SUM(master_matkul.sks_mata_kuliah) as totalSks');
+        $this->db->from('perkuliahan_mahasiswa');
+        $this->db->join('perkuliahan_kelas', 'perkuliahan_kelas.id_perkuliahan_kelas = perkuliahan_mahasiswa.id_perkuliahan_kelas', 'left');
+        $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi', 'left');
+        $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
+        $this->db->join('master_matkul', 'master_matkul.id_matkul = master_matkuls.id_matkul', 'left');
+        $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
+        $this->db->where('perkuliahan_mahasiswa.nim', $nim);
+        $this->db->where('perkuliahan_kelas.semester_perkuliahan', $semester);
+        $this->db->where('master_matkul.id_prodi', $id_prodi);
+        $this->db->order_by('master_matkul.semester', 'asc');
+        return $this->db->get();
     }
 }
 

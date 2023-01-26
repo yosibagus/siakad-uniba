@@ -3,6 +3,7 @@
         <div class="card-header d-flex justify-content-between flex-wrap align-items-center">
             <div class="header-title">
                 <h4 class="card-title mb-0">Daftar Wali</h4>
+                <span>Menampilkan untuk data dosen wali</span>
             </div>
             <div class="d-flex align-items-center gap-3">
                 <a href="#/data_wali" class="text-center btn btn-primary btn-sm">
@@ -152,7 +153,7 @@
                     semester: semester
                 },
                 success: function(data) {
-                    // console.log(data);
+                    console.log(data);
                     if (data.pesan == 409) {
                         $("#token").val(data.token);
                         $.ajax({

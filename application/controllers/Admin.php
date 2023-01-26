@@ -85,6 +85,7 @@ class Admin extends CI_Controller
         $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
         $data['matkul'] = $this->mcore->getAllMulti('master_matkul')->result_array();
         $data['gedung'] = $this->mcore->getAllMulti('master_gedung')->result_array();
+        $data['semester'] = $this->mcore->getSemesterAktif();
         $this->load->view('admin/perkulihan/kelas_perkuliahan_tambah', $data);
     }
 
@@ -147,6 +148,11 @@ class Admin extends CI_Controller
     public function kolektif_wali_mhs()
     {
         $this->load->view('admin/dosen/dosen_wali_kolektif');
+    }
+
+    public function validasi_krs()
+    {
+        $this->load->view('admin/dosen/validasi_krs');
     }
 }
 
