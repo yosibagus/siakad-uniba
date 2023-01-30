@@ -6,10 +6,10 @@
                 <span>Digunakan untuk melakukan validasi KRS mahasiswa oleh dosen wali</span>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="#/data_wali" class="text-center btn btn-primary btn-sm">
+                <!-- <a href="#/data_wali" class="text-center btn btn-primary btn-sm">
                     <i class="bi bi-list-task"></i>
                     Daftar Dosen
-                </a>
+                </a> -->
             </div>
         </div>
         <div class="card-body">

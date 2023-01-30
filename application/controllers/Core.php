@@ -933,32 +933,35 @@ class Core extends CI_Controller
             <h6 class="mt-3">Semester ' . $get['semester'] . '</h6>
             <table class="table table-bordered table-sm table-hover">
                 <thead>
-                    <tr class="text-center bg-primary text-white">
+                    <tr class="text-center">
                         <th width="10" valign="middle"></th>
                         <th width="30%" valign="middle">KODE MATA KULIAH</th>
                         <th width="50%" valign="middle">NAMA MATA KULIAH</th>
                         <th width="10" valign="middle">SKS</th>
-                        <th valign="middle">KETERANGAN</th>
+                        <th valign="middle">STATUS</th>
                         <th valign="middle">AKSI</th>
                     </tr>
                 </thead>
                 <tbody>';
             $matkul = $this->mcore->getMatkulKrsMhs($mhs['id_prodi'], $get['semester'], $nim)->result_array();
             foreach ($matkul as $val) {
+
+                $status = $val['status'] == 1 ? 'Disetujui' : '';
+
+                if ($status > 0) {
+                    $cek = '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
+                } else {
+                    $cek = '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_perkuliahan[]" id="id_perkuliahan[]" value="' . $val['id_perkuliahan_kelas'] . '"></td>';
+                }
+
                 echo '
                         <tr>
-                            <td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_perkuliahan_kelas[]" id="id_perkuliahan_kelas[]" value=""></td>
+                            ' . $cek . '
                             <td class="text-center">' . $val['kode_mata_kuliah'] . '</td>
                             <td>' . $val['nama_mata_kuliah'] . '</td>
                             <td class="text-center">' . (int) $val['sks_mata_kuliah'] . '</td>
-                            <td></td>
+                            <td>' . $status . '</td>
                             <td>
-                                <a href="" class="bg-soft-success rounded-pill iq-custom-badge">
-                                    Setuju
-                                    <button class="btn btn-success btn-sm rounded-pill iq-cancel-btn">
-                                    <i class="bi bi-check-lg"></i>
-                                    </button>
-                                </a>
                                 <a href="" class="bg-soft-danger rounded-pill iq-custom-badge">
                                     Tolak
                                     <button class="btn btn-danger btn-sm rounded-pill iq-cancel-btn">
@@ -971,9 +974,19 @@ class Core extends CI_Controller
                         </tr>
                     ';
             }
-
             echo '</tbody></table>';
         }
+    }
+
+    public function validasi_krs()
+    {
+        $id = $_POST['id_perkuliahan'];
+
+        for ($i = 0; $i < count($id); $i++) {
+            $this->db->where('id_perkuliahan_kelas', $_POST['id_perkuliahan'][$i]);
+            $this->db->update('perkuliahan_mahasiswa', ['status' => 1]);
+        }
+        // echo json_encode($data);
     }
 }
 
