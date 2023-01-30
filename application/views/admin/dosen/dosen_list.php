@@ -6,13 +6,13 @@
                     <h4 class="mb-0">Data Dosen</h4>
                 </div>
                 <div class="bd-highlight">
-                    <a href="#dosen_tambah" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-plus"></i> Tambah</a>
+                    <a href="#dosen_tambah" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-plus"></i> Tambah</a>
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="myTable" class="display expandable-table table table-striped" style="width:100%">
+                <table id="tableDosen" class="display expandable-table table table-striped table-sm" style="width:100%">
                     <thead>
-                        <tr>
+                        <tr class="text-white bg-primary">
                             <th width="10">No</th>
                             <th>Nama</th>
                             <th>NIDN</th>
@@ -35,20 +35,45 @@
 
         $("#halaman-dosen").fadeIn(800);
 
-        tampil_data();
+        // tampil_data();
 
-        $('#myTable').DataTable();
+        // $('#myTable').DataTable({
+        //     "lengthMenu": [
+        //         [20, 50, 100, -1],
+        //         [20, 50, 100, "All"]
+        //     ],
+        // });
 
-        function tampil_data() {
-            $.ajax({
-                url: '<?= base_url("core/data_dosen"); ?>',
-                async: false,
-                dataType: 'html',
-                success: function(data) {
-                    $("#tmp-dosen").html(data);
-                }
-            })
-        }
+        // function tampil_data() {
+        //     $.ajax({
+        //         url: '<?= base_url("core/data_dosen"); ?>',
+        //         async: false,
+        //         dataType: 'html',
+        //         success: function(data) {
+        //             $("#tmp-dosen").html(data);
+        //         }
+        //     })
+        // }
+
+        $('#tableDosen').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "order": [],
+            "lengthMenu": [
+                [20, 50, 100, -1],
+                [20, 50, 100, "All"]
+            ],
+            // "fixedHeader": true,
+            "ajax": {
+                "url": "<?= base_url('core/data_dosen') ?>",
+                "type": "post"
+            },
+            "columDefs": [{
+                "target": [-1],
+                "orderable": false
+            }]
+        });
 
         $(document).on('click', '.hapus-dosen', function() {
             var id = $(this).attr('id');

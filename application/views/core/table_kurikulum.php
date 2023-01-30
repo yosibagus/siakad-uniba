@@ -2,9 +2,9 @@
     <div class="card-body">
         <h4>Data Kurikulum</h4>
         <div class="table-responsive">
-            <table id="myTable" class="display expandable-table table table-striped" style="width:100%">
+            <table id="myTable" class="display expandable-table table table-striped table-sm" style="width:100%">
                 <thead>
-                    <tr>
+                    <tr class="bg-primary text-white">
                         <th width="10">No</th>
                         <th>Nama Kurikulum</th>
                         <th>Program Studi</th>

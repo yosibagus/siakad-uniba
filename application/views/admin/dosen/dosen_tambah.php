@@ -13,7 +13,7 @@
                     <h3 class="mb-0">Dosen</h3>
                 </div>
                 <div class="p-2 bd-highlight">
-                    <button type="submit" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-check-lg"></i> Simpan</button>
+                    <button type="submit" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-check-lg"></i> Simpan</button>
                 </div>
                 <div class="p-2 bd-highlight">
                     <a href="#dosen" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>

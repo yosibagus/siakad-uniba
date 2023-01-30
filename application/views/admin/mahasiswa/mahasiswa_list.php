@@ -4,7 +4,7 @@
         <div class="card-body">
             <h4>Data Mahasiswa</h4>
             <div class="table-responsive">
-                <table id="tableMahasiswa" class="table table-bordered table-sm" style="width:100%">
+                <table id="tableMahasiswa" class="display expandable-table table table-striped table-sm" style="width:100%">
                     <thead>
                         <tr class="bg-primary text-white">
                             <th width="10">No</th>

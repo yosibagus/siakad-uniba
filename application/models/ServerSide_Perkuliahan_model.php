@@ -155,6 +155,54 @@ class ServerSide_Perkuliahan_model extends CI_Model
         $this->db->from('tb_akun');
         return $this->db->count_all_results();
     }
+
+    //data dosen
+
+    var $column_order_dosen = array('nama_dosen', 'nidn', 'jenis_kelamin', 'nama_agama', 'tanggal_lahir', 'status');
+    var $order_dosen = array('nama_dosen', 'nidn', 'jenis_kelamin', 'nama_agama', 'tanggal_lahir', 'status');
+
+    public function getDataDosen()
+    {
+        $this->_get_data_query_dosen();
+        if ($_POST['length'] != -1) {
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+    private function _get_data_query_dosen()
+    {
+        $this->db->from('master_dosen');
+        if (isset($_POST['search']['value'])) {
+            $this->db->like('nama_dosen', $_POST['search']['value']);
+            $this->db->or_like('nidn', $_POST['search']['value']);
+            $this->db->or_like('jenis_kelamin', $_POST['search']['value']);
+            $this->db->or_like('nama_agama', $_POST['search']['value']);
+            $this->db->or_like('tanggal_lahir', $_POST['search']['value']);
+            $this->db->or_like('status', $_POST['search']['value']);
+        }
+
+        if (isset($_POST['order'])) {
+            $this->db->order_by($this->order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else {
+            $this->db->order_by('nidn', 'ASC');
+        }
+    }
+
+    public function count_filtered_data_dosen()
+    {
+        $this->_get_data_query_dosen();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_data_dosen()
+    {
+        $this->db->from('master_dosen');
+        return $this->db->count_all_results();
+    }
 }
 
 

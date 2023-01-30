@@ -28,9 +28,9 @@
                 <div class="card">
                     <div class="card-body px-0 pb-0">
                         <div class="table-responsive">
-                            <table id="table-nilai" class="display expandable-table table table-striped" style="width:100%">
+                            <table id="table-nilai" class="display expandable-table table table-striped table-sm" style="width:100%">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-primary text-white">
                                         <th width="10">No</th>
                                         <th>Semester</th>
                                         <th>Kode MK</th>
@@ -57,6 +57,10 @@
             "serverSide": true,
             "order": [],
             "fixedHeader": true,
+            "lengthMenu": [
+                [20, 50, 100, -1],
+                [20, 50, 100, "All"]
+            ],
             "ajax": {
                 "url": "<?= base_url('core/data_nilai_perkuliahan') ?>",
                 "type": "post"

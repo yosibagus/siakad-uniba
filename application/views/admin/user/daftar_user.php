@@ -16,9 +16,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="table-daftar-user">
+                <table class="table table-bordered table-hover table-sm" id="table-daftar-user">
                     <thead>
-                        <tr>
+                        <tr class="bg-primary text-white">
                             <th width="10">#</th>
                             <th>Username</th>
                             <th>Nama</th>
