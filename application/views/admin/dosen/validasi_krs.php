@@ -15,7 +15,7 @@
         <div class="card-body">
             <div id="peringatan"></div>
             <div class="table-responsive">
-                <table class="table table-bordered table-sm">
+                <table class="display table table-bordered table-sm text-black table-hover">
                     <thead>
                         <tr class="bg-primary text-white">
                             <th width="10">No</th>
@@ -25,7 +25,6 @@
                             <th>Detail SKS</th>
                             <th>Status Mahasiswa</th>
                             <th>Status Validasi</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="tmp-mhs-wali"></tbody>

@@ -18,8 +18,10 @@
                 </a>
             </div>
         </div>
-        <div class="card-body" id="tmp-krs-detail">
+        <div class="card-body">
+            <div class="table-responsive" id="tmp-krs-detail">
 
+            </div>
         </div>
     </form>
 </div>
@@ -53,6 +55,7 @@
             $.ajax({
                 type: "GET",
                 url: "<?= base_url('core/detail_krs_mahasiswa') ?>",
+                async: false,
                 data: {
                     nim: nim
                 },

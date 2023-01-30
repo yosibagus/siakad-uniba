@@ -907,6 +907,7 @@ class Core extends CI_Controller
             $output .= '<td style="text-align: right;">' . (int) $krs['totalSks'] . ' SKS</td>';
             $output .= '<td class="text-center"><a href="#/detail_krs?as=' . $get['nim'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
             $output .= '<td>' . $get['nama_status_mahasiswa'] . '</td>';
+            $output .= '<td></td>';
             $output .= '</tr>';
         }
         echo $output;
@@ -926,56 +927,75 @@ class Core extends CI_Controller
         $nim = $_GET['nim'];
         $mhs = $this->mcore->getDetailMahasiswa($nim)->row_array();
 
-        $data = $this->mcore->getDataSemesterKrs($nim, $mhs['id_prodi'])->result_array();
+        $data = $this->mcore->getDataKrsMhs($nim, $mhs['id_prodi'])->result_array();
 
-        foreach ($data as $get) {
-            echo '
-            <h6 class="mt-3">Semester ' . $get['semester'] . '</h6>
-            <table class="table table-bordered table-sm table-hover">
-                <thead>
-                    <tr class="text-center">
-                        <th width="10" valign="middle"></th>
-                        <th width="30%" valign="middle">KODE MATA KULIAH</th>
-                        <th width="50%" valign="middle">NAMA MATA KULIAH</th>
-                        <th width="10" valign="middle">SKS</th>
-                        <th valign="middle">STATUS</th>
-                        <th valign="middle">AKSI</th>
-                    </tr>
-                </thead>
-                <tbody>';
-            $matkul = $this->mcore->getMatkulKrsMhs($mhs['id_prodi'], $get['semester'], $nim)->result_array();
-            foreach ($matkul as $val) {
-
-                $status = $val['status'] == 1 ? 'Disetujui' : '';
-
-                if ($status > 0) {
-                    $cek = '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
-                } else {
-                    $cek = '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_perkuliahan[]" id="id_perkuliahan[]" value="' . $val['id_perkuliahan_kelas'] . '"></td>';
-                }
-
-                echo '
-                        <tr>
-                            ' . $cek . '
-                            <td class="text-center">' . $val['kode_mata_kuliah'] . '</td>
-                            <td>' . $val['nama_mata_kuliah'] . '</td>
-                            <td class="text-center">' . (int) $val['sks_mata_kuliah'] . '</td>
-                            <td>' . $status . '</td>
-                            <td>
-                                <a href="" class="bg-soft-danger rounded-pill iq-custom-badge">
-                                    Tolak
-                                    <button class="btn btn-danger btn-sm rounded-pill iq-cancel-btn">
-                                        <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                </a>
-                            </td>
+        echo '
+        <table class="display expandable-table table table-sm table-hover text-black" id="tableKRS">
+                    <thead>
+                        <tr class="text-center bg-primary text-white">
+                            <th width="10" valign="middle"></th>
+                            <th valign="middle">Nama Mata Kuliah</th>
+                            <th width="10" valign="middle">SKS</th>
+                            <th valign="middle">Ruang</th>
+                            <th valign="middle">Hari</th>
+                            <th valign="middle">Waktu Mulai</th>
+                            <th valign="middle">Waktu Selesai</th>
+                            <th width="10" valign="middle">Semester</th>
+                            <th valign="middle">Status</th>
+                            <th valign="middle">Aksi</th>
                         </tr>
-                    ';
+                    </thead>
+                    <tbody>
+        ';
+
+        foreach ($data as $val) {
+
+            $status = $val['statusKrs'] == 1 ? 'Disetujui' : '';
+
+            if ($status > 0) {
+                $cek = '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
+            } else {
+                $cek = '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_perkuliahan[]" id="id_perkuliahan[]" value="' . $val['id_perkuliahan_kelas'] . '"></td>';
             }
-            echo '</tbody></table>';
+            $dosen = $this->mcore->getDataDosenKrs($val['id_perkuliahan_kelas'])->row_array();
+            $kecil = strtolower($dosen['nama_dosen']);
+
+            echo '
+                <tr>
+                    ' . $cek . '
+                    <td><b class="text-black">' . $val['nama_mata_kuliah'] . '</b><br>' . ucwords($kecil) . '</td>
+                    <td class="text-center">' . (int) $val['sks_mata_kuliah'] . '</td>
+                    <td>' . $val['nama_ruangan'] . '</td>
+                    <td class="text-center">' . $val['hari'] . '</td>
+                    <td class="text-center">' . $val['jam_awal'] . '</td>
+                    <td class="text-center">' . $val['jam_akhir'] . '</td>
+                    <td class="text-center">' . $val['semester'] . '</td>
+                    <td class="text-center">' . $status . '</td>
+                    <td>
+                        <a href="" class="bg-soft-danger rounded-pill iq-custom-badge">
+                            Tolak
+                            <button class="btn btn-danger btn-sm rounded-pill iq-cancel-btn">
+                                <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            ';
         }
+        $sks = $this->mcore->hitungSksPengajuanKRS($nim, $mhs['id_prodi'])->row_array();
+        echo '
+        </tbody>
+        <tfoot>
+            <tr class="fw-bold">
+                <td></td>
+                <td>Total SKS</td>
+                <td class="text-center">' . (int) $sks['totalSks'] . '</td>
+            </tr>
+        </tfoot>
+        
+        ';
     }
 
     public function validasi_krs()
