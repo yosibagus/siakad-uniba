@@ -376,12 +376,14 @@ class Core extends CI_Controller
     public function input_krs()
     {
         $id_mahasiswa = $_POST['id_mahasiswa'];
-
+        $semester_aktif = $this->mcore->getSemesterAktif();
         $i = 0;
         foreach ($id_mahasiswa as $get) {
             $data[] = [
                 'id_perkuliahan_kelas' => $this->input->post('id_perkuliahan_kelas'),
-                'nim' => $_POST['id_mahasiswa'][$i]
+                'nim' => $_POST['id_mahasiswa'][$i],
+                'semester_perkuliahan' => $semester_aktif,
+                'status' => 1
             ];
             $i++;
             // $this->db->insert('master_ruangan', $data);
@@ -842,11 +844,75 @@ class Core extends CI_Controller
             $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
             $output .= '<td style="text-align: right;">' . (int) $krs['totalSks'] . ' SKS</td>';
-            $output .= '<td class="text-center"><a href="" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
+            $output .= '<td class="text-center"><a href="#/detail_krs?as=' . $get['nim'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
             $output .= '<td>' . $get['nama_status_mahasiswa'] . '</td>';
             $output .= '</tr>';
         }
         echo $output;
+    }
+
+    public function detail_info_mhs()
+    {
+        $nim = $_GET['nim'];
+
+        $data = $this->mcore->getDetailMahasiswa($nim)->row_array();
+
+        echo json_encode($data);
+    }
+
+    public function detail_krs_mahasiswa()
+    {
+        $nim = $_GET['nim'];
+        $mhs = $this->mcore->getDetailMahasiswa($nim)->row_array();
+
+        $data = $this->mcore->getDataSemesterKrs($nim, $mhs['id_prodi'])->result_array();
+
+        foreach ($data as $get) {
+            echo '
+            <h6 class="mt-3">Semester ' . $get['semester'] . '</h6>
+            <table class="table table-bordered table-sm table-hover">
+                <thead>
+                    <tr class="text-center bg-primary text-white">
+                        <th width="10" valign="middle"></th>
+                        <th width="30%" valign="middle">KODE MATA KULIAH</th>
+                        <th width="50%" valign="middle">NAMA MATA KULIAH</th>
+                        <th width="10" valign="middle">SKS</th>
+                        <th valign="middle">KETERANGAN</th>
+                        <th valign="middle">AKSI</th>
+                    </tr>
+                </thead>
+                <tbody>';
+            $matkul = $this->mcore->getMatkulKrsMhs($mhs['id_prodi'], $get['semester'], $nim)->result_array();
+            foreach ($matkul as $val) {
+                echo '
+                        <tr>
+                            <td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_perkuliahan_kelas[]" id="id_perkuliahan_kelas[]" value=""></td>
+                            <td class="text-center">' . $val['kode_mata_kuliah'] . '</td>
+                            <td>' . $val['nama_mata_kuliah'] . '</td>
+                            <td class="text-center">' . (int) $val['sks_mata_kuliah'] . '</td>
+                            <td></td>
+                            <td>
+                                <a href="" class="bg-soft-success rounded-pill iq-custom-badge">
+                                    Setuju
+                                    <button class="btn btn-success btn-sm rounded-pill iq-cancel-btn">
+                                    <i class="bi bi-check-lg"></i>
+                                    </button>
+                                </a>
+                                <a href="" class="bg-soft-danger rounded-pill iq-custom-badge">
+                                    Tolak
+                                    <button class="btn btn-danger btn-sm rounded-pill iq-cancel-btn">
+                                        <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    ';
+            }
+
+            echo '</tbody></table>';
+        }
     }
 }
 

@@ -154,6 +154,11 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/dosen/validasi_krs');
     }
+
+    public function detail_krs()
+    {
+        $this->load->view('admin/dosen/detail_krs');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */
