@@ -80,6 +80,7 @@ class ServerSide_Perkuliahan_model extends CI_Model
     private function _get_data_query()
     {
         $this->db->from('master_mahasiswa');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi');
         if (isset($_POST['search']['value'])) {
             $this->db->like('nama_mahasiswa', $_POST['search']['value']);
             $this->db->or_like('nim', $_POST['search']['value']);
