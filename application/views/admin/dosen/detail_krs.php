@@ -19,7 +19,13 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive" id="tmp-krs-detail">
+            <div class="text-center">
+                <button class="btn btn-primary fixed-top" id="loading" type="button" disabled style="margin: auto;">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="visually-hidden">Loading...</span>
+                </button>
+            </div>
+            <div class="table-responsive" id="tmp-krs-detail" style="display: none;">
 
             </div>
         </div>
@@ -61,7 +67,8 @@
                 },
                 dataType: "html",
                 success: function(data) {
-                    // console.log(data);
+                    $("#loading").fadeOut(2000);
+                    $("#tmp-krs-detail").fadeIn(2000);
                     $("#tmp-krs-detail").html(data);
                 }
             });
