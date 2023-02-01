@@ -166,6 +166,7 @@ class Core_model extends CI_Model
         $this->db->select('*');
         $this->db->from('perkuliahan_mahasiswa');
         $this->db->join('master_mahasiswa', 'perkuliahan_mahasiswa.nim = master_mahasiswa.nim');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi');
         $this->db->order_by('perkuliahan_mahasiswa.nim', 'asc');
         $this->db->where('perkuliahan_mahasiswa.id_perkuliahan_kelas', $id_perkuliahan_kelas);
         return $this->db->get();

@@ -391,7 +391,6 @@ class Core extends CI_Controller
         foreach ($data as $get) {
             $output .= '<option value="' . $get["id_prodi"] . '">' . $get['nama_jenjang_pendidikan'] . " " . $get["nama_program_studi"] . '</option>';
         }
-
         echo $output;
     }
 
@@ -583,8 +582,6 @@ class Core extends CI_Controller
         $output = '';
         $i = 1;
         foreach ($data as $get) {
-
-
             $cek = $this->db->get_where('tb_akun', ['id_user' => $get['id_mahasiswa']])->num_rows();
 
             $output .= '<tr>';
