@@ -14,6 +14,7 @@
                 $this->load->view('layout/menu/master/master_header');
                 $this->load->view('layout/menu/master/master_sub_keuangan');
                 $this->load->view('layout/menu/master/master_sub_referensi');
+                // $this->load->view('layout/menu/master/master_sub_pengaturan');
                 //akademik
                 $this->load->view('layout/menu/akademik/akademik_header');
                 $this->load->view('layout/menu/akademik/akademik_sub_mahasiswa');

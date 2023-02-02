@@ -207,7 +207,7 @@ class Api extends CI_Controller
         }
 
         echo json_encode($result);
-        $this->db->insert_batch('master_matkul', $result);
+        // $this->db->insert_batch('master_matkul', $result);
     }
 
     public function getkelasPerkuliahan()

@@ -1271,8 +1271,6 @@
         </div>
     </div> -->
 
-    <!-- Library Bundle Script -->
-
     <!-- Plugin Scripts -->
     <!-- Tour plugin Start -->
     <script src="<?= base_url('assets/admin/') ?>assets/vendor/sheperd/dist/js/sheperd.min.js"></script>
