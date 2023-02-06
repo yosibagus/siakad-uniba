@@ -49,6 +49,7 @@
                                         <th>Mata Kuliah</th>
                                         <th>Nama Kelas</th>
                                         <th>Kuota</th>
+                                        <th>Peserta</th>
                                         <th>Dosen</th>
                                         <th>Ruangan</th>
                                         <th>Jadwal</th>

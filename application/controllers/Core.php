@@ -204,6 +204,7 @@ class Core extends CI_Controller
         foreach ($results as $result) {
 
             $dosen = $this->mcore->getDosenPerkuliahan($result->id_perkuliahan_kelas)->row();
+            $jumlah = $this->mcore->getJumlahMhsKelas($result->id_perkuliahan_kelas);
 
             $row = array();
             $row[] = ++$no;
@@ -211,10 +212,11 @@ class Core extends CI_Controller
             $row[] = '<a href="' . base_url('#detail_perkuliahan?token=') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
             $row[] = $result->nama_mata_kuliah;
             $row[] = $result->nama_kelas;
-            $row[] = $result->kuota_kelas;
+            $row[] = $result->kuota_kelas == 0 ? "Tidak di set" : $result->kuota_kelas;
+            $row[] = $jumlah;
             $row[] = $dosen->nama_dosen;
-            $row[] = $result->nama_ruangan;
-            $row[] = $result->hari . ", " . $result->jam_awal . '-' . $result->jam_akhir;
+            $row[] = $result->nama_ruangan == "" ? "Tidak di set" : $result->nama_ruangan;
+            $row[] = $result->hari == "" ? "Tidak di set" : $result->hari . ", " . $result->jam_awal . '-' . $result->jam_akhir;
             $data[] = $row;
         }
 

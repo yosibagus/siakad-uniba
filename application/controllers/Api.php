@@ -308,7 +308,7 @@ class Api extends CI_Controller
 
     public function getKrs()
     {
-        $id_prodi = "4721e4a6-1600-4daf-851f-c616ed6489f5";
+        $id_prodi = "082a0fda-51c0-4ad1-8bcb-9ca0c72a5040";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
@@ -339,7 +339,8 @@ class Api extends CI_Controller
         foreach ($data['data'] as $get) {
             $result[] = [
                 'id_perkuliahan_kelas' => $get['id_kelas'],
-                'nim' => $get['nim']
+                'nim' => $get['nim'],
+                'status' => 1
             ];
         }
         echo json_encode($result);

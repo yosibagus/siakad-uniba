@@ -9,24 +9,17 @@
     <meta name="keywords" content="">
     <meta name="author" content="Iqonic Design">
     <meta name="DC.title" content="">
+    <meta name="author" content="Yosi Bagus Sadar Rasuli">
 
-    <!-- Google Font Api KEY-->
     <meta name="google_font_api" content="AIzaSyBG58yNdAjc20_8jAvLNSVi9E4Xhwjau_k">
-    <!-- Config Options -->
     <meta name="setting_options" content='{&quot;saveLocal&quot;:&quot;sessionStorage&quot;,&quot;storeKey&quot;:&quot;huisetting&quot;,&quot;setting&quot;:{&quot;app_name&quot;:{&quot;value&quot;:&quot;Hope UI&quot;},&quot;theme_scheme_direction&quot;:{&quot;value&quot;:&quot;ltr&quot;},&quot;theme_scheme&quot;:{&quot;value&quot;:&quot;light&quot;},&quot;theme_style_appearance&quot;:{&quot;value&quot;:[&quot;theme-default&quot;]},&quot;theme_color&quot;:{&quot;colors&quot;:{&quot;--{{prefix}}primary&quot;:&quot;#3a57e8&quot;,&quot;--{{prefix}}info&quot;:&quot;#08B1BA&quot;},&quot;value&quot;:&quot;theme-color-default&quot;},&quot;theme_transition&quot;:{&quot;value&quot;:&quot;theme-with-animation&quot;},&quot;theme_font_size&quot;:{&quot;value&quot;:&quot;theme-fs-md&quot;},&quot;page_layout&quot;:{&quot;value&quot;:&quot;container-fluid&quot;},&quot;header_navbar&quot;:{&quot;value&quot;:&quot;default&quot;},&quot;header_banner&quot;:{&quot;value&quot;:&quot;default&quot;},&quot;sidebar_color&quot;:{&quot;value&quot;:&quot;sidebar-white&quot;},&quot;card_color&quot;:{&quot;value&quot;:&quot;card-default&quot;},&quot;sidebar_type&quot;:{&quot;value&quot;:[]},&quot;sidebar_menu_style&quot;:{&quot;value&quot;:&quot;left-bordered&quot;},&quot;footer&quot;:{&quot;value&quot;:&quot;default&quot;},&quot;body_font_family&quot;:{&quot;value&quot;:null},&quot;heading_font_family&quot;:{&quot;value&quot;:null}}}'>
-    <!-- Favicon -->
     <link rel="shortcut icon" href="<?= base_url('assets/logo.png') ?>" />
-
-    <!-- Library / Plugin Css Build -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/core/libs.min.css" />
-
-    <!-- Flatpickr css -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/vendor/flatpickr/dist/flatpickr.min.css" />
 
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/vendor/sheperd/dist/css/sheperd.css">
 
-    <!-- Facebook -->
-    <script async>
+    <!-- <script async>
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function() {
@@ -50,9 +43,8 @@
         fbq('trackCustom', 'hopeui-pro-preview', {
             product: 'HopeUI Pro HTML'
         });
-    </script>
+    </script> -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4D1H8GTEHY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -65,33 +57,20 @@
         gtag('config', 'UA-148892048-7');
     </script>
 
-    <!-- Hope Ui Design System Css -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/hope-ui.min28b5.css?v=2.0.0" />
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/pro.min28b5.css?v=2.0.0" />
-
-    <!-- Custom Css -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/custom.min28b5.css?v=2.0.0" />
-
-    <!-- Dark Css -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/dark.min28b5.css?v=2.0.0" />
-
-    <!-- Customizer Css -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/customizer.min28b5.css?v=2.0.0" />
-
-    <!-- RTL Css -->
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/css/rtl.min28b5.css?v=2.0.0" />
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/fh-3.2.4/r-2.3.0/sp-2.0.2/sl-1.4.0/datatables.min.css" />
-
     <link rel="stylesheet" href="<?= base_url('assets/jquery-toast/dist/jquery.toast.min.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 

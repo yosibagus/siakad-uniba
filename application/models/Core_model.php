@@ -66,7 +66,7 @@ class Core_model extends CI_Model
         $this->db->select('*, master_prodi.nama_program_studi as nama_prodi');
         $this->db->from('perkuliahan_kelas');
         $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi', 'left');
-        $this->db->join('master_matkul', 'perkuliahan_kelas.id_matkul = master_matkul.id_matkul', 'left');
+        $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
         $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
         $this->db->join('master_gedung', 'master_gedung.id_gedung = master_ruangan.id_gedung', 'left');
         $this->db->where('perkuliahan_kelas.token', $token);
@@ -297,6 +297,12 @@ class Core_model extends CI_Model
         $this->db->join('master_dosen', 'master_dosen.id_dosen = perkuliahan_dosen.id_dosen');
         $this->db->where('perkuliahan_dosen.id_perkuliahan_kelas', $idperkuliahan);
         return $this->db->get();
+    }
+
+    public function getJumlahMhsKelas($idperkuliahan)
+    {
+        $data = $this->db->query("SELECT COUNT(id_perkuliahan_kelas) as jumlahMhsKelas from perkuliahan_mahasiswa where id_perkuliahan_kelas = '$idperkuliahan'")->row_array();
+        return $data['jumlahMhsKelas'];
     }
 }
 

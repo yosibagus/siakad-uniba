@@ -49,12 +49,13 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="id_matkul">Mata Kuliah <span class="text-danger">*</span></label>
-                        <select disabled style="width: 100%;" required name="id_matkul" id="id_matkul" class="form-control form-control-sm">
+                        <!-- <select disabled style="width: 100%;" required name="id_matkul" id="id_matkul" class="form-control form-control-sm">
                             <option value=""></option>
                             <?php foreach ($matkul as $get) : ?>
                                 <option <?= $get['id_matkul'] == $detail['id_matkul'] ? 'selected' : '' ?> value="<?= $get['id_matkul'] ?>"><?= $get['kode_mata_kuliah'] . " | " . $get['nama_mata_kuliah'] ?></option>
                             <?php endforeach; ?>
-                        </select>
+                        </select> -->
+                        <input type="text" disabled value="<?= $detail['kode_mata_kuliah'] . " | " . $detail['nama_mata_kuliah'] ?>" class="form-control">
                         <small class="text-danger" id="m-matkul"><i></i></small>
                     </div>
                 </div>
@@ -69,12 +70,13 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="id_gedung">Gedung <span class="text-danger">*</span></label>
-                        <select disabled style="width: 100%;" required name="id_gedung" id="id_gedung" class="form-control form-control-sm">
+                        <!-- <select disabled style="width: 100%;" required name="id_gedung" id="id_gedung" class="form-control form-control-sm">
                             <option value=""></option>
                             <?php foreach ($gedung as $get) : ?>
                                 <option <?= $get['id_ruangan'] == $detail['id_ruangan'] ? 'selected' : '' ?> value="<?= $get['id_ruangan'] ?>"><?= $get['nama_gedung'] . " | " . $get['nama_ruangan'] ?></option>
                             <?php endforeach; ?>
-                        </select>
+                        </select> -->
+                        <input type="text" class="form-control" disabled value="<?= $detail['nama_gedung'] . " | " . $detail['nama_ruangan'] ?>">
                         <small class="text-danger" id="m-gedung"><i></i></small>
                     </div>
                 </div>
