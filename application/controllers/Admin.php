@@ -164,6 +164,11 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/setting/tema');
     }
+
+    public function khs_mhs()
+    {
+        $this->load->view('admin/khs/khs_detail');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

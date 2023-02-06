@@ -20,6 +20,16 @@ class Core_model extends CI_Model
         $this->db->insert($table, $data);
     }
 
+    public function infoMahasiswa($nim)
+    {
+        $this->db->select('*');
+        $this->db->from('master_mahasiswa');
+        $this->db->join('master_prodi', 'master_mahasiswa.id_prodi = master_prodi.id_prodi');
+        $this->db->where('nim', $nim);
+        return $this->db->get();
+        // return $this->db->get_where('master_mahasiswa', ['nim' => $nim]);
+    }
+
     public function detailKurikulum_matkul($id)
     {
         return $this->db->query("SELECT * FROM master_matkul where id_kurikulum ='$id' order by semester");
@@ -303,6 +313,21 @@ class Core_model extends CI_Model
     {
         $data = $this->db->query("SELECT COUNT(id_perkuliahan_kelas) as jumlahMhsKelas from perkuliahan_mahasiswa where id_perkuliahan_kelas = '$idperkuliahan'")->row_array();
         return $data['jumlahMhsKelas'];
+    }
+
+    public function getSemesterKhs($nim)
+    {
+        return $this->db->query("SELECT perkuliahan_nilai.id_semester, nama_semester from perkuliahan_nilai join master_semester on master_semester.id_semester = perkuliahan_nilai.id_semester where nim = '$nim' group by id_semester");
+    }
+
+    public function getKhsMahasiswa($nim, $semester)
+    {
+        $this->db->select('*');
+        $this->db->from('perkuliahan_nilai');
+        $this->db->join('master_matkuls', 'master_matkuls.id_matkul = perkuliahan_nilai.id_matkul');
+        $this->db->where('perkuliahan_nilai.nim', $nim);
+        $this->db->where('perkuliahan_nilai.id_semester', $semester);
+        return $this->db->get();
     }
 }
 

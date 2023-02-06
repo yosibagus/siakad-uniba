@@ -173,7 +173,7 @@ class Core extends CI_Controller
         foreach ($results as $result) {
             $row = array();
             $row[] = ++$no;
-            $row[] = $result->nama_mahasiswa;
+            $row[] = '<a href="' . base_url('#/khs_mhs?id=') . $result->nim . '">' . $result->nama_mahasiswa . '</a>';
             $row[] = $result->nim;
             $row[] = $result->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan';
             $row[] = $result->nama_agama;
@@ -1037,6 +1037,50 @@ class Core extends CI_Controller
             $this->db->update('perkuliahan_mahasiswa', ['status' => 1]);
         }
         // echo json_encode($data);
+    }
+
+    public function data_khs_detail()
+    {
+        $nim = $_GET['nim'];
+        $semester = $this->mcore->getSemesterKhs($nim)->result_array();
+        $output = '<option value=""></option>';
+        foreach ($semester as $get) {
+            $output .= '<option value="' . $get['id_semester'] . '">' . $get['nama_semester'] . '</option>';
+        }
+        echo $output;
+    }
+
+    public function info_mahasiswa()
+    {
+        $nim = $_GET['nim'];
+        $data = $this->mcore->infoMahasiswa($nim)->row_array();
+
+        echo json_encode($data);
+    }
+
+    public function tampil_khs_mahasiswa()
+    {
+        $semester = $_GET['semester'];
+        $nim = $_GET['nim'];
+
+        $data = $this->mcore->getKhsMahasiswa($nim, $semester)->result_array();
+
+        $output = "";
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $output .= '<td>' . $i++ . '</td>';
+            $output .= '<td>' . $get['kode_mata_kuliah'] . '</td>';
+            $output .= '<td>' . $get['nama_mata_kuliah'] . '</td>';
+            $output .= '<td>' . $get['sks_mata_kuliah'] . '</td>';
+            $output .= '<td>' . $get['nilai_angka'] . '</td>';
+            $output .= '<td>' . $get['nilai_huruf'] . '</td>';
+            $output .= '<td>' . $get['nilai_indeks'] . '</td>';
+            $hitung = $get['sks_mata_kuliah'] * $get['nilai_indeks'];
+            $output .= '<td>' . number_format($hitung, 2) . '</td>';
+            $output .= '</tr>';
+        }
+        echo $output;
     }
 }
 

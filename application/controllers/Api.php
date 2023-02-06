@@ -20,6 +20,44 @@ class Api extends CI_Controller
         return $output;
     }
 
+    public function getSemester()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => '',
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => 'POST',
+            CURLOPT_POSTFIELDS     => '{
+				"act":"GetSemester",
+				"token" : "' . $this->getToken() . '",
+				"username":"071098",
+				"password":"m4dh4ry"
+			}',
+
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        foreach ($data['data'] as $get) {
+            $result[] = $get;
+        }
+
+        // $this->db->insert_batch('master_semester', $result);
+
+
+        echo json_encode($data);
+    }
+
     public function getToken()
     {
         $curl = curl_init();
@@ -210,9 +248,9 @@ class Api extends CI_Controller
         // $this->db->insert_batch('master_matkul', $result);
     }
 
-    public function getkelasPerkuliahan()
+    public function getkelasPerkuliahan($id_prodi)
     {
-        $id_prodi = $_GET['id'];
+        // $id_prodi = $_GET['id'];
         // "filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -249,6 +287,7 @@ class Api extends CI_Controller
                 'id_perkuliahan_kelas' => $data['data'][$i]['id_kelas_kuliah'],
                 'id_prodi' => $data['data'][$i]['id_prodi'],
                 'id_matkul' => $data['data'][$i]['id_matkul'],
+                'id_semester' => $data['data'][$i]['id_semester'],
                 'semester_perkuliahan' => $data['data'][$i]['nama_semester'],
                 'nama_kelas' => $data['data'][$i]['nama_kelas_kuliah'],
                 'id_ruangan' => '',
@@ -260,7 +299,7 @@ class Api extends CI_Controller
 
         // $this->db->insert_batch('perkuliahan_kelas', $result);
 
-        echo json_encode($response);
+        echo json_encode($result);
         // file_put_contents('./assets/getperiode.json', serialize(json_encode($data)));
     }
 
