@@ -364,8 +364,35 @@ class Core extends CI_Controller
 
     public function data_krs($id)
     {
-        $data['krs'] = $this->mcore->getKrs($id)->result_array();
-        $this->load->view('core/table_krs', $data);
+        $data = $this->mcore->getKrs($id)->result_array();
+        // $this->load->view('core/table_krs', $data);
+        $output = "";
+        $i = 1;
+
+        foreach ($data as $get) {
+
+            if ($get['jenis_kelamin'] == "L") {
+                $jenkel = "Laki-Laki";
+            } else {
+                $jenkel = "Perempuan";
+            }
+
+            $output .= '<tr>';
+            $output .= '<td>' . $i++ . '</td>';
+            $output .= '<td>' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $jenkel . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . substr($get['nama_periode_masuk'], 0, 4) . '</td>';
+            $output .= '<td><button class="btn btn-icon btn-danger hapus-krs-mhs" id="' . $get['id_perkuliahan_mhs'] . '">
+                            <span class="btn-inner">
+                                <i class="bi bi-trash" style="font-size: 10px;"></i>
+                            </span>
+                        </button></td>';
+            // $output .= '</tr>';
+        }
+
+        echo $output;
     }
 
     public function hapus_krs()
@@ -469,6 +496,10 @@ class Core extends CI_Controller
             $row[] = $result->semester_perkuliahan;
             $row[] = '<a href="' . base_url('#detail_nilai_perkuliahan/') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
             $row[] = $result->nama_mata_kuliah;
+            $row[] = $result->nama_kelas;
+            $row[] = '<div class="text-center">' . (int) $result->sks_mata_kuliah . '</div>';
+
+            $row[] = '<div class="text-left">' . $this->mcore->getJumlahMhsKelas($result->id_perkuliahan_kelas) . '</div>';
             $row[] = $result->nama_kelas;
             $data[] = $row;
         }

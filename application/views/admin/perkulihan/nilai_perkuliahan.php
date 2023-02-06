@@ -36,6 +36,8 @@
                                         <th>Kode MK</th>
                                         <th>Mata Kuliah</th>
                                         <th>Nama Kelas</th>
+                                        <th>Bobot MK</th>
+                                        <th>Peserta</th>
                                     </tr>
                                 </thead>
                                 <tbody>

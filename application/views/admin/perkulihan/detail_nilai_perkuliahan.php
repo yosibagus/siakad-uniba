@@ -55,7 +55,7 @@
     background: #fff; color:#3c3c3c;">
         <div class="card-body px-0">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="table-nilai-mhs-krs">
                     <thead>
                         <tr class="q-tr">
                             <th class="align-middle" width="10" rowspan="2" style="text-align: center;"><strong>No</strong></th>

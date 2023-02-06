@@ -254,7 +254,7 @@
                     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);">
                         <div class="card-body px-0 pb-0">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id="table-krss">
                                     <thead>
                                         <tr>
                                             <th width="10">No</th>

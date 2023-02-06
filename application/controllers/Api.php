@@ -377,9 +377,9 @@ class Api extends CI_Controller
         $data = json_decode($response, true);
     }
 
-    public function getNilai()
+    public function getNilai($id_prodi)
     {
-        $id_prodi = "d1cc4baf-4926-42da-ac18-63398da29f5a";
+        // $id_prodi = "d1cc4baf-4926-42da-ac18-63398da29f5a";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
@@ -415,10 +415,12 @@ class Api extends CI_Controller
                 'nilai_angka' => $get['nilai_angka'],
                 'nilai_indeks' => $get['nilai_indeks'],
                 'nilai_huruf' => $get['nilai_huruf'],
+                'id_semester' => $get['id_semester'],
+                'semester_perkuliahan' => $get['nama_semester']
             ];
         }
         echo json_encode($result);
-        //$this->db->insert_batch('perkuliahan_nilai', $result);
+        // $this->db->insert_batch('perkuliahan_nilai', $result);
     }
 }
 

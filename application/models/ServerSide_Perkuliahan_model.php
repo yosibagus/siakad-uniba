@@ -5,7 +5,6 @@ class ServerSide_Perkuliahan_model extends CI_Model
 {
 
     // serverside dataperkuliahan kelas
-
     var $column_order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
     var $order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
 
@@ -22,7 +21,7 @@ class ServerSide_Perkuliahan_model extends CI_Model
 
     private function _get_data_query_perkuliahan()
     {
-        $this->db->select('*');
+        $this->db->select('perkuliahan_kelas.semester_perkuliahan, master_matkuls.kode_mata_kuliah, master_matkuls.nama_mata_kuliah, perkuliahan_kelas.nama_kelas, perkuliahan_kelas.kuota_kelas, master_gedung.nama_gedung, master_ruangan.nama_ruangan, perkuliahan_kelas.id_perkuliahan_kelas, perkuliahan_kelas.token, perkuliahan_kelas.hari, perkuliahan_kelas.jam_awal, perkuliahan_kelas.jam_akhir, master_matkuls.sks_mata_kuliah');
         $this->db->from('perkuliahan_kelas');
         $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi', 'left');
         $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
@@ -54,10 +53,6 @@ class ServerSide_Perkuliahan_model extends CI_Model
     public function count_all_data_perkuliahan()
     {
         $this->db->from('perkuliahan_kelas');
-        $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi', 'left');
-        $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
-        $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
-        $this->db->join('master_gedung', 'master_gedung.id_gedung = master_ruangan.id_gedung', 'left');
         return $this->db->count_all_results();
     }
 
@@ -79,6 +74,7 @@ class ServerSide_Perkuliahan_model extends CI_Model
 
     private function _get_data_query()
     {
+        $this->db->select('id_mahasiswa, nama_mahasiswa, nim, jenis_kelamin, nama_agama, tanggal_lahir, nama_periode_masuk, nama_program_studi');
         $this->db->from('master_mahasiswa');
         $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi');
         if (isset($_POST['search']['value'])) {
@@ -94,7 +90,7 @@ class ServerSide_Perkuliahan_model extends CI_Model
         if (isset($_POST['order'])) {
             $this->db->order_by($this->order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else {
-            $this->db->order_by('nim', 'ASC');
+            $this->db->order_by('nim', 'DESC');
         }
     }
 
