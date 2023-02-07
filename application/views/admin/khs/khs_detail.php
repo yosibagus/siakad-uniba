@@ -29,7 +29,7 @@
 
             <table width="90%" style="color:#424242;">
                 <tr>
-                    <td width="30%" class="item">Nama</td>
+                    <td width="25%" class="item">Nama</td>
                     <td width="10">:</td>
                     <td><span id="tmp-nama"></span></td>
                     <td class="item">NIM</td>
@@ -47,10 +47,10 @@
             </table>
 
             <div class="table-responsive">
-                <table class="display expandable-table table table-bordered table-striped table-sm mt-3">
+                <table class="display expandable-table table table-bordered table-sm mt-3">
                     <thead>
                         <tr>
-                            <th rowspan="2" width="5%" class="th-center">No</th>
+                            <th rowspan="2" width="10" class="th-center">No</th>
                             <th rowspan="2" class="th-center">Kode MK</th>
                             <th rowspan="2" class="th-center">Nama MK</th>
                             <th rowspan="2" class="th-center">Bobot MK<br>(sks)</th>

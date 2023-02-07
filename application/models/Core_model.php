@@ -329,6 +329,18 @@ class Core_model extends CI_Model
         $this->db->where('perkuliahan_nilai.id_semester', $semester);
         return $this->db->get();
     }
+
+    public function getJumlahKhs($nim, $semester)
+    {
+        $this->db->select('SUM(master_matkuls.sks_mata_kuliah) as jumlahSks');
+        $this->db->from('perkuliahan_nilai');
+        $this->db->join('master_matkuls', 'master_matkuls.id_matkul = perkuliahan_nilai.id_matkul');
+        $this->db->where('perkuliahan_nilai.nim', $nim);
+        $this->db->where('perkuliahan_nilai.id_semester', $semester);
+        $data = $this->db->get()->row_array();
+
+        return $data['jumlahSks'];
+    }
 }
 
 

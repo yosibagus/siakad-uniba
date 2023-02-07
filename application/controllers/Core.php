@@ -1067,19 +1067,31 @@ class Core extends CI_Controller
 
         $output = "";
         $i = 1;
+        $total = 0.0;
         foreach ($data as $get) {
             $output .= '<tr>';
-            $output .= '<td>' . $i++ . '</td>';
+            $output .= '<td style="text-align:center">' . $i++ . '</td>';
             $output .= '<td>' . $get['kode_mata_kuliah'] . '</td>';
             $output .= '<td>' . $get['nama_mata_kuliah'] . '</td>';
-            $output .= '<td>' . $get['sks_mata_kuliah'] . '</td>';
-            $output .= '<td>' . $get['nilai_angka'] . '</td>';
-            $output .= '<td>' . $get['nilai_huruf'] . '</td>';
-            $output .= '<td>' . $get['nilai_indeks'] . '</td>';
+            $output .= '<td style="text-align:right">' . $get['sks_mata_kuliah'] . '</td>';
+            $output .= '<td style="text-align:center">' . $get['nilai_angka'] . '</td>';
+            $output .= '<td style="text-align:center">' . $get['nilai_huruf'] . '</td>';
+            $output .= '<td style="text-align:center">' . $get['nilai_indeks'] . '</td>';
             $hitung = $get['sks_mata_kuliah'] * $get['nilai_indeks'];
-            $output .= '<td>' . number_format($hitung, 2) . '</td>';
+            $output .= '<td style="text-align:right">' . number_format($hitung, 2) . '</td>';
+            $total += $hitung;
             $output .= '</tr>';
         }
+        $output .= '<tr>
+            <td colspan="3" align="right"><strong>Jumlah</strong></td>
+            <td style="text-align:right">' . $this->mcore->getJumlahKhs($nim, $semester) . '</td>
+            <td colspan="3"></td>
+            <td style="text-align:right">' . $total . '</td>
+        </tr>';
+        $output .= '<tr>
+            <td colspan="7" align="right"><strong>IPS ( Indeks Prestasi Semester )</strong></td>
+            <th style="text-align:right">' . number_format($total / $this->mcore->getJumlahKhs($nim, $semester), 2) . '</th>
+        </tr>';
         echo $output;
     }
 }
