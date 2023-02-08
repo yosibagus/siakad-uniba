@@ -189,12 +189,12 @@ class Core_model extends CI_Model
 
     public function select_kolektif_angkatan($angkatan)
     {
-        return $this->db->query("SELECT nim, nama_mahasiswa, nama_program_studi, id_mahasiswa, id_periode FROM master_mahasiswa where id_periode like '%$angkatan%' order by nim");
+        return $this->db->query("SELECT mhs.nim, mhs.nama_mahasiswa, mhs.id_mahasiswa, mhs.id_periode, p.nama_program_studi FROM master_mahasiswa mhs join master_prodi p on p.id_prodi = mhs.id_prodi where mhs.id_periode like '%$angkatan%' order by mhs.nim");
     }
 
     public function select_kolektif_prodi($angkatan, $prodi)
     {
-        return $this->db->query("SELECT nim, nama_mahasiswa, nama_program_studi, id_mahasiswa, id_periode FROM master_mahasiswa where id_periode like '%$angkatan%' and id_prodi = '$prodi' order by nim");
+        return $this->db->query("SELECT mhs.nim, mhs.nama_mahasiswa, mhs.id_mahasiswa, mhs.id_periode, p.nama_program_studi FROM master_mahasiswa mhs join master_prodi p on p.id_prodi = mhs.id_prodi where mhs.id_periode like '%$angkatan%' and mhs.id_prodi = '$prodi' order by mhs.nim");
     }
 
     public function getDetailNilaiPerkuliahan($id)

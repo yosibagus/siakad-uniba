@@ -78,7 +78,7 @@
                                 <th>Angkatan</th>
                             </tr>
                         </thead>
-                        <tbody id="tmp-user-mhs"></tbody>
+                        <tbody id="tmp-user-mhs" style="display: none;"></tbody>
                     </table>
                 </div>
             </div>
@@ -135,8 +135,10 @@
     $(document).ready(function() {
         $("#form-select").on('change', '#angkatan, #prodi', function() {
             var angkatan = $("#angkatan").val();
-            var prodi = $("#prodi").val();
-            $("#loading-data").fadeIn(500);
+            var prodi = $("#prodi").val()
+            if (angkatan != "" || prodi != "") {
+                $("#loading-data").fadeIn(500);
+            }
             $.ajax({
                 url: "<?= base_url('core/tampil_mhs_generate') ?>",
                 method: "GET",
@@ -145,6 +147,7 @@
                     prodi: prodi
                 },
                 success: function(data) {
+                    $("#tmp-user-mhs").fadeIn(1000);
                     $("#loading-data").fadeOut(500);
                     $("#tmp-user-mhs").html(data);
                 }
