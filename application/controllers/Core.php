@@ -1039,8 +1039,8 @@ class Core extends CI_Controller
     {
         $semester = $_GET['semester'];
         $nim = $_GET['nim'];
-
-        $data = $this->mcore->getKhsMahasiswa($nim, $semester)->result_array();
+        $prodi = $this->mcore->infoMahasiswa($nim)->row_array();
+        $data = $this->mcore->getKhsMahasiswa($nim, $semester, $prodi['id_prodi'])->result_array();
 
         $output = "";
         $i = 1;
