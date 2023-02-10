@@ -189,12 +189,12 @@ class Core_model extends CI_Model
 
     public function select_kolektif_angkatan($angkatan)
     {
-        return $this->db->query("SELECT nim, nama_mahasiswa, nama_program_studi, id_mahasiswa, id_periode FROM master_mahasiswa where id_periode like '%$angkatan%' order by nim");
+        return $this->db->query("SELECT mhs.nim, mhs.nama_mahasiswa, mhs.id_mahasiswa, mhs.id_periode, p.nama_program_studi FROM master_mahasiswa mhs join master_prodi p on p.id_prodi = mhs.id_prodi where mhs.id_periode like '%$angkatan%' order by mhs.nim");
     }
 
     public function select_kolektif_prodi($angkatan, $prodi)
     {
-        return $this->db->query("SELECT nim, nama_mahasiswa, nama_program_studi, id_mahasiswa, id_periode FROM master_mahasiswa where id_periode like '%$angkatan%' and id_prodi = '$prodi' order by nim");
+        return $this->db->query("SELECT mhs.nim, mhs.nama_mahasiswa, mhs.id_mahasiswa, mhs.id_periode, p.nama_program_studi FROM master_mahasiswa mhs join master_prodi p on p.id_prodi = mhs.id_prodi where mhs.id_periode like '%$angkatan%' and mhs.id_prodi = '$prodi' order by mhs.nim");
     }
 
     public function getDetailNilaiPerkuliahan($id)
@@ -320,13 +320,14 @@ class Core_model extends CI_Model
         return $this->db->query("SELECT perkuliahan_nilai.id_semester, nama_semester from perkuliahan_nilai join master_semester on master_semester.id_semester = perkuliahan_nilai.id_semester where nim = '$nim' group by id_semester");
     }
 
-    public function getKhsMahasiswa($nim, $semester)
+    public function getKhsMahasiswa($nim, $semester, $prodi)
     {
         $this->db->select('*');
         $this->db->from('perkuliahan_nilai');
-        $this->db->join('master_matkuls', 'master_matkuls.id_matkul = perkuliahan_nilai.id_matkul');
+        $this->db->join('master_matkul', 'master_matkul.id_matkul = perkuliahan_nilai.id_matkul');
         $this->db->where('perkuliahan_nilai.nim', $nim);
         $this->db->where('perkuliahan_nilai.id_semester', $semester);
+        $this->db->where('master_matkul.id_prodi', $prodi);
         return $this->db->get();
     }
 

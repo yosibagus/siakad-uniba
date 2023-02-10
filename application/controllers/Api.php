@@ -461,6 +461,38 @@ class Api extends CI_Controller
         echo json_encode($result);
         // $this->db->insert_batch('perkuliahan_nilai', $result);
     }
+
+    public function getNilaiIps()
+    {
+        $mhs = $this->db->get_where('master_mahasiswa', ['id_prodi' => 'd1cc4baf-4926-42da-ac18-63398da29f5a'])->result_array();
+
+        foreach ($mhs as $mhs) {
+            $data = $this->db->query("SELECT nim, id_semester FROM perkuliahan_nilai where nim = '$mhs[nim]' group by id_semester")->result_array();
+            $i = 1;
+            foreach ($data as $get) {
+                $sks = 0.0;
+                $total = 0.0;
+                $val = $this->mcore->getDataKhs($mhs['nim'], $get['id_semester'])->result_array();
+                foreach ($val as $val) {
+                    $index_sks = $val['sks_mata_kuliah'] * $val['nilai_indeks'];
+                    $sks += $val['sks_mata_kuliah'];
+                    $total += $index_sks;
+                }
+
+                $result[] = [
+                    'nim' => $get['nim'],
+                    'id_semester' => $get['id_semester'],
+                    'total_sks' => $sks,
+                    'sks_indeks' => $total,
+                    'ips' => number_format($total / $sks, 2),
+                    'semester' => $i++
+                ];
+            }
+        }
+        // $this->db->insert_batch('perkuliahan_ips', $result);
+
+        echo json_encode($result);
+    }
 }
 
 /* End of file Api.php and path \application\controllers\Api.php */
