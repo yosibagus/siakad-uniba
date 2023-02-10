@@ -299,7 +299,7 @@ class Api extends CI_Controller
 
         // $this->db->insert_batch('perkuliahan_kelas', $result);
 
-        echo json_encode($result);
+        echo json_encode($data);
         // file_put_contents('./assets/getperiode.json', serialize(json_encode($data)));
     }
 
@@ -347,7 +347,7 @@ class Api extends CI_Controller
 
     public function getKrs()
     {
-        $id_prodi = "082a0fda-51c0-4ad1-8bcb-9ca0c72a5040";
+        $id_prodi = "125de1a4-d11b-4e90-b9c6-0c1d89be4a8e";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
@@ -382,7 +382,7 @@ class Api extends CI_Controller
                 'status' => 1
             ];
         }
-        echo json_encode($result);
+        echo json_encode($data);
         // $this->db->insert_batch('perkuliahan_mahasiswa', $result);
         // file_put_contents('./assets/getperiode.json', serialize(json_encode($data)));
     }
