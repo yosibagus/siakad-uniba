@@ -760,16 +760,22 @@ class Core extends CI_Controller
             $output .= '<td class="fw-bold">' . $get['nama_dosen'] . '</td>';
             $output .= '<td>' . $this->mcore->getMahasiswaDosenWali($get['token'])->num_rows() . '</td>';
             $output .= '<td>
-                <span id="" class="bg-soft-info rounded-pill iq-custom-badge hapus-dosen" style="font-size: 12px; cursor:pointer;">Detail
-                    <button class="btn btn-info btn-sm rounded-pill iq-cancel-btn" style="padding:1px;">
-                    <i class="bi bi-search"></i>
-                    </button>
-                </span>
+            <a href="' . base_url('#/detail_wali/') . $get['token'] . '" class="btn btn-info btn-sm rounded-pill iq-cancel-btn" style="padding:1px;">
+            <i class="bi bi-search"></i> Detail
+            </a>
             </td>';
             $output .= '</tr>';
         }
 
         echo $output;
+    }
+
+    public function info_dosen()
+    {
+        $token = $_GET['token'];
+        $data = $this->mcore->getinfoDosen($token)->row_array();
+
+        echo json_encode($data);
     }
 
     public function getDetailWaliKolektif()
@@ -1041,6 +1047,9 @@ class Core extends CI_Controller
         $nim = $_GET['nim'];
         $prodi = $this->mcore->infoMahasiswa($nim)->row_array();
         $data = $this->mcore->getKhsMahasiswa($nim, $semester, $prodi['id_prodi'])->result_array();
+
+        echo json_encode($data);
+        die();
 
         $output = "";
         $i = 1;
