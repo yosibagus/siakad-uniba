@@ -325,6 +325,7 @@ class Core_model extends CI_Model
         $this->db->select('*');
         $this->db->from('perkuliahan_nilai');
         $this->db->join('master_matkul', 'master_matkul.id_matkul = perkuliahan_nilai.id_matkul');
+        $this->db->join('master_kurikulum', 'master_kurikulum.id_kurikulum = master_matkul.id_kurikulum');
         $this->db->where('perkuliahan_nilai.nim', $nim);
         $this->db->where('perkuliahan_nilai.id_semester', $semester);
         $this->db->where('master_matkul.id_prodi', $prodi);
