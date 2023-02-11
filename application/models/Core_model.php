@@ -343,6 +343,11 @@ class Core_model extends CI_Model
 
         return $data['jumlahSks'];
     }
+
+    public function getinfoDosen($token)
+    {
+        return $this->db->query("SELECT master_dosen.nama_dosen, master_dosen.nidn, master_dosen.nik, master_dosen.id_dosen from master_dosen join dosen_wali on dosen_wali.id_dosen = master_dosen.id_dosen where dosen_wali.token = '$token'");
+    }
 }
 
   

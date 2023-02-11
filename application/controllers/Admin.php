@@ -169,6 +169,12 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/khs/khs_detail');
     }
+
+    public function detail_wali($token)
+    {
+        $data['token'] = $token;
+        $this->load->view('admin/dosen_wali/detail_wali', $data);
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */
