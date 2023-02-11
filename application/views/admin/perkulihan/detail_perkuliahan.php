@@ -1,53 +1,3 @@
-<!-- <div style="position: relative; left:50%; right:50%;">
-    <img id="loading" width="100" src="<?= base_url('assets/loading2.gif') ?>" alt="">
-</div> -->
-
-<style>
-    .loading-layar {
-        display: inline-block;
-        position: relative;
-        width: 80px;
-        height: 80px;
-    }
-
-    .loading-layar div {
-        display: inline-block;
-        position: absolute;
-        left: 8px;
-        width: 16px;
-        background: #3a57e8;
-        animation: loading-layar 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-    }
-
-    .loading-layar div:nth-child(1) {
-        left: 8px;
-        animation-delay: -0.24s;
-    }
-
-    .loading-layar div:nth-child(2) {
-        left: 32px;
-        animation-delay: -0.12s;
-    }
-
-    .loading-layar div:nth-child(3) {
-        left: 56px;
-        animation-delay: 0;
-    }
-
-    @keyframes loading-layar {
-        0% {
-            top: 8px;
-            height: 64px;
-        }
-
-        50%,
-        100% {
-            top: 24px;
-            height: 32px;
-        }
-    }
-</style>
-
 <div class="row justify-content-center">
     <div class="col-md-2">
         <div class="loading-layar">
@@ -70,10 +20,14 @@
         tampil_data();
 
         function tampil_data() {
+            var token = "<?= $token ?>";
             $.ajax({
                 type: "GET",
-                url: '<?= base_url("core/perkuliahan_kelas_detail?token=") . $_GET['token']; ?>',
+                url: '<?= base_url("core/perkuliahan_kelas_detail"); ?>',
                 dataType: 'html',
+                data: {
+                    token: token
+                },
                 success: function(data) {
                     $(".loading-layar").fadeOut(1000, function() {
                         $(".loading-layar").remove();

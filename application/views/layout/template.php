@@ -5,9 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SIAKAD - UNIBA MADURA</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="Iqonic Design">
+    <meta name="description" content="Sistem Informasi Akademik Universitas Bahaudin Mudhary Madura">
+    <meta name="keywords" content="SIAKAD UNIBA MADURA">
     <meta name="DC.title" content="">
     <meta name="author" content="Yosi Bagus Sadar Rasuli">
 
@@ -18,33 +17,6 @@
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/vendor/flatpickr/dist/flatpickr.min.css" />
 
     <link rel="stylesheet" href="<?= base_url('assets/admin/') ?>assets/vendor/sheperd/dist/css/sheperd.css">
-
-    <!-- <script async>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            '<?= base_url('assets/') ?>connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '426660348535524');
-        fbq('track', 'PageView');
-        fbq('trackCustom', 'hopeui-pro-preview', {
-            product: 'HopeUI Pro HTML'
-        });
-    </script> -->
-
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4D1H8GTEHY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -73,13 +45,56 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/fh-3.2.4/r-2.3.0/sp-2.0.2/sl-1.4.0/datatables.min.css" />
     <link rel="stylesheet" href="<?= base_url('assets/jquery-toast/dist/jquery.toast.min.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
         .select2-container--default .select2-selection--single .select2-selection__arrow,
         .select2-container--default .select2-selection--single .select2-selection__clear,
         .select2-container--classic .select2-selection--single .select2-selection__arrow {
             height: 100%;
             padding-right: 20px;
+        }
+
+        .loading-layar {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .loading-layar div {
+            display: inline-block;
+            position: absolute;
+            left: 8px;
+            width: 16px;
+            background: #3a57e8;
+            animation: loading-layar 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+
+        .loading-layar div:nth-child(1) {
+            left: 8px;
+            animation-delay: -0.24s;
+        }
+
+        .loading-layar div:nth-child(2) {
+            left: 32px;
+            animation-delay: -0.12s;
+        }
+
+        .loading-layar div:nth-child(3) {
+            left: 56px;
+            animation-delay: 0;
+        }
+
+        @keyframes loading-layar {
+            0% {
+                top: 8px;
+                height: 64px;
+            }
+
+            50%,
+            100% {
+                top: 24px;
+                height: 32px;
+            }
         }
     </style>
 

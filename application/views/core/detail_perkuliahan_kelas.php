@@ -242,7 +242,7 @@
                                             &nbsp;
                                             &nbsp;
                                             <button type="submit" class="btn btn-info btn-sm"><i class="bi bi-check-lg"></i> Tambah Mahasiswa</button>
-                                            <a href="#kolektif_mahasiswa?token=<?= $detail['token'] ?>" class="btn btn-info btn-sm"><i class="bi bi-list-check"></i> Input Kolektif</a>
+                                            <a href="#kolektif_mahasiswa/<?= $detail['token'] ?>" class="btn btn-info btn-sm"><i class="bi bi-list-check"></i> Input Kolektif</a>
                                         </td>
                                     </tr>
                                 </table>

@@ -348,6 +348,16 @@ class Core_model extends CI_Model
     {
         return $this->db->query("SELECT master_dosen.nama_dosen, master_dosen.nidn, master_dosen.nik, master_dosen.id_dosen from master_dosen join dosen_wali on dosen_wali.id_dosen = master_dosen.id_dosen where dosen_wali.token = '$token'");
     }
+
+    public function getDetailWali($token)
+    {
+        $this->db->select('master_mahasiswa.nim, master_mahasiswa.nama_mahasiswa, master_prodi.nama_program_studi');
+        $this->db->from('perkuliahan_wali');
+        $this->db->join('master_mahasiswa', 'master_mahasiswa.nim = perkuliahan_wali.nim');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi');
+        $this->db->where('perkuliahan_wali.token', $token);
+        return $this->db->get();
+    }
 }
 
   

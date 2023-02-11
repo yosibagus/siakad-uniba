@@ -10,7 +10,7 @@
                         <button class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-check-lg"></i> Simpan</button>
                     </div>
                     <div class="p-2 bd-highlight">
-                        <a href="#detail_perkuliahan?token=<?= $detail['token'] ?>" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
+                        <a href="#detail_perkuliahan/<?= $detail['token'] ?>" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
                     </div>
                 </div>
                 <div class="row">
@@ -96,9 +96,7 @@
             placeholder: 'Pilih Prodi',
             allowClear: true
         });
-    });
 
-    $(document).ready(function() {
         var app = {
             show: function() {
                 $.ajax({
@@ -121,13 +119,8 @@
         }
         app.show();
         app.tampil();
-        // $(document).on("change", "#id_gedung", app.tampil)
-    })
-</script>
 
-<!-- on change data angkatan & prodi -->
-<script>
-    $(document).ready(function() {
+        // <!-- on change data angkatan & prodi -->
         $("#form-select").on('change', '#angkatan, #prodi', function() {
             var angkatan = $("#angkatan").val();
             var prodi = $("#prodi").val();
@@ -146,13 +139,9 @@
                     $("#tmp-mhs").html(data);
                 }
             })
-        })
-    })
-</script>
+        });
 
-<!-- input mahasiswa krs -->
-<script>
-    $(document).ready(function() {
+        // <!-- input mahasiswa krs -->
         $("#form-kolektif").on('submit', function(e) {
             e.preventDefault();
             $.ajax({
@@ -160,7 +149,6 @@
                 url: "<?= base_url('core/input_krs') ?>",
                 data: $(this).serialize(),
                 success: function(data) {
-                    // console.log(data);
                     $.toast({
                         heading: 'Success',
                         text: 'Mahasiswa berhasil ditambahkan',
@@ -169,9 +157,9 @@
                         position: 'top-right'
                     });
 
-                    window.location.href = '<?= base_url('#detail_perkuliahan?token=' . $detail['token']) ?>';
+                    window.location.href = '<?= base_url('#detail_perkuliahan/' . $detail['token']) ?>';
                 }
             });
-        })
+        });
     })
 </script>

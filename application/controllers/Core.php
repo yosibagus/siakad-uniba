@@ -150,7 +150,7 @@ class Core extends CI_Controller
         foreach ($results as $result) {
             $row = array();
             $row[] = ++$no;
-            $row[] = '<a href="' . base_url('#/khs_mhs?id=') . $result->nim . '">' . $result->nama_mahasiswa . '</a>';
+            $row[] = '<a href="' . base_url('#/khs_mhs/') . $result->nim . '">' . $result->nama_mahasiswa . '</a>';
             $row[] = $result->nim;
             $row[] = $result->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan';
             $row[] = $result->nama_agama;
@@ -186,7 +186,7 @@ class Core extends CI_Controller
             $row = array();
             $row[] = ++$no;
             $row[] = $result->semester_perkuliahan;
-            $row[] = '<a href="' . base_url('#detail_perkuliahan?token=') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
+            $row[] = '<a href="' . base_url('#detail_perkuliahan/') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
             $row[] = $result->nama_mata_kuliah;
             $row[] = $result->nama_kelas;
             $row[] = $result->kuota_kelas == 0 ? "Tidak di set" : $result->kuota_kelas;
@@ -431,7 +431,7 @@ class Core extends CI_Controller
             $output .= '<td class="text-center">' . $i++ . '</td>';
             $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
-            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
             $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
             $output .= '</tr>';
         }
@@ -442,13 +442,11 @@ class Core extends CI_Controller
     public function input_krs()
     {
         $id_mahasiswa = $_POST['id_mahasiswa'];
-        $semester_aktif = $this->mcore->getSemesterAktif();
         $i = 0;
         foreach ($id_mahasiswa as $get) {
             $data[] = [
                 'id_perkuliahan_kelas' => $this->input->post('id_perkuliahan_kelas'),
                 'nim' => $_POST['id_mahasiswa'][$i],
-                'semester_perkuliahan' => $semester_aktif,
                 'status' => 1
             ];
             $i++;
@@ -731,7 +729,7 @@ class Core extends CI_Controller
         $i = 1;
         foreach ($data as $get) {
             $output .= '<tr>';
-            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="text-center" width="10">' . $i++ . '</td>';
             $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
             $output .= '<td>' . $get['nama_program_studi'] . '</td>';
@@ -750,18 +748,17 @@ class Core extends CI_Controller
         $i = 1;
         foreach ($data as $get) {
             $output .= '<tr>';
-            $output .= '<td class="text-center">' . $i++ . '</td>';
-            $output .= '<td class="text-center">
-            <a href="javascript:void(0);" class="btn btn-outline-danger rounded-circle btn-icon btn-sm p-2">
-            <span class="btn-inner">
-            <i class="bi bi-trash" style="font-size:11px;"></i>
-            </span>                            
-            </a></td>';
+            $output .= '<td class="text-center" width="10">' . $i++ . '</td>';
             $output .= '<td class="fw-bold">' . $get['nama_dosen'] . '</td>';
             $output .= '<td>' . $this->mcore->getMahasiswaDosenWali($get['token'])->num_rows() . '</td>';
             $output .= '<td>
             <a href="' . base_url('#/detail_wali/') . $get['token'] . '" class="btn btn-info btn-sm rounded-pill iq-cancel-btn" style="padding:1px;">
             <i class="bi bi-search"></i> Detail
+            </a>
+            <a href="javascript:void(0);" class="btn btn-outline-danger rounded-circle btn-icon btn-sm p-2">
+            <span class="btn-inner">
+            <i class="bi bi-trash" style="font-size:11px;"></i>
+            </span>                            
             </a>
             </td>';
             $output .= '</tr>';
@@ -776,6 +773,24 @@ class Core extends CI_Controller
         $data = $this->mcore->getinfoDosen($token)->row_array();
 
         echo json_encode($data);
+    }
+
+    public function data_detail_wali()
+    {
+        $token = $_GET['token'];
+        $data = $this->mcore->getDetailWali($token)->result_array();
+        $output = "";
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td>' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
     }
 
     public function getDetailWaliKolektif()
@@ -1047,10 +1062,6 @@ class Core extends CI_Controller
         $nim = $_GET['nim'];
         $prodi = $this->mcore->infoMahasiswa($nim)->row_array();
         $data = $this->mcore->getKhsMahasiswa($nim, $semester, $prodi['id_prodi'])->result_array();
-
-        echo json_encode($data);
-        die();
-
         $output = "";
         $i = 1;
         $total = 0.0;

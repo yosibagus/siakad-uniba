@@ -12,19 +12,27 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table id="tableWali" class="display expandable-table table table-striped table-sm dataTable no-footer">
-                    <thead>
-                        <tr>
-                            <th width="10">No.</th>
-                            <th width="10"></th>
-                            <th>Nama</th>
-                            <th>Jumlah Mahasiswa</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tmp-dosen-wali"></tbody>
-                </table>
+            <div class="text-center" id="loader">
+                <div class="loading-layar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="content-utama" style="display: none;">
+                <div class="table-responsive">
+                    <table id="tableWali" class="display expandable-table table table-sm">
+                        <thead>
+                            <tr>
+                                <th width="10">No.</th>
+                                <th>Nama</th>
+                                <th>Jumlah Mahasiswa</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tmp-dosen-wali"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -43,6 +51,10 @@
                 async: false,
                 dataType: "html",
                 success: function(data) {
+                    $("#loader").fadeOut(1000, function() {
+                        $("#loader").remove();
+                        $("#content-utama").fadeIn(800);
+                    });
                     $("#tmp-dosen-wali").html(data);
                 }
             })

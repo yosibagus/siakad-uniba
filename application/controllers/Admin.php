@@ -89,14 +89,15 @@ class Admin extends CI_Controller
         $this->load->view('admin/perkulihan/kelas_perkuliahan_tambah', $data);
     }
 
-    public function detail_perkuliahan()
+    public function detail_perkuliahan($token)
     {
-        $this->load->view('admin/perkulihan/detail_perkuliahan');
+        $data['token'] = $token;
+        $this->load->view('admin/perkulihan/detail_perkuliahan', $data);
     }
 
-    public function kolektif_mahasiswa()
+    public function kolektif_mahasiswa($token)
     {
-        $token = $_GET['token'];
+        // $token = $_GET['token'];
         $this->load->model('Core_model', 'mcore');
         $data['detail'] = $this->mcore->getKelasPerkuliahanDetail($token)->row_array();
         $this->load->view('admin/perkulihan/kolektif_mahasiswa', $data);
@@ -165,9 +166,10 @@ class Admin extends CI_Controller
         $this->load->view('admin/setting/tema');
     }
 
-    public function khs_mhs()
+    public function khs_mhs($nim)
     {
-        $this->load->view('admin/khs/khs_detail');
+        $data['nim'] = $nim;
+        $this->load->view('admin/khs/khs_detail', $data);
     }
 
     public function detail_wali($token)

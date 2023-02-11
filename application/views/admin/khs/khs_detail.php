@@ -77,7 +77,7 @@
             placeholder: 'Pilih Semester',
             allowClear: true
         });
-        var nim = "<?= $_GET['id'] ?>";
+        var nim = "<?= $nim ?>";
         var app = {
             show: function() {
                 $.ajax({
