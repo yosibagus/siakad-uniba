@@ -345,5 +345,5 @@ class Core_model extends CI_Model
     }
 }
 
-
+  
 /* End of file Core_model.php and path \application\models\Core_model.php */
