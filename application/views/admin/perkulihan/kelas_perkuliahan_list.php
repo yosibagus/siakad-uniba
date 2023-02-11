@@ -76,8 +76,8 @@
             "order": [],
             "fixedHeader": true,
             "lengthMenu": [
-                [20, 50, 100, -1],
-                [20, 50, 100, "All"]
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "All"]
             ],
             "ajax": {
                 "url": "<?= base_url('core/data_perkuliahan') ?>",

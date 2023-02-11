@@ -6,14 +6,16 @@
                 <span>Digunakan untuk melakukan validasi KRS mahasiswa oleh dosen wali</span>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <!-- <a href="#/data_wali" class="text-center btn btn-primary btn-sm">
-                    <i class="bi bi-list-task"></i>
-                    Daftar Dosen
-                </a> -->
             </div>
         </div>
-        <div class="card-body">
-            <div id="peringatan"></div>
+        <div class="text-center" id="loader">
+            <div class="loading-layar">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="card-body" id="content-utama" style="display:none;">
             <div class="table-responsive">
                 <table class="display table table-bordered table-sm text-black table-hover">
                     <thead>
@@ -44,6 +46,10 @@
             dataType: "html",
             success: function(data) {
                 $("#tmp-mhs-wali").html(data);
+                $("#loader").fadeOut(1000, function() {
+                    $("#loader").remove();
+                    $("#content-utama").fadeIn(800);
+                });
             }
         })
 
