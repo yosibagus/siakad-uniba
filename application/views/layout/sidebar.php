@@ -58,6 +58,8 @@
                 //akademik
                 $this->load->view('layout/menu/akademik/akademik_header');
                 $this->load->view('layout/menu/akademik/akademik_sub_mahasiswa');
+                $this->load->view('layout/menu/akademik/akademik_sub_perkuliahan');
+
                 $this->load->view('layout/menu/akademik/akademik_sub_validasi_krs');
             endif;
             ?>

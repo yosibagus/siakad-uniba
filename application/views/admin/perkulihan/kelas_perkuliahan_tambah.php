@@ -39,7 +39,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
                             <label for="semester_perkuliahan">Semester <span class="text-danger">*</span></label>
-                            <input required type="text" value="<?= $semester ?>" disabled class="form-control form-ku" name="semester_perkuliahan" id="semester_perkuliahan">
+                            <input required type="text" value="<?= $semester ?>" readonly class="form-control form-ku" name="semester_perkuliahan" id="semester_perkuliahan">
                             <small class="text-danger" id="m-semester"><i></i></small>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                 data: data,
                 dataType: 'json',
                 success: function(data) {
-                    // console.log(data);
+                    console.log(data);
                     $.toast({
                         heading: 'Success',
                         text: 'Data Berhasil Ditambahkan',
@@ -155,7 +155,7 @@
                         position: 'top-right'
                     })
                     // $('.toast').toast('show');
-                    window.location.href = '<?= base_url('#detail_perkuliahan?token=') ?>' + data.token;
+                    window.location.href = '<?= base_url('#detail_perkuliahan/') ?>' + data.token;
                 }
             });
         })

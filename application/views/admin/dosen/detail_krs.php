@@ -40,7 +40,7 @@
 
     $(document).ready(function() {
 
-        var nim = "<?= $_GET['as'] ?>";
+        var nim = "<?= $nim ?>";
 
         $.ajax({
             type: "GET",

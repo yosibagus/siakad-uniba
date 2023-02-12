@@ -170,9 +170,17 @@ class Core extends CI_Controller
         $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 
+    public function mencoba()
+    {
+        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
+        $data = $this->mperkuliahan->mencoba()->result_array();
+
+        echo json_encode($data);
+    }
+
     public function data_perkuliahan()
     {
-        error_reporting(0);
+        // error_reporting(0);
         $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
         $results = $this->mperkuliahan->getDataPerkuliahan();
         $data = [];
@@ -180,7 +188,7 @@ class Core extends CI_Controller
 
         foreach ($results as $result) {
 
-            $dosen = $this->mcore->getDosenPerkuliahan($result->id_perkuliahan_kelas)->row();
+            // $dosen = $this->mcore->getDosenPerkuliahan($result->id_perkuliahan_kelas)->row();
             $jumlah = $this->mcore->getJumlahMhsKelas($result->id_perkuliahan_kelas);
 
             $row = array();
@@ -191,7 +199,7 @@ class Core extends CI_Controller
             $row[] = $result->nama_kelas;
             $row[] = $result->kuota_kelas == 0 ? "Tidak di set" : $result->kuota_kelas;
             $row[] = $jumlah;
-            $row[] = $dosen->nama_dosen;
+            $row[] = $result->nama_dosen;
             $row[] = $result->nama_ruangan == "" ? "Tidak di set" : $result->nama_ruangan;
             $row[] = $result->hari == "" ? "Tidak di set" : $result->hari . ", " . $result->jam_awal . '-' . $result->jam_akhir;
             $data[] = $row;
@@ -261,7 +269,8 @@ class Core extends CI_Controller
             'token' => $token,
             'id_prodi' => $this->input->post('id_prodi'),
             'id_matkul' => $this->input->post('id_matkul'),
-            'semester_perkuliahan' => $this->input->post('semester_perkuliahan'),
+            'id_semester' => 20222,
+            'semester_perkuliahan' => '2022/2023 Genap',
             'id_ruangan' => $this->input->post('id_ruangan'),
             'nama_kelas' => $this->input->post('nama_kelas'),
             'hari' => $this->input->post('hari'),
@@ -933,7 +942,7 @@ class Core extends CI_Controller
             $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
             $output .= '<td style="text-align: right;">' . (int) $krs['totalSks'] . ' SKS</td>';
-            $output .= '<td class="text-center"><a href="#/detail_krs?as=' . $get['nim'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
+            $output .= '<td class="text-center"><a href="#/detail_krs/' . $get['nim'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
             $output .= '<td>' . $get['nama_status_mahasiswa'] . '</td>';
             $output .= '<td></td>';
             $output .= '</tr>';
@@ -1089,6 +1098,31 @@ class Core extends CI_Controller
             <td colspan="7" align="right"><strong>IPS ( Indeks Prestasi Semester )</strong></td>
             <th style="text-align:right">' . number_format($total / $this->mcore->getJumlahKhs($nim, $semester), 2) . '</th>
         </tr>';
+        echo $output;
+    }
+
+    public function data_perkuliahan_kelas_dosen()
+    {
+        $dosen = $this->session->userdata('id_user');
+        $data = $this->mcore->getKelasPerkuliahanDosen($dosen)->result_array();
+
+        $output = "";
+        $i = 1;
+
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $output .= '<td>' . $i++ . '</td>';
+            $output .= '<td>' . $get['semester_perkuliahan'] . '</td>';
+            $output .= '<td>' . $get['kode_mata_kuliah'] . '</td>';
+            $output .= '<td>' . $get['nama_mata_kuliah'] . '</td>';
+            $output .= '<td>' . $get['nama_kelas'] . '</td>';
+            $output .= '<td>' . $get['kuota_kelas'] . '</td>';
+            $output .= '<td></td>';
+            $output .= '<td>' . $get['nama_ruangan'] . '</td>';
+            $output .= '<td>' . $get['hari'] . '</td>';
+            $output .= '</tr>';
+        }
+
         echo $output;
     }
 }

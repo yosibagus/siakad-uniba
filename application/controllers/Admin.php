@@ -156,9 +156,10 @@ class Admin extends CI_Controller
         $this->load->view('admin/dosen/validasi_krs');
     }
 
-    public function detail_krs()
+    public function detail_krs($id)
     {
-        $this->load->view('admin/dosen/detail_krs');
+        $data['nim'] = $id;
+        $this->load->view('admin/dosen/detail_krs', $data);
     }
 
     public function setting_tema()
@@ -176,6 +177,11 @@ class Admin extends CI_Controller
     {
         $data['token'] = $token;
         $this->load->view('admin/dosen_wali/detail_wali', $data);
+    }
+
+    public function kelas_perkuliahan_order()
+    {
+        $this->load->view('admin/perkuliahan/kelas_perkuliahan_order');
     }
 }
 
