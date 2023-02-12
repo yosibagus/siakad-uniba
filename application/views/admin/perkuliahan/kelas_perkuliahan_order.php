@@ -17,7 +17,7 @@
         </div>
         <div class="card-body" id="content-utama" style="display: none;">
             <div class="table-responsive">
-                <table id="tablePerkuliahanDosen" class="display table table-bordered table-sm text-black table-hover">
+                <table id="tablePerkuliahanDosen" class="display table table-sm text-black w-100">
                     <thead>
                         <tr class="bg-primary text-white">
                             <th width="10">No</th>
@@ -44,12 +44,44 @@
         $.ajax({
             type: "GET",
             url: "<?= base_url('core/data_perkuliahan_kelas_dosen') ?>",
-            dataType: "html",
+            dataType: "json",
             success: function(data) {
-                $("#tmp-kelas-kuliah").html(data);
+                // $("#tmp-kelas-kuliah").html(data);
                 $("#loader").fadeOut(1000, function() {
                     $("#loader").remove();
                     $("#content-utama").fadeIn(800);
+
+                });
+                $("#tablePerkuliahanDosen").dataTable({
+                    data: data,
+                    columns: [{
+                            'data': 'no'
+                        },
+                        {
+                            'data': 'semester_perkuliahan'
+                        },
+                        {
+                            'data': 'kode_mata_kuliah'
+                        },
+                        {
+                            'data': 'nama_mata_kuliah'
+                        },
+                        {
+                            'data': 'nama_kelas'
+                        },
+                        {
+                            'data': 'kuota_kelas'
+                        },
+                        {
+                            'data': 'peserta'
+                        },
+                        {
+                            'data': 'nama_ruangan'
+                        },
+                        {
+                            'data': 'jadwal'
+                        }
+                    ]
                 });
             }
         });

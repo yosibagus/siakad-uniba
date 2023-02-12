@@ -930,7 +930,8 @@ class Core extends CI_Controller
     public function data_dosen_wali_mhs()
     {
         $id = $this->session->userdata('id_user');
-        $data = $this->mcore->getDosenWaliMahasiswa($id)->result_array();
+        $role = $this->session->userdata('role');
+        $data = $this->mcore->getDosenWaliMahasiswa($id, $role)->result_array();
         $output = "";
         $i = 1;
         foreach ($data as $get) {
@@ -1106,24 +1107,22 @@ class Core extends CI_Controller
         $dosen = $this->session->userdata('id_user');
         $data = $this->mcore->getKelasPerkuliahanDosen($dosen)->result_array();
 
-        $output = "";
         $i = 1;
-
         foreach ($data as $get) {
-            $output .= '<tr>';
-            $output .= '<td>' . $i++ . '</td>';
-            $output .= '<td>' . $get['semester_perkuliahan'] . '</td>';
-            $output .= '<td>' . $get['kode_mata_kuliah'] . '</td>';
-            $output .= '<td>' . $get['nama_mata_kuliah'] . '</td>';
-            $output .= '<td>' . $get['nama_kelas'] . '</td>';
-            $output .= '<td>' . $get['kuota_kelas'] . '</td>';
-            $output .= '<td></td>';
-            $output .= '<td>' . $get['nama_ruangan'] . '</td>';
-            $output .= '<td>' . $get['hari'] . '</td>';
-            $output .= '</tr>';
+            $output[] = [
+                'no' => $i++,
+                'semester_perkuliahan' => $get['semester_perkuliahan'],
+                'kode_mata_kuliah' => '<a href="' . base_url('#/detail_nilai_perkuliahan/') . $get['token'] . '">' . $get['kode_mata_kuliah'] . '</a>',
+                'nama_mata_kuliah' => $get['nama_mata_kuliah'],
+                'nama_kelas' => $get['nama_kelas'],
+                'kuota_kelas' => $get['kuota_kelas'],
+                'peserta' => '',
+                'nama_ruangan' => $get['nama_ruangan'],
+                'jadwal' => $get['hari'],
+            ];
         }
 
-        echo $output;
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 }
 

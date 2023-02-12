@@ -256,13 +256,15 @@ class Core_model extends CI_Model
         }
     }
 
-    public function getDosenWaliMahasiswa($id)
+    public function getDosenWaliMahasiswa($id, $role)
     {
         $this->db->select('id_mahasiswa, perkuliahan_wali.nim, nama_mahasiswa, master_mahasiswa.nama_status_mahasiswa, master_mahasiswa.id_prodi');
         $this->db->from('perkuliahan_wali');
         $this->db->join('dosen_wali', 'dosen_wali.token = perkuliahan_wali.token');
         $this->db->join('master_mahasiswa', 'perkuliahan_wali.nim = master_mahasiswa.nim');
-        $this->db->where('dosen_wali.id_dosen', $id);
+        if ($role == "dosen") {
+            $this->db->where('dosen_wali.id_dosen', $id);
+        }
         return $this->db->get();
     }
 
