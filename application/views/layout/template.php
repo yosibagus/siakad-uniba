@@ -45,59 +45,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/fh-3.2.4/r-2.3.0/sp-2.0.2/sl-1.4.0/datatables.min.css" />
     <link rel="stylesheet" href="<?= base_url('assets/jquery-toast/dist/jquery.toast.min.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .select2-container--default .select2-selection--single .select2-selection__arrow,
-        .select2-container--default .select2-selection--single .select2-selection__clear,
-        .select2-container--classic .select2-selection--single .select2-selection__arrow {
-            height: 100%;
-            padding-right: 20px;
-        }
-
-        .loading-layar {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-
-        .loading-layar div {
-            display: inline-block;
-            position: absolute;
-            left: 8px;
-            width: 16px;
-            background: #3a57e8;
-            animation: loading-layar 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-        }
-
-        .loading-layar div:nth-child(1) {
-            left: 8px;
-            animation-delay: -0.24s;
-        }
-
-        .loading-layar div:nth-child(2) {
-            left: 32px;
-            animation-delay: -0.12s;
-        }
-
-        .loading-layar div:nth-child(3) {
-            left: 56px;
-            animation-delay: 0;
-        }
-
-        @keyframes loading-layar {
-            0% {
-                top: 8px;
-                height: 64px;
-            }
-
-            50%,
-            100% {
-                top: 24px;
-                height: 32px;
-            }
-        }
-    </style>
-
+    <link rel="stylesheet" href="<?= base_url('assets/core.css') ?>">
     <script src="<?= base_url('assets/admin/') ?>assets/js/core/libs.min.js"></script>
     <script src="<?= base_url('assets/jquery-validation/dist/jquery.validate.min.js') ?>"></script>
     <script src="<?= base_url('assets/jquery-toast/dist/jquery.toast.min.js'); ?>"></script>
@@ -106,16 +54,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<body class="  ">
-    <!-- loader Start -->
-    <!-- <div id="loading">
-        <div class="loader simple-loader">
-            <div class="loader-body">
-                <img src="https://templates.iqonic.design/hope-ui/pro/html/assets/images/loader.webp" alt="loader" class="light-loader img-fluid w-25" width="200" height="200">
-            </div>
-        </div>
-    </div> -->
-    <!-- loader END -->
+<body class="">
     <aside class="sidebar sidebar-base " id="first-tour" data-toggle="main-sidebar" data-sidebar="responsive">
         <div class="sidebar-header d-flex align-items-center justify-content-start">
             <a href="#home" class="navbar-brand">
@@ -1197,73 +1136,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form action="#">
-                        <h3 class="text-center">Sign Up</h3>
-                        <p class="text-center">Create your Hope UI account</p>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-group me-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-control mb-0" placeholder="Enter First Name" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control mb-0" placeholder="Enter Last Name" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-group me-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control mb-0" placeholder="Enter Email" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Phone No.</label>
-                                <input type="tel" class="form-control mb-0" placeholder="Enter Phone Number" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="form-group me-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control mb-0" placeholder="Enter Password" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control mb-0" placeholder="Enter Confirm Password" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="text-center pb-3">
-                            <input type="checkbox" class="form-check-input" id="customCheck112">
-                            <label class="form-check-label" for="customCheck112">I agree with the terms of use</label>
-                        </div>
-                        <div class="text-center pb-3">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Sign in</button>
-                        </div>
-                        <p class="text-center">Or sign in with other accounts?</p>
-                        <div class="d-flex justify-content-center">
-                            <ul class="list-group list-group-horizontal list-group-flush">
-                                <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="https://templates.iqonic.design/hope-ui/pro/html/assets/images/brands/fb.svg" alt="fb" loading="lazy"></a>
-                                </li>
-                                <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="https://templates.iqonic.design/hope-ui/pro/html/assets/images/brands/gm.svg" alt="gm" loading="lazy"></a>
-                                </li>
-                                <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="https://templates.iqonic.design/hope-ui/pro/html/assets/images/brands/im.svg" alt="im" loading="lazy"></a>
-                                </li>
-                                <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="https://templates.iqonic.design/hope-ui/pro/html/assets/images/brands/li.svg" alt="li" loading="lazy"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="text-center">Already have an Account<a href="#">Sign in</a></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <!-- Plugin Scripts -->
     <!-- Tour plugin Start -->
@@ -1294,45 +1166,9 @@
     <script src="<?= base_url('assets/admin/') ?>assets/js/hope-ui28b5.js?v=2.0.0" defer></script>
     <script src="<?= base_url('assets/admin/') ?>assets/js/hope-uipro28b5.js?v=2.0.0" defer></script>
     <script src="<?= base_url('assets/admin/') ?>assets/js/sidebar28b5.js?v=2.0.0" defer></script>
-    <script>
-        var baseurl = "http://localhost/uniba-siakad/";
-        // var baseurl = "http://192.168.1.30/uniba-siakad/";
-
-        function loadContent(hash) {
-            if (hash == '') {
-                hash = 'home';
-            }
-            $('#main').load(baseurl + 'admin/' + hash);
-        }
-
-        $(window).on('hashchange', function() {
-            loadContent(location.hash.slice(1));
-        });
-
-        var url = window.location.href;
-        var hash = url.substring(url.indexOf("#") + 1);
-
-        if (hash == url) {
-            hash = 'home';
-        }
-
-        $(document).ready(function() {
-            $('#main').load(baseurl + 'admin/' + hash);
-        })
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("li").click(function() {
-                $(".nav-item").removeClass('active');
-                $(this).addClass("active");
-            })
-        })
-    </script>
+    <script src="<?= base_url('assets/core.js') ?>"></script>
 
 
 </body>
-
-<!-- Mirrored from templates.iqonic.design/hope-ui/pro/html/dashboard/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Oct 2022 04:16:33 GMT -->
 
 </html>
