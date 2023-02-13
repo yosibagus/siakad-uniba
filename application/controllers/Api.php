@@ -493,6 +493,39 @@ class Api extends CI_Controller
 
         echo json_encode($result);
     }
+
+    public function getSkalaNilai()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+				"act":"GetListSkalaNilaiProdi",
+				"token" : "' . $this->getToken() . '",
+				"username":"071098",
+				"password":"m4dh4ry"
+			}',
+
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        echo json_encode($data['data']);
+        // file_put_contents('./assets/getSkalaNilai.json', serialize(json_encode($data)));
+        // $this->db->insert_batch('tb_skalanilai', $data['data']);
+    }
 }
 
 /* End of file Api.php and path \application\controllers\Api.php */

@@ -15,9 +15,9 @@
                 <div></div>
             </div>
         </div>
-        <div class="card-body" id="content-utama" style="display:none;">
+        <div class="card-body" id="content-utama" style="display: none">
             <div class="table-responsive">
-                <table class="display table table-bordered table-sm text-black table-hover">
+                <table class="display table table-sm text-black w-100" id="tableValidasiKrs">
                     <thead>
                         <tr class="bg-primary text-white">
                             <th width="10">No</th>
@@ -43,12 +43,36 @@
         $.ajax({
             type: "POST",
             url: "<?= base_url('core/data_dosen_wali_mhs') ?>",
-            dataType: "html",
+            dataType: "json",
             success: function(data) {
-                $("#tmp-mhs-wali").html(data);
                 $("#loader").fadeOut(1000, function() {
                     $("#loader").remove();
                     $("#content-utama").fadeIn(800);
+                });
+                $("#tableValidasiKrs").dataTable({
+                    data: data,
+                    columns: [{
+                            'data': 'no'
+                        },
+                        {
+                            'data': 'nim'
+                        },
+                        {
+                            'data': 'nama_mahasiswa'
+                        },
+                        {
+                            'data': 'totalSks'
+                        },
+                        {
+                            'data': 'detail'
+                        },
+                        {
+                            'data': 'nama_status_mahasiswa'
+                        },
+                        {
+                            'data': 'action'
+                        }
+                    ]
                 });
             }
         })

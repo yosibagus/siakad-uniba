@@ -210,6 +210,17 @@ class Core_model extends CI_Model
         return $this->db->get();
     }
 
+    public function getInputNilaiMahasiswa($id)
+    {
+        $this->db->select('*');
+        $this->db->from('perkuliahan_mahasiswa');
+        $this->db->join('master_mahasiswa', 'master_mahasiswa.nim = perkuliahan_mahasiswa.nim', 'left');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi', 'left');
+
+        $this->db->where('perkuliahan_mahasiswa.id_perkuliahan_kelas', $id);
+        return $this->db->get();
+    }
+
     public function getDataUser()
     {
         return $this->db->get('tb_akun');

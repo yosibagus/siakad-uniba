@@ -500,8 +500,8 @@ class Core extends CI_Controller
 
     public function data_nilai($id)
     {
-        $data = $this->mcore->getDetailNilaiPerkuliahan($id)->result_array();
-
+        // $data = $this->mcore->getDetailNilaiPerkuliahan($id)->result_array();
+        $data = $this->mcore->getInputNilaiMahasiswa($id)->result_array();
         $output = '';
         $i = 1;
         foreach ($data as $get) {
@@ -511,8 +511,8 @@ class Core extends CI_Controller
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
             $output .= '<td>' . $get['nama_program_studi'] . '</td>';
             $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
-            $output .= '<td>' . $get['nilai_angka'] . '</td>';
-            $output .= '<td>' . $get['nilai_huruf'] . '</td>';
+            $output .= '<td><input class="form-control"></td>';
+            $output .= '<td><input class="form-control"></td>';
             $output .= '</tr>';
         }
         echo $output;
@@ -932,23 +932,20 @@ class Core extends CI_Controller
         $id = $this->session->userdata('id_user');
         $role = $this->session->userdata('role');
         $data = $this->mcore->getDosenWaliMahasiswa($id, $role)->result_array();
-        $output = "";
         $i = 1;
         foreach ($data as $get) {
-
             $krs = $this->mcore->hitungSksPengajuanKRS($get['nim'], $get['id_prodi'])->row_array();
-
-            $output .= '<tr>';
-            $output .= '<td class="text-center">' . $i++ . '</td>';
-            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
-            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
-            $output .= '<td style="text-align: right;">' . (int) $krs['totalSks'] . ' SKS</td>';
-            $output .= '<td class="text-center"><a href="#/detail_krs/' . $get['nim'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a></td>';
-            $output .= '<td>' . $get['nama_status_mahasiswa'] . '</td>';
-            $output .= '<td></td>';
-            $output .= '</tr>';
-        }
-        echo $output;
+            $output[] = [
+                'no' => $i++,
+                'nim' => $get['nim'],
+                'nama_mahasiswa' => $get['nama_mahasiswa'],
+                'totalSks' => (int) $krs['totalSks'],
+                'detail' => '<a href="#/detail_krs/' . $get['nim'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Detail KRS</a>',
+                'nama_status_mahasiswa' => $get['nama_status_mahasiswa'],
+                'action' => ''
+            ];
+        };
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 
     public function detail_info_mhs()
