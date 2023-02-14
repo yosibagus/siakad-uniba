@@ -68,6 +68,13 @@
         </div>
     </div>
 
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Keterangan</strong> <br>
+        1. Isilah Semua Kolom Nilai Angka<br>
+        2. Jika ada nilai , maka gantilah dengan. (contoh : 95,5 menjadi 95.5)
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
     vertical-align: top;
