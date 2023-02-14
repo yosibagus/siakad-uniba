@@ -184,6 +184,12 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/perkuliahan/kelas_perkuliahan_order');
     }
+
+    public function ubah_nilai($id)
+    {
+        $data['id_perkuliahan'] = $id;
+        $this->load->view('admin/perkulihan/edit_nilai_perkuliahan', $data);
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

@@ -216,9 +216,15 @@ class Core_model extends CI_Model
         $this->db->from('perkuliahan_mahasiswa');
         $this->db->join('master_mahasiswa', 'master_mahasiswa.nim = perkuliahan_mahasiswa.nim', 'left');
         $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi', 'left');
-
         $this->db->where('perkuliahan_mahasiswa.id_perkuliahan_kelas', $id);
+        $this->db->order_by('perkuliahan_mahasiswa.nim', 'asc');
+
         return $this->db->get();
+    }
+
+    public function getNilaiMahasiswa($id, $nim)
+    {
+        return $this->db->query("SELECT * FROM perkuliahan_nilai where nim = '$nim' and id_perkuliahan_kelas='$id'");
     }
 
     public function getDataUser()

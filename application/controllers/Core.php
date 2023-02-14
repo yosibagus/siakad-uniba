@@ -516,14 +516,48 @@ class Core extends CI_Controller
         $output = '';
         $i = 1;
         foreach ($data as $get) {
-            $output .= '<tr>';
+            $output .= '<tr id="bg-' . $get['nim'] . '">';
             $output .= '<td class="text-center">' . $i++ . '</td>';
             $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
             $output .= '<td>' . $get['nama_program_studi'] . '</td>';
             $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
-            $output .= '<td><input class="form-control" id="nilai_angka[]" name="nilai_angka[]"></td>';
-            $output .= '<td><div id="total"></div></td>';
+            if ($this->mcore->getNilaiMahasiswa($id, $get['nim'])->num_rows() > 0) {
+                $nilai = $this->mcore->getNilaiMahasiswa($id, $get['nim'])->row_array();
+                $output .= '<td width="10%"><input type="text" value="' . $nilai['nilai_angka'] . '" class="form-control" id="nilai_angka[]" name="nilai_angka[]" readonly idmhs="' . $get['nim'] . '"></td>';
+                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . '</div></td>';
+            } else {
+                $output .= '<td width="10%"><input type="text" class="form-control" readonly></td>';
+                $output .= '<td width="15%" class="text-center"></td>';
+            }
+            $output .= '</tr>';
+            $output .= '</tr>';
+        }
+        echo $output;
+    }
+
+    public function data_nilai_ubah($id)
+    {
+        $data = $this->mcore->getInputNilaiMahasiswa($id)->result_array();
+        $output = '';
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr id="bg-' . $get['nim'] . '">';
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+
+            if ($this->mcore->getNilaiMahasiswa($id, $get['nim'])->num_rows() > 0) {
+                $nilai = $this->mcore->getNilaiMahasiswa($id, $get['nim'])->row_array();
+                $output .= '<td width="10%"><input type="text" value="' . $nilai['nilai_angka'] . '" class="form-control" id="nilai_angka[]" name="nilai_angka[]" idmhs="' . $get['nim'] . '"></td>';
+                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . '</div></td>';
+            } else {
+                $output .= '<td width="10%"><input type="text" class="form-control" id="nilai_angka[]" name="nilai_angka[]" idmhs="' . $get['nim'] . '"></td>';
+                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '"></div></td>';
+            }
+
             $output .= '</tr>';
         }
         echo $output;

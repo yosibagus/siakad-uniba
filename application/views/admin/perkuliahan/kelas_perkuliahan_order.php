@@ -8,6 +8,7 @@
             <div class="d-flex align-items-center gap-3">
             </div>
         </div>
+        <hr>
         <div class="text-center" id="loader">
             <div class="loading-layar">
                 <div></div>
@@ -15,7 +16,7 @@
                 <div></div>
             </div>
         </div>
-        <div class="card-body" id="content-utama" style="display: none;">
+        <div class="card-body pt-1" id="content-utama" style="display: none;">
             <div class="table-responsive">
                 <table id="tablePerkuliahanDosen" class="display table table-sm text-black w-100">
                     <thead>
