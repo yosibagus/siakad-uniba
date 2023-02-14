@@ -18,7 +18,7 @@
 
         function tampil_data() {
             $.ajax({
-                url: '<?= base_url("core/detail_kurikulum/") . $_GET['id']; ?>',
+                url: '<?= base_url("core/detail_kurikulum/") . $id; ?>',
                 async: false,
                 dataType: 'html',
                 success: function(data) {

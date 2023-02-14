@@ -47,9 +47,10 @@ class Admin extends CI_Controller
         $this->load->view('admin/kurikulum/kurikulum_list');
     }
 
-    public function kurikulum_detail()
+    public function kurikulum_detail($id)
     {
-        $this->load->view('admin/kurikulum/kurikulum_detail');
+        $data['id'] = $id;
+        $this->load->view('admin/kurikulum/kurikulum_detail', $data);
     }
 
     public function gedung()

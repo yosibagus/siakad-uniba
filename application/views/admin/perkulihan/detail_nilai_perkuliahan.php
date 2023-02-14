@@ -54,6 +54,8 @@
     vertical-align: top;
     background: #fff; color:#3c3c3c;">
         <div class="card-body px-0">
+            <!-- <input type="text" name="nilai_angkas" id="nilai_angkas">
+            <input type="text" name="total" id="total"> -->
             <div class="table-responsive">
                 <table class="table table-bordered" id="table-nilai-mhs-krs">
                     <thead>
@@ -79,6 +81,12 @@
 </div>
 
 <script>
+    $("#nilai_angka").keyup(function() {
+        var value = $(this).val();
+        console.log(value);
+        $("#total").text(value);
+    }).keyup();
+
     $(document).ready(function() {
 
         tampil();

@@ -88,8 +88,19 @@ class Core extends CI_Controller
 
     public function data_kurikulum()
     {
-        $data['kurikulum'] = $this->mcore->getAllMulti('master_kurikulum')->result_array();
-        $this->load->view('core/table_kurikulum', $data);
+        $data = $this->mcore->getAllMulti('master_kurikulum')->result_array();
+        // $this->load->view('core/table_kurikulum', $data);
+        $i = 1;
+        foreach ($data as $get) {
+            $output[] = [
+                'no' => $i++,
+                'nama_kurikulum' => '<a href="' . base_url('#/kurikulum_detail/') . $get['id_kurikulum'] . '">' . $get['nama_kurikulum'] . '</a>',
+                'nama_program_studi' => $get['nama_program_studi'],
+                'semester_mulai_berlaku' => $get['semester_mulai_berlaku']
+            ];
+        }
+
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 
     public function detail_kurikulum($id)
@@ -511,8 +522,8 @@ class Core extends CI_Controller
             $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
             $output .= '<td>' . $get['nama_program_studi'] . '</td>';
             $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
-            $output .= '<td><input class="form-control"></td>';
-            $output .= '<td><input class="form-control"></td>';
+            $output .= '<td><input class="form-control" id="nilai_angka[]" name="nilai_angka[]"></td>';
+            $output .= '<td><div id="total"></div></td>';
             $output .= '</tr>';
         }
         echo $output;
@@ -520,30 +531,6 @@ class Core extends CI_Controller
 
     public function data_user()
     {
-        // $data = $this->mcore->getDataUser()->result_array();
-        // $output = '';
-        // $i = 1;
-        // $akun = '';
-
-        // foreach ($data as $get) {
-
-        //     if ($get['status_akun'] > 0) {
-        //         $akun = '<i class="bi bi-check-circle-fill text-success"></i>';
-        //     } else {
-        //         $akun = "tidak aktif";
-        //     }
-
-        //     $output .= '<tr>';
-        //     $output .= '<td class="text-center">' . $i++ . '</td>';
-        //     $output .= '<td class="fw-bold">' . $akun . " " . $get['username_akun'] . '</td>';
-        //     $output .= '<td>' . $get['nama_akun'] . '</td>';
-        //     $output .= '<td>' . $get['hint'] . '</td>';
-        //     $output .= '<td class="text-capitalize">' . $get['role'] . '</td>';
-        //     $output .= '</tr>';
-        // }
-        // echo $output;
-
-
         $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
         $results = $this->mperkuliahan->getDataUser();
         $data = [];
@@ -556,9 +543,6 @@ class Core extends CI_Controller
             $row[] = $result->nama_akun;
             $row[] = $result->hint;
             $row[] = ucfirst($result->role);
-            //$row[] = $result->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan';
-            // $row[] = $result->nama_program_studi;
-            // $row[] = substr($result->nama_periode_masuk, 0, 4);
             $data[] = $row;
         }
 

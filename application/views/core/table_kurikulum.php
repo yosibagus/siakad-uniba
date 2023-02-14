@@ -1,7 +1,8 @@
 <div class="card">
     <div class="card-body">
         <h4>Data Kurikulum</h4>
-        <div class="table-responsive">
+
+        <div class="table-responsive" style="display:none;" id="content-utama">
             <table id="myTable" class="display expandable-table table table-striped table-sm" style="width:100%">
                 <thead>
                     <tr class="bg-primary text-white">
