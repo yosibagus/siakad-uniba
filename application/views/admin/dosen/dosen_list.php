@@ -35,26 +35,6 @@
 
         $("#halaman-dosen").fadeIn(800);
 
-        // tampil_data();
-
-        // $('#myTable').DataTable({
-        //     "lengthMenu": [
-        //         [20, 50, 100, -1],
-        //         [20, 50, 100, "All"]
-        //     ],
-        // });
-
-        // function tampil_data() {
-        //     $.ajax({
-        //         url: '<?= base_url("core/data_dosen"); ?>',
-        //         async: false,
-        //         dataType: 'html',
-        //         success: function(data) {
-        //             $("#tmp-dosen").html(data);
-        //         }
-        //     })
-        // }
-
         $('#tableDosen').DataTable({
             "responsive": true,
             "processing": true,

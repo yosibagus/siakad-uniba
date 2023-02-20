@@ -69,6 +69,7 @@
 
 <script>
     $(document).ready(function() {
+        $("#judul").html("SIAKAD - Kelas Perkuliahan");
         $('#table-perkuliahan').DataTable({
             "responsive": true,
             "processing": true,

@@ -299,7 +299,7 @@ class Api extends CI_Controller
 
         // $this->db->insert_batch('perkuliahan_kelas', $result);
 
-        echo json_encode($data);
+        echo json_encode($result);
         // file_put_contents('./assets/getperiode.json', serialize(json_encode($data)));
     }
 
@@ -345,9 +345,9 @@ class Api extends CI_Controller
         // $this->db->insert_batch('perkuliahan_dosen', $result);
     }
 
-    public function getKrs()
+    public function getKrs($id_prodi)
     {
-        $id_prodi = "125de1a4-d11b-4e90-b9c6-0c1d89be4a8e";
+        // $id_prodi = "125de1a4-d11b-4e90-b9c6-0c1d89be4a8e";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
@@ -382,38 +382,9 @@ class Api extends CI_Controller
                 'status' => 1
             ];
         }
-        echo json_encode($data);
+        echo json_encode($result);
         // $this->db->insert_batch('perkuliahan_mahasiswa', $result);
         // file_put_contents('./assets/getperiode.json', serialize(json_encode($data)));
-    }
-
-    public function getWilayah()
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-                "act":"GetNegara",
-                "token" : "' . $this->getToken() . '",
-                "username":"071098",
-                "password":"m4dh4ry"
-            }',
-
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
-
-        echo $response = curl_exec($curl);
-        curl_close($curl);
-        $data = json_decode($response, true);
     }
 
     public function getNilai($id_prodi)

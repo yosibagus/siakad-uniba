@@ -40,11 +40,11 @@
 
 <script>
     $(document).ready(function() {
-
         tampilData();
 
         $('#tableWali').DataTable();
 
+        // $("#judul").html("SIAKAD - Data Kurikulum");
         function tampilData() {
             $.ajax({
                 url: "<?= base_url('core/data_dosen_wali') ?>",
@@ -55,6 +55,7 @@
                         $("#loader").remove();
                         $("#content-utama").fadeIn(800);
                     });
+                    $("#judul").html("SIAKAD - Dosen Wali List");
                     $("#tmp-dosen-wali").html(data);
                 }
             })

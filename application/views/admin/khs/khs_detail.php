@@ -107,6 +107,7 @@
                 $("#tmp-nim").html(data.nim);
                 $("#tmp-prodi").html(data.nama_program_studi);
                 $("#tmp-periode").html(data.id_periode);
+                $("#judul").html("Detail - " + data.nama_mahasiswa);
             }
         });
 

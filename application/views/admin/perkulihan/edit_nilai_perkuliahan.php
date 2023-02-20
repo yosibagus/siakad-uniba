@@ -71,7 +71,7 @@
     <div class="alert alert-info alert-dismissible fade show" role="alert">
         <strong>Keterangan</strong> <br>
         1. Isilah Semua Kolom Nilai Angka<br>
-        2. Jika ada nilai , maka gantilah dengan. (contoh : 95,5 menjadi 95.5)
+        2. Jika ada nilai ( , ) maka gantilah dengan ( . ) (contoh : 95,5 menjadi 95.5)
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
@@ -80,8 +80,6 @@
     vertical-align: top;
     background: #fff; color:#3c3c3c;">
         <div class="card-body px-0">
-            <!-- <input type="text" name="nilai_angkas" id="nilai_angkas">
-            <input type="text" name="total" id="total"> -->
             <div class="table-responsive">
                 <table class="table table-bordered text-black" id="table-nilai-mhs-krs">
                     <thead>

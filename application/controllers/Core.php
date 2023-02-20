@@ -525,7 +525,7 @@ class Core extends CI_Controller
             if ($this->mcore->getNilaiMahasiswa($id, $get['nim'])->num_rows() > 0) {
                 $nilai = $this->mcore->getNilaiMahasiswa($id, $get['nim'])->row_array();
                 $output .= '<td width="10%"><input type="text" value="' . $nilai['nilai_angka'] . '" class="form-control" id="nilai_angka[]" name="nilai_angka[]" readonly idmhs="' . $get['nim'] . '"></td>';
-                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . '</div></td>';
+                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . "(" . $nilai['nilai_indeks'] . ")" . '</div></td>';
             } else {
                 $output .= '<td width="10%"><input type="text" class="form-control" readonly></td>';
                 $output .= '<td width="15%" class="text-center"></td>';
@@ -552,7 +552,7 @@ class Core extends CI_Controller
             if ($this->mcore->getNilaiMahasiswa($id, $get['nim'])->num_rows() > 0) {
                 $nilai = $this->mcore->getNilaiMahasiswa($id, $get['nim'])->row_array();
                 $output .= '<td width="10%"><input type="text" value="' . $nilai['nilai_angka'] . '" class="form-control" id="nilai_angka[]" name="nilai_angka[]" idmhs="' . $get['nim'] . '"></td>';
-                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . '</div></td>';
+                $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . "(" . $nilai['nilai_indeks'] . ")" . '</div></td>';
             } else {
                 $output .= '<td width="10%"><input type="text" class="form-control" id="nilai_angka[]" name="nilai_angka[]" idmhs="' . $get['nim'] . '"></td>';
                 $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '"></div></td>';
@@ -1138,6 +1138,31 @@ class Core extends CI_Controller
         }
 
         $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+    }
+
+    public function aktif_menu()
+    {
+        $kode = $_POST['kode'];
+        $link = "";
+        if ($kode == "validasi_krs") {
+            $link = "- Validasi KRS";
+        } else if ($kode == "mahasiswa") {
+            $link = "- Data Mahasiswa";
+        } else if ($kode == "dosen") {
+            $link = "- Data Dosen";
+        } else if ($kode == "prodi") {
+            $link = "- Data Prodi";
+        } else if ($kode == "gedung") {
+            $link = "- Data Gedung";
+        } else if ($kode == "kelas_perkuliahan") {
+            $link = "- Kelas Perkuliahan";
+        } else if ($kode == "nilai_perkuliahan") {
+            $link = "- Nilai Perkuliahan";
+        } else if ($kode == "dosen_wali") {
+            $link = "- Dosen Wali";
+        }
+
+        echo json_encode(['link' => $link]);
     }
 }
 

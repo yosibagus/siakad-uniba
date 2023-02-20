@@ -17,11 +17,6 @@ class Admin extends CI_Controller
         $this->load->view('layout/template');
     }
 
-    public function header()
-    {
-        $this->load->view('template/header');
-    }
-
     public function home()
     {
         $this->load->view('admin/home/home');

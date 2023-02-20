@@ -1,6 +1,6 @@
 <?php if ($this->session->userdata('level_operator') == "dosen") : ?>
     <li class="nav-item">
-        <a class="nav-link " href="#/mahasiswa">
+        <a class="nav-link " href="#/mahasiswa" id="mahasiswa">
             <i class="icon" data-bs-toggle="tooltip" title="Mahasiswa" data-bs-placement="right">
                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>
@@ -48,7 +48,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#/mahasiswa">
+                <a class="nav-link " href="#/mahasiswa" id="mahasiswa">
                     <i class="icon" data-bs-toggle="tooltip" title="Mahasiswa" data-bs-placement="right">
                         <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>

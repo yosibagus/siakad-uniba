@@ -41,6 +41,7 @@
                     $("#loader").remove();
                     $("#content-utama").fadeIn(800);
                 });
+                $("#judul").html("SIAKAD - Data Kurikulum");
                 $("#tableKurikulum").dataTable({
                     data: data,
                     columns: [{

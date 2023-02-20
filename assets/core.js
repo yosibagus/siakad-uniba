@@ -8,7 +8,7 @@ function loadContent(hash) {
     $('#main').load(baseurl + 'admin/' + hash);
 }
 
-$(window).on('hashchange', function() {
+$(window).on('hashchange', function () {
     loadContent(location.hash.slice(1));
 });
 
@@ -19,10 +19,10 @@ if (hash == url) {
     hash = 'home';
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#main').load(baseurl + 'admin/' + hash);
-    $("li").click(function() {
-        $(".nav-item").removeClass('active');
+    $("li").click(function () {
+        $(".nav-link").removeClass('active');
         $(this).addClass("active");
     })
 })
