@@ -391,6 +391,11 @@ class Core_model extends CI_Model
         $this->db->where('perkuliahan_dosen.id_dosen', $id_dosen);
         return $this->db->get();
     }
+
+    public function getDataSetting()
+    {
+        return $this->db->get('settings');
+    }
 }
 
   

@@ -30,13 +30,15 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <th width="10">No</th>
                         <th>Semester Berlaku Aktif</th>
                         <th>Semester KRS</th>
                         <th>Batas SKS KRS</th>
+                        <th>Status</th>
                     </thead>
+                    <tbody id="tmp-setting"></tbody>
                 </table>
             </div>
         </div>
@@ -65,6 +67,16 @@
 
                 }
             });
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "<?= base_url('core/data_setting') ?>",
+            dataType: "html",
+            success: function(data) {
+                // console.log(data);
+                $("#tmp-setting").html(data);
+            }
         })
     })
 </script>

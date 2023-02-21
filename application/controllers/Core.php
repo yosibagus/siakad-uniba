@@ -1160,9 +1160,29 @@ class Core extends CI_Controller
             $link = "- Nilai Perkuliahan";
         } else if ($kode == "dosen_wali") {
             $link = "- Dosen Wali";
+        } else if ($kode == "global_setting") {
+            $link = "- Setting Global";
         }
 
         echo json_encode(['link' => $link]);
+    }
+
+    public function data_setting()
+    {
+        $data = $this->mcore->getDataSetting()->result_array();
+        $i = 1;
+        $output = "";
+        foreach ($data as $get) {
+            $output .= "<tr>";
+            $output .= "<td>" . $i++ . "</td>";
+            $output .= "<td>" . $get['semester_berlaku_aktif'] . "</td>";
+            $output .= "<td>" . $get['semester_krs'] . "</td>";
+            $output .= "<td>" . $get['batas_sks_krs'] . "</td>";
+            $status = $get['status_setting'] == 1 ? "Aktif" : "Non-Aktif";
+            $output .= "<td>" . $status . "</td>";
+            $output .= "</tr>";
+        }
+        echo $output;
     }
 }
 
