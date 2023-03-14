@@ -69,13 +69,7 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="id_gedung">Gedung <span class="text-danger">*</span></label>
-                        <!-- <select disabled style="width: 100%;" required name="id_gedung" id="id_gedung" class="form-control form-control-sm">
-                            <option value=""></option>
-                            <?php foreach ($gedung as $get) : ?>
-                                <option <?= $get['id_ruangan'] == $detail['id_ruangan'] ? 'selected' : '' ?> value="<?= $get['id_ruangan'] ?>"><?= $get['nama_gedung'] . " | " . $get['nama_ruangan'] ?></option>
-                            <?php endforeach; ?>
-                        </select> -->
+                        <label for="id_gedung">Gedung <span class="text-danger">*</span></label>0
                         <input type="text" class="form-control" disabled value="<?= $detail['nama_gedung'] . " | " . $detail['nama_ruangan'] ?>">
                         <small class="text-danger" id="m-gedung"><i></i></small>
                     </div>
@@ -402,6 +396,15 @@
 <!-- form dosen -->
 <script>
     $(document).ready(function() {
+        $('#id_dosen').select2({
+            placeholder: 'Pilih Dosen',
+            allowClear: true
+        });
+
+        $('#jenis_evaluasi').select2({
+            placeholder: 'Pilih Jenis Evaluasi',
+            allowClear: true
+        });
 
         tampil();
 

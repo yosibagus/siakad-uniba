@@ -54,14 +54,5 @@
             placeholder: 'Pilih Ruangan',
             allowClear: true
         });
-
-        $('#id_dosen').select2({
-            placeholder: 'Pilih Dosen',
-            allowClear: true
-        });
-        $('#jenis_evaluasi').select2({
-            placeholder: 'Pilih Jenis Evaluasi',
-            allowClear: true
-        });
     });
 </script>

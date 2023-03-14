@@ -13,7 +13,7 @@
         background-color: #ffffff;
     }
 </style>
-<div class="content-inner pb-0 container-fluid">
+<form method="POST" action="" id="form-nilai" class="content-inner pb-0 container-fluid">
     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
     vertical-align: top;
@@ -57,7 +57,7 @@
             <h4 class="mb-0">Input Nilai</h4>
         </div>
         <div class="p-2 bd-highlight">
-            <a href="" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
+            <a href="" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Simpan Perubahan</a>
         </div>
         <div class="p-2 bd-highlight">
             <?php if ($this->session->userdata('level_operator') == 'dosen') : ?>
@@ -102,7 +102,7 @@
         </div>
     </div>
 
-</div>
+</form>
 
 <script>
     $(document).ready(function() {
