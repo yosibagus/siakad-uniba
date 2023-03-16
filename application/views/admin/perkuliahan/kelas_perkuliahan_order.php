@@ -26,8 +26,8 @@
                             <th>Kode MK</th>
                             <th>Mata Kuliah</th>
                             <th>Nama Kelas</th>
-                            <th>Kuota</th>
                             <th>Peserta</th>
+                            <th>Dinilai</th>
                             <th>Ruangan</th>
                             <th>Jadwal</th>
                         </tr>
@@ -71,10 +71,10 @@
                             'data': 'nama_kelas'
                         },
                         {
-                            'data': 'kuota_kelas'
+                            'data': 'peserta'
                         },
                         {
-                            'data': 'peserta'
+                            'data': 'dinilai'
                         },
                         {
                             'data': 'nama_ruangan'

@@ -1121,7 +1121,6 @@ class Core extends CI_Controller
     {
         $dosen = $this->session->userdata('id_user');
         $data = $this->mcore->getKelasPerkuliahanDosen($dosen)->result_array();
-
         $i = 1;
         foreach ($data as $get) {
             $output[] = [
@@ -1130,8 +1129,8 @@ class Core extends CI_Controller
                 'kode_mata_kuliah' => '<a href="' . base_url('#/detail_nilai_perkuliahan/') . $get['token'] . '">' . $get['kode_mata_kuliah'] . '</a>',
                 'nama_mata_kuliah' => $get['nama_mata_kuliah'],
                 'nama_kelas' => $get['nama_kelas'],
-                'kuota_kelas' => $get['kuota_kelas'],
-                'peserta' => '',
+                'peserta' => $this->mcore->getJumlahMhsKelas($get['id_perkuliahan_kelas']),
+                'dinilai' => $this->mcore->getJumlahMhsNilai($get['id_perkuliahan_kelas']),
                 'nama_ruangan' => $get['nama_ruangan'],
                 'jadwal' => $get['hari'],
             ];

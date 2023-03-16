@@ -334,6 +334,12 @@ class Core_model extends CI_Model
         return $data['jumlahMhsKelas'];
     }
 
+    public function getJumlahMhsNilai($idperkuliahan)
+    {
+        $data = $this->db->query("SELECT COUNT(id_perkuliahan_kelas) as jumlahNilaiKelas from perkuliahan_nilai where id_perkuliahan_kelas = '$idperkuliahan'")->row_array();
+        return $data['jumlahNilaiKelas'];
+    }
+
     public function getSemesterKhs($nim)
     {
         return $this->db->query("SELECT perkuliahan_nilai.id_semester, nama_semester from perkuliahan_nilai join master_semester on master_semester.id_semester = perkuliahan_nilai.id_semester where nim = '$nim' group by id_semester");
