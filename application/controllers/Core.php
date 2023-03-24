@@ -551,16 +551,41 @@ class Core extends CI_Controller
 
             if ($this->mcore->getNilaiMahasiswa($id, $get['nim'])->num_rows() > 0) {
                 $nilai = $this->mcore->getNilaiMahasiswa($id, $get['nim'])->row_array();
-                $output .= '<td width="10%"><input type="text" value="' . $nilai['nilai_angka'] . '" class="form-control" id="nilai_angka[]" name="nilai_angka[]" idmhs="' . $get['nim'] . '"></td>';
+                $output .= '<td width="10%">
+                <input type="text" value="' . $nilai['nilai_angka'] . '" class="form-control" id="nilai_angka_input[]" name="nilai_angka_input[]" idmhs="' . $get['nim'] . '">
+                <input type="text" value="' . $get['nim'] . '" hidden class="form-control" id="id_mhs[]" name="id_mhs[]">
+                </td>';
                 $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '">' . $nilai['nilai_huruf'] . "(" . $nilai['nilai_indeks'] . ")" . '</div></td>';
             } else {
-                $output .= '<td width="10%"><input type="text" class="form-control" id="nilai_angka[]" name="nilai_angka[]" idmhs="' . $get['nim'] . '"></td>';
+                $output .= '<td width="10%">
+                    <input type="text" class="form-control" id="nilai_angka_input[]" name="nilai_angka_input[]" idmhs="' . $get['nim'] . '">
+                    <input type="text" value="' . $get['nim'] . '" hidden class="form-control" id="id_mhs[]" name="id_mhs[]">
+                </td>';
                 $output .= '<td width="15%" class="text-center"><div class="' . $get['nim'] . '"></div></td>';
             }
 
             $output .= '</tr>';
         }
         echo $output;
+    }
+
+    public function data_nilai_input()
+    {
+        $matkul = $this->db->query("SELECT token, id_perkuliahan_kelas, id_matkul FROM perkuliahan_kelas where id_perkuliahan_kelas = '$_POST[token]'")->row_array();
+        $nilai = $_POST['nilai_angka_input'];
+        $i = 0;
+        foreach ($nilai as $get) {
+            $data[] = [
+                'nim' => $_POST['id_mhs'][$i],
+                'nilai_angka_input' => $_POST['nilai_angka_input'][$i],
+                'id_matkul' => $matkul['id_matkul'],
+                'id_perkuliahan_kelas' => $_POST['token']
+            ];
+            $i++;
+        }
+
+        // echo json_encode(['token' => $matkul['token']]);
+        echo json_encode($data);
     }
 
     public function data_user()

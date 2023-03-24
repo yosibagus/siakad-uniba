@@ -14,6 +14,7 @@
     }
 </style>
 <form method="POST" action="" id="form-nilai" class="content-inner pb-0 container-fluid">
+    <input type="text" value="<?= $id_perkuliahan ?>" id="token" name="token">
     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
     vertical-align: top;
@@ -57,7 +58,7 @@
             <h4 class="mb-0">Input Nilai</h4>
         </div>
         <div class="p-2 bd-highlight">
-            <a href="" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Simpan Perubahan</a>
+            <button type="submit" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Simpan Perubahan</button>
         </div>
         <div class="p-2 bd-highlight">
             <?php if ($this->session->userdata('level_operator') == 'dosen') : ?>
@@ -146,7 +147,7 @@
                     } else if (value >= 0.00 && value <= 40.00) {
                         $("." + nim).html("E (1.00)");
                     } else {
-                        $("." + nim).html("");
+                        $("." + nim).html("<small class='text-danger'><i>Format Salah</i></small>");
                     }
                 }
             });
@@ -164,5 +165,31 @@
                 }
             })
         }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#form-nilai").on('submit', function(e) {
+            e.preventDefault();
+            var data = $("#form-nilai").serialize();
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('core/data_nilai_input') ?>",
+                data: data,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Nilai Berhasil Ditambahkan',
+                        showHideTransition: 'slide',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+                    // window.location.href = '<?= base_url('#/detail_nilai_perkuliahan/') ?>' + data.token;
+                }
+            });
+        });
     })
 </script>
