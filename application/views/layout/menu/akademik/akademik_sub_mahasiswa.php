@@ -34,7 +34,7 @@
             </i>
         </a>
         <ul class="sub-nav collapse" id="mail" data-bs-parent="#sidebar-menu">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link " href="">
                     <i class="icon">
                         <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@
                     <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Mail">M</i>
                     <span class="item-name">Import Mahasiswa</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link " href="#/mahasiswa" id="mahasiswa">
                     <i class="icon" data-bs-toggle="tooltip" title="Mahasiswa" data-bs-placement="right">

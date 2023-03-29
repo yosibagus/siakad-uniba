@@ -68,7 +68,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="text-center">
-                                <th>Pilih</th>
+                                <th width="10"><input type="checkbox" id="cekall" style="padding:8px;" class="form-check-input"></th>
                                 <th>No</th>
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
@@ -87,6 +87,9 @@
 
 <!-- tampil select angkatan & prodi -->
 <script>
+    $("#cekall").click(function() {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
     $(document).ready(function() {
         $('#angkatan').select2({
             placeholder: 'Pilih Angkatan',

@@ -800,19 +800,19 @@ class Core extends CI_Controller
         $i = 1;
         foreach ($data as $get) {
             $output .= '<tr>';
-            $output .= '<td class="text-center" width="10">' . $i++ . '</td>';
-            $output .= '<td class="fw-bold">' . $get['nama_dosen'] . '</td>';
+            // $output .= '<td class="text-center" width="10">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold"><a href="' . base_url('#/detail_wali/') . $get['token'] . '">' . $get['nama_dosen'] . '</a></td>';
             $output .= '<td>' . $this->mcore->getMahasiswaDosenWali($get['token'])->num_rows() . '</td>';
-            $output .= '<td>
-            <a href="' . base_url('#/detail_wali/') . $get['token'] . '" class="btn btn-info btn-sm rounded-pill iq-cancel-btn" style="padding:1px;">
-            <i class="bi bi-search"></i> Detail
-            </a>
-            <a href="javascript:void(0);" class="btn btn-outline-danger rounded-circle btn-icon btn-sm p-2">
-            <span class="btn-inner">
-            <i class="bi bi-trash" style="font-size:11px;"></i>
-            </span>                            
-            </a>
-            </td>';
+            // $output .= '<td>
+            // <a href="' . base_url('#/detail_wali/') . $get['token'] . '" class="btn btn-info btn-sm rounded-pill iq-cancel-btn" style="padding:1px;">
+            // <i class="bi bi-search"></i> Detail
+            // </a>
+            // <a href="javascript:void(0);" class="btn btn-outline-danger rounded-circle btn-icon btn-sm p-2">
+            // <span class="btn-inner">
+            // <i class="bi bi-trash" style="font-size:11px;"></i>
+            // </span>                            
+            // </a>
+            // </td>';
             $output .= '</tr>';
         }
 

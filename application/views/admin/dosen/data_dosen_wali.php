@@ -24,10 +24,10 @@
                     <table id="tableWali" class="display expandable-table table table-sm">
                         <thead>
                             <tr>
-                                <th width="10">No.</th>
+                                <!-- <th width="10">No.</th> -->
                                 <th>Nama</th>
                                 <th>Jumlah Mahasiswa</th>
-                                <th>Aksi</th>
+                                <!-- <th>Aksi</th> -->
                             </tr>
                         </thead>
                         <tbody id="tmp-dosen-wali"></tbody>
