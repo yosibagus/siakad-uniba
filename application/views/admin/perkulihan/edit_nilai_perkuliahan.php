@@ -177,16 +177,26 @@
                 type: "POST",
                 url: "<?= base_url('core/data_nilai_input') ?>",
                 data: data,
-                dataType: "json",
+                dataType: "html",
                 success: function(data) {
                     console.log(data);
-                    $.toast({
-                        heading: 'Success',
-                        text: 'Nilai Berhasil Ditambahkan',
-                        showHideTransition: 'slide',
-                        icon: 'success',
-                        position: 'top-right'
-                    });
+                    if (data == "true") {
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Nilai Berhasil Ditambahkan',
+                            showHideTransition: 'slide',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Nilai Gagal Ditambahkan',
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            position: 'top-right'
+                        });
+                    }
                     // window.location.href = '<?= base_url('#/detail_nilai_perkuliahan/') ?>' + data.token;
                 }
             });

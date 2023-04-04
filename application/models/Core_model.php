@@ -222,6 +222,13 @@ class Core_model extends CI_Model
         return $this->db->get();
     }
 
+    public function update_nilai($token, $nim, $data)
+    {
+        $where = ['id_perkuliahan_kelas' => $token, 'nim' => $nim];
+        return $this->db->update('perkuliahan_nilai', $data, $where);
+    }
+
+    //cek nilai apakah ada atau tidak
     public function getNilaiMahasiswa($id, $nim)
     {
         return $this->db->query("SELECT * FROM perkuliahan_nilai where nim = '$nim' and id_perkuliahan_kelas='$id'");

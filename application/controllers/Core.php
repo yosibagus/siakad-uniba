@@ -574,18 +574,68 @@ class Core extends CI_Controller
         $matkul = $this->db->query("SELECT token, id_perkuliahan_kelas, id_matkul FROM perkuliahan_kelas where id_perkuliahan_kelas = '$_POST[token]'")->row_array();
         $nilai = $_POST['nilai_angka_input'];
         $i = 0;
+
         foreach ($nilai as $get) {
-            $data[] = [
-                'nim' => $_POST['id_mhs'][$i],
-                'nilai_angka_input' => $_POST['nilai_angka_input'][$i],
+            $nilai = $this->_saring_nilai($_POST['nilai_angka_input'][$i]);
+
+            $nim = $_POST['id_mhs'][$i];
+            $token = $_POST['token'];
+
+            $data = [
+                'nim' => $nim,
+                'nilai_angka' => $_POST['nilai_angka_input'][$i],
+                'nilai_huruf' => $nilai['nilai_huruf'],
+                'nilai_indeks' => $nilai['nilai_index'],
                 'id_matkul' => $matkul['id_matkul'],
-                'id_perkuliahan_kelas' => $_POST['token']
+                'id_perkuliahan_kelas' => $token,
+                'id_semester' => "20222",
+                'semester_perkuliahan' => "2022/2023 Genap"
             ];
+
+            if ($this->mcore->getNilaiMahasiswa($token, $nim)->num_rows() > 0) {
+                $query = $this->mcore->update_nilai($token, $nim, $data);
+            } else {
+                $query = $this->db->insert('perkuliahan_nilai', $data);
+            }
+
             $i++;
         }
+        echo json_encode($query);
 
-        // echo json_encode(['token' => $matkul['token']]);
-        echo json_encode($data);
+        // $this->db->insert_batch('perkuliahan_nilai', $data);
+    }
+
+    private function _saring_nilai($nilai_angka)
+    {
+        $nilai_huruf = "";
+        $nilai_index = "";
+        if ($nilai_angka >= 81.00 && $nilai_angka <= 100.00) {
+            $nilai_huruf = "A";
+            $nilai_index = 4.00;
+        } else if ($nilai_angka >= 71.00 && $nilai_angka <= 80.99) {
+            $nilai_huruf = "AB";
+            $nilai_index = "3.50";
+        } else if ($nilai_angka >= 66.00 && $nilai_angka <= 70.99) {
+            $nilai_huruf = "B";
+            $nilai_index = 3.00;
+        } else if ($nilai_angka >= 61.00 && $nilai_angka <= 65.99) {
+            $nilai_huruf = "BC";
+            $nilai_index = 2.50;
+        } else if ($nilai_angka >= 56.00 && $nilai_angka <= 60.99) {
+            $nilai_huruf = "C";
+            $nilai_index = 2.00;
+        } else if ($nilai_angka >= 41.00 && $nilai_angka <= 55.99) {
+            $nilai_huruf = "D";
+            $nilai_index = 1.50;
+        } else if ($nilai_angka >= 0.00 && $nilai_angka <= 40.00) {
+            $nilai_huruf = "E";
+            $nilai_index = 1.00;
+        } else {
+            $nilai_huruf = "Format Salah";
+            $nilai_index = "0";
+        }
+
+        return ['nilai_huruf' => $nilai_huruf, 'nilai_index' => $nilai_index];
     }
 
     public function data_user()
