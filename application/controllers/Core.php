@@ -600,9 +600,7 @@ class Core extends CI_Controller
 
             $i++;
         }
-        echo json_encode($query);
-
-        // $this->db->insert_batch('perkuliahan_nilai', $data);
+        echo json_encode(['status' => $query, 'token' => $matkul['token']]);
     }
 
     private function _saring_nilai($nilai_angka)
@@ -630,8 +628,11 @@ class Core extends CI_Controller
         } else if ($nilai_angka >= 0.00 && $nilai_angka <= 40.00) {
             $nilai_huruf = "E";
             $nilai_index = 1.00;
+        } else if ($nilai_angka == "") {
+            $nilai_huruf = "E";
+            $nilai_index = 0;
         } else {
-            $nilai_huruf = "Format Salah";
+            $nilai_huruf = "E";
             $nilai_index = "0";
         }
 

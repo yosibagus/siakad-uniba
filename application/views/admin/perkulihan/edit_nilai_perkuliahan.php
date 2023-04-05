@@ -177,10 +177,9 @@
                 type: "POST",
                 url: "<?= base_url('core/data_nilai_input') ?>",
                 data: data,
-                dataType: "html",
+                dataType: "json",
                 success: function(data) {
-                    console.log(data);
-                    if (data == "true") {
+                    if (data.status) {
                         $.toast({
                             heading: 'Success',
                             text: 'Nilai Berhasil Ditambahkan',
@@ -197,7 +196,7 @@
                             position: 'top-right'
                         });
                     }
-                    // window.location.href = '<?= base_url('#/detail_nilai_perkuliahan/') ?>' + data.token;
+                    window.location.href = '<?= base_url('#/detail_nilai_perkuliahan/') ?>' + data.token;
                 }
             });
         });
