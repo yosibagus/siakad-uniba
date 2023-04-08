@@ -20,6 +20,13 @@ class Core_model extends CI_Model
         $this->db->insert($table, $data);
     }
 
+    public function getSkalaNilai($id_prodi, $nilai)
+    {
+        $data = $this->db->query("SELECT * FROM tb_skalanilai where id_prodi = '$id_prodi'");
+
+        return $data;
+    }
+
     public function infoMahasiswa($nim)
     {
         $this->db->select('*');

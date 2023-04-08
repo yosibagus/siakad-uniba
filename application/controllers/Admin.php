@@ -19,7 +19,11 @@ class Admin extends CI_Controller
 
     public function home()
     {
-        $this->load->view('admin/home/home');
+        if ($this->session->userdata('level_operator') == "dosen") {
+            $this->load->view('admin/home/home_dosen');
+        } else {
+            $this->load->view('admin/home/home');
+        }
     }
 
     public function mahasiswa()

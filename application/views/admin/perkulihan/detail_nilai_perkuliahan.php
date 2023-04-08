@@ -126,23 +126,18 @@
                     $("." + nim).html("");
                     $("#bg-" + nim).css("background-color", "white");
                 } else {
-                    if (value >= 81.00 && value <= 100.00) {
-                        $("." + nim).html("A (4.00)");
-                    } else if (value >= 71.00 && value <= 80.99) {
-                        $("." + nim).html("AB (3.50)");
-                    } else if (value >= 66.00 && value <= 70.99) {
-                        $("." + nim).html("B (3.00)");
-                    } else if (value >= 61.00 && value <= 65.99) {
-                        $("." + nim).html("BC (2.50)");
-                    } else if (value >= 56.00 && value <= 60.99) {
-                        $("." + nim).html("C (2.00)");
-                    } else if (value >= 41.00 && value <= 55.99) {
-                        $("." + nim).html("D (1.50)");
-                    } else if (value >= 0.00 && value <= 40.00) {
-                        $("." + nim).html("E (1.00)");
-                    } else {
-                        $("." + nim).html("");
-                    }
+                    $.ajax({
+                        type: "GET",
+                        url: "<?= base_url('core/get_nilai') ?>",
+                        data: {
+                            nim: nim,
+                            nilai: value
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            $("." + nim).html(data.nilai_huruf + "(" + data.nilai_indeks + ")");
+                        }
+                    })
                 }
             });
         });

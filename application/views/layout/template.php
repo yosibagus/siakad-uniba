@@ -127,7 +127,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between product-offcanvas">
                         <div class="breadcrumb-title border-end me-3 pe-3 d-none d-xl-block">
-                            <small class="mb-0 text-capitalize">Home</small>
+                            <small class="mb-0 text-capitalize"><i>Masuk Sebagai : <?= $this->session->userdata('level_operator') ?></i></small>
                         </div>
                         <div class="offcanvas offcanvas-end shadow-none iq-product-menu-responsive" tabindex="-1" id="offcanvasBottom">
                             <div class="offcanvas-body">

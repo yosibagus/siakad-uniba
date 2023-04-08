@@ -32,6 +32,7 @@ class Auth extends CI_Controller
                         'id_operator' => $get['id_akun'],
                         'id_user' => $get['id_user'],
                         'nama_operator' => $get['username_akun'],
+                        'nama_akun' => $get['nama_akun'],
                         'level_operator' => $get['role']
                     );
 

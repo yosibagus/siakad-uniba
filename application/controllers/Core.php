@@ -639,6 +639,30 @@ class Core extends CI_Controller
         return ['nilai_huruf' => $nilai_huruf, 'nilai_index' => $nilai_index];
     }
 
+    public function get_nilai()
+    {
+        $nim = $_GET['nim'];
+        $nilai_angka = $_GET['nilai'];
+        $mhs = $this->mcore->infoMahasiswa($nim)->row_array();
+
+        $skala = $this->mcore->getSkalaNilai($mhs['id_prodi'], $nilai_angka)->result_array();
+
+        foreach ($skala as $get) {
+            if ($nilai_angka >= $get['bobot_minimum'] && $nilai_angka <= $get['bobot_maksimum']) {
+                $arr = [
+                    'nilai_huruf' => $get['nilai_huruf'],
+                    'nilai_indeks' => $get['nilai_indeks']
+                ];
+            } else if ($nilai_angka >= 101) {
+                $arr = [
+                    'nilai_huruf' => 'format',
+                    'nilai_indeks' => 'salah'
+                ];
+            }
+        }
+        echo json_encode($arr);
+    }
+
     public function data_user()
     {
         $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');

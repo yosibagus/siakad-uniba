@@ -53,6 +53,7 @@
                 $this->load->view('layout/menu/laporan/laporan_sub_dosen');
             elseif ($level == 'dosen') :
                 // home
+                $this->load->view('layout/menu/home/sub_header');
                 $this->load->view('layout/menu/home/home_header');
                 $this->load->view('layout/menu/home/home_sub_dashboard');
                 //akademik
