@@ -203,6 +203,53 @@ class ServerSide_Perkuliahan_model extends CI_Model
         $this->db->from('master_dosen');
         return $this->db->count_all_results();
     }
+
+    //serverside matakuliah
+
+    var $column_order_matakuliah = array('nama_mahasiswa', 'nim', 'jenis_kelamin', 'nama_agama', 'tanggal_lahir', 'nama_program_studi', 'nama_periode_masuk');
+    var $order_matakuliah = array('nama_mahasiswa', 'nim', 'jenis_kelamin', 'nama_agama', 'tanggal_lahir', 'nama_program_studi', 'nama_periode_masuk');
+
+
+    public function getDataMataKuliah()
+    {
+        $this->_get_data_query_matakuliah();
+        if ($_POST['length'] != -1) {
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    private function _get_data_query_matakuliah()
+    {
+        $this->db->select('master_matkuls.kode_mata_kuliah, master_matkuls.sks_mata_kuliah, master_matkuls.nama_mata_kuliah, master_prodi.nama_program_studi');
+        $this->db->from('master_matkuls');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_matkuls.id_prodi');
+        if (isset($_POST['search']['value'])) {
+            $this->db->like('kode_mata_kuliah', $_POST['search']['value']);
+            $this->db->or_like('nama_mata_kuliah', $_POST['search']['value']);
+            // $this->db->or_like('nama_program_studi', $_POST['search']['value']);
+        }
+
+        if (isset($_POST['order'])) {
+            $this->db->order_by($this->order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else {
+            $this->db->order_by('kode_mata_kuliah', 'DESC');
+        }
+    }
+
+    public function count_filtered_data_matakuliah()
+    {
+        $this->_get_data_query_matakuliah();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_data_matakuliah()
+    {
+        $this->db->from('master_matkuls');
+        return $this->db->count_all_results();
+    }
 }
 
 

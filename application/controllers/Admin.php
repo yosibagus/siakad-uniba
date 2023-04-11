@@ -74,6 +74,11 @@ class Admin extends CI_Controller
         $this->load->view('admin/prodi/prodi_list');
     }
 
+    public function matakuliah()
+    {
+        $this->load->view('admin/matakuliah/matakuliah_list');
+    }
+
     public function kelas_perkuliahan()
     {
         $this->load->view('admin/perkulihan/kelas_perkuliahan_list');

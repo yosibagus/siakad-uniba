@@ -64,7 +64,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="https://templates.iqonic.design/hope-ui/pro/html/mail/email-compose.html">
+                <a class="nav-link " href="#">
                     <i class="icon">
                         <svg width="20" class="icon-20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path opacity="0.4" d="M19.9926 18.9532H14.2983C13.7427 18.9532 13.2909 19.4123 13.2909 19.9766C13.2909 20.5421 13.7427 21 14.2983 21H19.9926C20.5481 21 21 20.5421 21 19.9766C21 19.4123 20.5481 18.9532 19.9926 18.9532Z" fill="currentColor"></path>
@@ -76,7 +76,7 @@
                     <span class="item-name">Set Status MHS</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link " href="#/validasi_krs">
                     <i class="icon" data-bs-toggle="tooltip" title="Validasi KRS" data-bs-placement="right">
                         <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
                     <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Email Compose">EC</i>
                     <span class="item-name">Validasi KRS</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </li>
 <?php endif; ?>

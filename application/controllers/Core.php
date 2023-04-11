@@ -226,6 +226,34 @@ class Core extends CI_Controller
         $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 
+    public function data_matakuliah()
+    {
+        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
+        $results = $this->mperkuliahan->getDataMataKuliah();
+        $data = [];
+        $no = $_POST['start'];
+
+        foreach ($results as $result) {
+
+            $row = array();
+            $row[] = ++$no;
+            $row[] = $result->kode_mata_kuliah;
+            $row[] = $result->nama_mata_kuliah;
+            $row[] = (int) $result->sks_mata_kuliah;
+            $row[] = $result->nama_program_studi;
+            $data[] = $row;
+        }
+
+        $output = array(
+            'draw' => $_POST['draw'],
+            'recordsTotal' => $this->mperkuliahan->count_all_data_matakuliah(),
+            'recordsFiltered' => $this->mperkuliahan->count_filtered_data_matakuliah(),
+            'data' => $data
+        );
+
+        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+    }
+
     public function select_ruangan_detail()
     {
         $id = $_GET['id'];
