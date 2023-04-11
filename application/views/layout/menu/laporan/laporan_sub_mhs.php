@@ -15,7 +15,7 @@
     </a>
     <ul class="sub-nav collapse" id="utilities-error" data-bs-parent="#sidebar-menu">
         <li class="nav-item">
-            <a class="nav-link " href="../errors/error404.html">
+            <a class="nav-link " href="#/lap_krs">
                 <i class="icon" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Error 404" data-bs-original-title="Error 404">
                     <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <g>

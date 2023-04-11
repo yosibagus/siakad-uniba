@@ -181,10 +181,10 @@ class Core extends CI_Controller
         $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
     }
 
-    public function mencoba()
+    public function detail_mahasiswa()
     {
-        $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
-        $data = $this->mperkuliahan->mencoba()->result_array();
+        $nim = $_GET['nim'];
+        $data = $this->mcore->infoMahasiswa($nim)->row_array();
 
         echo json_encode($data);
     }
@@ -1258,9 +1258,7 @@ class Core extends CI_Controller
                 'nama_mata_kuliah' => $get['nama_mata_kuliah'],
                 'nama_kelas' => $get['nama_kelas'],
                 'peserta' => $this->mcore->getJumlahMhsKelas($get['id_perkuliahan_kelas']),
-                'dinilai' => $this->mcore->getJumlahMhsNilai($get['id_perkuliahan_kelas']),
-                'nama_ruangan' => $get['nama_ruangan'],
-                'jadwal' => $get['hari'],
+                'dinilai' => $this->mcore->getJumlahMhsNilai($get['id_perkuliahan_kelas'])
             ];
         }
 
@@ -1310,6 +1308,35 @@ class Core extends CI_Controller
             $output .= "</tr>";
         }
         echo $output;
+    }
+
+    public function data_semester()
+    {
+        $data = $this->mcore->getSemester()->result_array();
+        echo '<option value=""></option>';
+        foreach ($data as $get) {
+            echo '<option value="' . $get['id_semester'] . '">' . $get['nama_semester'] . '</option>';
+        }
+    }
+
+    public function data_laporan_krs()
+    {
+        $semester = $_GET['semester'];
+        $nim = $_GET['nim'];
+
+        $data = $this->mcore->getKrsLaporan($nim, $semester)->result_array();
+        $no = 1;
+        $html = "";
+        foreach ($data as $get) {
+            $html .= "<tr>";
+            $html .= "<td>" . $no++ . "</td>";
+            $html .= "<td>" . $get['kode_mata_kuliah'] . "</td>";
+            $html .= "<td>" . $get['nama_mata_kuliah'] . "</td>";
+            $html .= "<td>" . $get['sks_mata_kuliah'] . "</td>";
+            $html .= "</tr>";
+        }
+
+        echo $html;
     }
 }
 

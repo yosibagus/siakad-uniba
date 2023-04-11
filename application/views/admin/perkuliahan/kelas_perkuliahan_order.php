@@ -28,8 +28,6 @@
                             <th>Nama Kelas</th>
                             <th>Peserta</th>
                             <th>Dinilai</th>
-                            <th>Ruangan</th>
-                            <th>Jadwal</th>
                         </tr>
                     </thead>
                     <tbody id="tmp-kelas-kuliah"></tbody>
@@ -47,7 +45,6 @@
             url: "<?= base_url('core/data_perkuliahan_kelas_dosen') ?>",
             dataType: "json",
             success: function(data) {
-                // $("#tmp-kelas-kuliah").html(data);
                 $("#loader").fadeOut(1000, function() {
                     $("#loader").remove();
                     $("#content-utama").fadeIn(800);
@@ -75,12 +72,6 @@
                         },
                         {
                             'data': 'dinilai'
-                        },
-                        {
-                            'data': 'nama_ruangan'
-                        },
-                        {
-                            'data': 'jadwal'
                         }
                     ]
                 });

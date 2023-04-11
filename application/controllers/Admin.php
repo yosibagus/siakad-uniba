@@ -194,6 +194,11 @@ class Admin extends CI_Controller
         $data['id_perkuliahan'] = $id;
         $this->load->view('admin/perkulihan/edit_nilai_perkuliahan', $data);
     }
+
+    public function lap_krs()
+    {
+        $this->load->view('admin/laporan/krs');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

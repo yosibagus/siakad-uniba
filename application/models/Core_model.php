@@ -416,6 +416,24 @@ class Core_model extends CI_Model
     {
         return $this->db->get('settings');
     }
+
+    public function getSemester()
+    {
+        $this->db->order_by('id_semester', 'desc');
+        return $this->db->get('master_semester');
+    }
+
+    public function getKrsLaporan($nim, $semester)
+    {
+        $this->db->select('*');
+        $this->db->from('perkuliahan_mahasiswa');
+        $this->db->join('perkuliahan_kelas', 'perkuliahan_kelas.id_perkuliahan_kelas = perkuliahan_mahasiswa.id_perkuliahan_kelas', 'left');
+        $this->db->join('master_matkuls', 'master_matkuls.id_matkul = perkuliahan_kelas.id_matkul', 'left');
+        $this->db->where('perkuliahan_mahasiswa.nim', $nim);
+        $this->db->where('perkuliahan_kelas.id_semester', $semester);
+        $this->db->order_by("master_matkuls.kode_mata_kuliah", "asc");
+        return $this->db->get();
+    }
 }
 
   
