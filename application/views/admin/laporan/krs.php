@@ -16,8 +16,6 @@
                         <i class="bi bi-info-circle-fill"></i> Isi NIM dan Periode KRS, Kemudian tampilkan dan Print
                     </div>
 
-
-
                     <div class="form-group">
                         <label for="nim">Nomor Induk Mahasiswa <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" placeholder="NIM" name="nim" id="nim_mhs">
@@ -67,14 +65,16 @@
                                 <table class="table table-bordered mt-3">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode Mata Kuliah</th>
-                                            <th>Nama Mata Kuliah</th>
-                                            <th>Bobot SKS</th>
+                                            <th width="10">No</th>
+                                            <th>Kode<br>Mata Kuliah</th>
+                                            <th>Nama<br>Mata Kuliah</th>
+                                            <th>Bobot<br>SKS</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tmp-krs"></tbody>
                                 </table>
+
+                                <button class="btn btn-primary" onclick="printKRS()"><i class="bi bi-printer-fill"></i> Print KRS</button>
                             </div>
                         </div>
                     </div>
@@ -86,6 +86,14 @@
 
 
 <script>
+    function printKRS() {
+        var nim = $("#id_mhs").val();
+        var semester = $("#periode").val();
+
+        window.open("<?= base_url('admin/print_krs/') ?>" + semester + "/" + nim, 'blank');
+
+    }
+
     function tampilKrs() {
 
         $("#loader").fadeIn(100);
@@ -119,6 +127,7 @@
                         $("#tmp-nama").html(data.nama_mahasiswa);
                         $("#tmp-nim").html(data.nim);
                         $("#tmp-prodi").html(data.nama_program_studi);
+                        $("#tmp-periode").html(semester);
                     }
                 })
             }
@@ -143,10 +152,7 @@
         $("#nim_mhs").autocomplete({
             source: "<?= base_url('core/autofill_mahasiswa?') ?>",
             select: function(event, ui) {
-                // $('[name="nim_mhs"]').val(ui.item.label);
                 $('[name="id_mhs"]').val(ui.item.nim);
-                // console.log(ui.item.nim);
-
             }
         })
 

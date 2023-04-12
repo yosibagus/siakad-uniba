@@ -102,7 +102,6 @@ class Admin extends CI_Controller
 
     public function kolektif_mahasiswa($token)
     {
-        // $token = $_GET['token'];
         $this->load->model('Core_model', 'mcore');
         $data['detail'] = $this->mcore->getKelasPerkuliahanDetail($token)->row_array();
         $this->load->view('admin/perkulihan/kolektif_mahasiswa', $data);
@@ -198,6 +197,51 @@ class Admin extends CI_Controller
     public function lap_krs()
     {
         $this->load->view('admin/laporan/krs');
+    }
+
+    public function print_krs($semester, $nim)
+    {
+        $this->load->library('pdfgenerator');
+        $data['title_pdf'] = $nim . ' - Kartu Rencana Studi';
+        $file_pdf = "KRS Periode - " . $semester;
+        $paper = 'A4';
+        $orientation = "portrait";
+
+        $data['detail'] = $this->detail_mhs_krs($nim, $semester);
+        $data['krs'] = $this->detail_matkul_krs($nim, $semester);
+        $html = $this->load->view('admin/laporan/krs_print', $data, true);
+        $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+
+        // $data['detail'] = $this->detail_mhs_krs($nim, $semester);
+        // $data['krs'] = $this->detail_matkul_krs($nim, $semester);
+        // $html = $this->load->view('admin/laporan/krs_print', $data);
+    }
+
+    private function detail_mhs_krs($nim, $semester)
+    {
+        $this->load->model('Core_model', 'mcore');
+        $mhs = $this->mcore->infoMahasiswa($nim)->row_array();
+        $smt = $this->mcore->getSemester($semester)->row_array();
+
+        $data = [
+            'nama_mahasiswa' => $mhs['nama_mahasiswa'],
+            'nama_program_studi' => $mhs['nama_program_studi'],
+            'id_prodi' => $mhs['id_prodi'],
+            'nim' => $mhs['nim'],
+            'id_semester' => $smt['id_semester'],
+            'semester' => $smt['nama_semester']
+        ];
+
+        return $data;
+    }
+
+    private function detail_matkul_krs($nim, $semester)
+    {
+        $this->load->model('Core_model', 'mcore');
+        $mhs = $this->mcore->infoMahasiswa($nim)->row_array();
+        $data = $this->mcore->getDataSemesterKrsPrint($nim, $mhs['id_prodi'], $semester)->result_array();
+
+        return $data;
     }
 }
 

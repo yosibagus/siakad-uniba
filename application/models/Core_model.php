@@ -417,9 +417,13 @@ class Core_model extends CI_Model
         return $this->db->get('settings');
     }
 
-    public function getSemester()
+    public function getSemester($id = null)
     {
-        $this->db->order_by('id_semester', 'desc');
+        if (empty($id)) {
+            $this->db->order_by('id_semester', 'desc');
+        } else {
+            $this->db->where('id_semester', $id);
+        }
         return $this->db->get('master_semester');
     }
 
@@ -432,6 +436,39 @@ class Core_model extends CI_Model
         $this->db->where('perkuliahan_mahasiswa.nim', $nim);
         $this->db->where('perkuliahan_kelas.id_semester', $semester);
         $this->db->order_by("master_matkuls.kode_mata_kuliah", "asc");
+        return $this->db->get();
+    }
+
+    public function getDataSemesterKrsPrint($nim, $id_prodi, $semester)
+    {
+        $this->db->select('master_matkul.semester, perkuliahan_kelas.id_prodi');
+        $this->db->from('perkuliahan_mahasiswa');
+        $this->db->join('perkuliahan_kelas', 'perkuliahan_kelas.id_perkuliahan_kelas = perkuliahan_mahasiswa.id_perkuliahan_kelas', 'left');
+        $this->db->join('master_matkuls', 'master_matkuls.id_matkul = perkuliahan_kelas.id_matkul', 'left');
+        $this->db->join('master_matkul', 'master_matkul.id_matkul = master_matkuls.id_matkul', 'left');
+        $this->db->where('master_matkul.id_prodi', $id_prodi);
+        $this->db->where('perkuliahan_kelas.id_prodi', $id_prodi);
+        $this->db->where('perkuliahan_kelas.id_semester', $semester);
+        $this->db->where('perkuliahan_mahasiswa.nim', $nim);
+        $this->db->group_by('master_matkul.semester');
+        $this->db->order_by('master_matkul.semester', 'asc');
+        return $this->db->get();
+    }
+
+    public function getMatkulKrsMhs($id_prodi, $semester_get, $nim, $semester)
+    {
+        $this->db->select('*');
+        $this->db->from('perkuliahan_kelas');
+        $this->db->join('perkuliahan_mahasiswa', 'perkuliahan_mahasiswa.id_perkuliahan_kelas = perkuliahan_kelas.id_perkuliahan_kelas', 'left');
+        $this->db->join('master_matkuls', 'master_matkuls.id_matkul = perkuliahan_kelas.id_matkul', 'left');
+        $this->db->join('master_matkul', 'master_matkul.id_matkul = master_matkuls.id_matkul', 'left');
+        $this->db->join('master_ruangan', 'master_ruangan.id_ruangan = perkuliahan_kelas.id_ruangan', 'left');
+        $this->db->where('master_matkul.id_prodi', $id_prodi);
+        $this->db->where('perkuliahan_kelas.id_prodi', $id_prodi);
+        $this->db->where('perkuliahan_kelas.id_semester', $semester);
+        $this->db->where('master_matkul.semester', $semester_get);
+        $this->db->where('perkuliahan_mahasiswa.nim', $nim);
+        $this->db->order_by('master_matkul.semester', 'asc');
         return $this->db->get();
     }
 }
