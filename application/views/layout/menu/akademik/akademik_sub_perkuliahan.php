@@ -38,7 +38,8 @@
                             </path>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="perkuliahan">M</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Kurikulum" data-bs-placement="right">
+                        KRM </i>
                     <span class="item-name">Kurikulum</span>
                 </a>
             </li>
@@ -51,7 +52,8 @@
                             <path d="M6 8H2V11M6 8V20M6 8H14M6 20H3C2.44772 20 2 19.5523 2 19V11M6 20H14M14 8H22V11M14 8V20M14 20H21C21.5523 20 22 19.5523 22 19V11M2 11H22M2 14H22M2 17H22M10 8V20M18 8V20" stroke="currentColor"></path>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="perkuliahan">M</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Kelas Perkuliahan" data-bs-placement="right">
+                        KLS </i>
                     <span class="item-name">Kelas Perkuliahan</span>
                 </a>
             </li>
@@ -65,7 +67,8 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M8.97398 11.3877H12.359C12.77 11.3877 13.104 11.0547 13.104 10.6437C13.104 10.2327 12.77 9.89868 12.359 9.89868H8.97398C8.56298 9.89868 8.22998 10.2327 8.22998 10.6437C8.22998 11.0547 8.56298 11.3877 8.97398 11.3877ZM8.97408 16.3819H14.4181C14.8291 16.3819 15.1631 16.0489 15.1631 15.6379C15.1631 15.2269 14.8291 14.8929 14.4181 14.8929H8.97408C8.56308 14.8929 8.23008 15.2269 8.23008 15.6379C8.23008 16.0489 8.56308 16.3819 8.97408 16.3819Z" fill="currentColor"></path>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="perkuliahan">M</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Nilai Perkuliahan" data-bs-placement="right">
+                        NL </i>
                     <span class="item-name">Nilai Perkuliahan</span>
                 </a>
             </li>

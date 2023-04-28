@@ -18,7 +18,7 @@
 <?php else : ?>
     <li class="nav-item">
         <a class="nav-link collapsed" data-bs-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="sidebar-special">
-            <i class="icon" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Mail" data-bs-original-title="Mail">
+            <i class="icon" class="icon" data-bs-toggle="tooltip" title="Mahasiswa" data-bs-placement="right">
                 <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.997 15.1746C7.684 15.1746 4 15.8546 4 18.5746C4 21.2956 7.661 21.9996 11.997 21.9996C16.31 21.9996 19.994 21.3206 19.994 18.5996C19.994 15.8786 16.334 15.1746 11.997 15.1746Z" fill="currentColor"></path>
                     <path opacity="0.4" d="M11.9971 12.5838C14.9351 12.5838 17.2891 10.2288 17.2891 7.29176C17.2891 4.35476 14.9351 1.99976 11.9971 1.99976C9.06008 1.99976 6.70508 4.35476 6.70508 7.29176C6.70508 10.2288 9.06008 12.5838 11.9971 12.5838Z" fill="currentColor"></path>
@@ -34,7 +34,7 @@
             </i>
         </a>
         <ul class="sub-nav collapse" id="mail" data-bs-parent="#sidebar-menu">
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link " href="">
                     <i class="icon">
                         <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,10 +43,11 @@
                             <path opacity="0.4" d="M9.50023 12.5542C12.2548 12.5542 14.4629 10.3177 14.4629 7.52761C14.4629 4.73754 12.2548 2.5 9.50023 2.5C6.74566 2.5 4.5376 4.73754 4.5376 7.52761C4.5376 10.3177 6.74566 12.5542 9.50023 12.5542Z" fill="currentColor"></path>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Mail">M</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Import Mahasiswa" data-bs-placement="right">
+                        IMP </i>
                     <span class="item-name">Import Mahasiswa</span>
                 </a>
-            </li> -->
+            </li>
             <li class="nav-item">
                 <a class="nav-link " href="#/mahasiswa" id="mahasiswa">
                     <i class="icon" data-bs-toggle="tooltip" title="Mahasiswa" data-bs-placement="right">
@@ -59,7 +60,8 @@
                             <path d="M3.32156 13.5127C2.21752 13.7297 1.49225 14.1719 1.19139 14.8167C0.936203 15.3453 0.936203 15.9586 1.19139 16.4872C1.65163 17.4851 3.13531 17.8066 3.71195 17.8885C3.83104 17.9065 3.92595 17.8038 3.91342 17.6832C3.61883 14.9167 5.9621 13.6046 6.56918 13.3029C6.59425 13.2885 6.59962 13.2677 6.59694 13.2542C6.59515 13.2452 6.5853 13.2317 6.5656 13.2299C5.25294 13.2047 3.84358 13.3848 3.32156 13.5127Z" fill="currentColor"></path>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Email Compose">EC</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Daftar Mahasiswa" data-bs-placement="right">
+                        MHS </i>
                     <span class="item-name">Daftar Mahasiswa</span>
                 </a>
             </li>
@@ -72,7 +74,8 @@
                             <path opacity="0.4" d="M18.1206 8.66544L17.0804 9.96401C16.9756 10.0962 16.7872 10.1177 16.6571 10.0124C15.3925 8.98901 12.1544 6.36285 11.2559 5.63509C11.1247 5.52759 11.1067 5.33625 11.2125 5.20295L12.2157 3.95706C13.1258 2.78534 14.7131 2.67784 15.9936 3.69906L17.4645 4.87078C18.0677 5.34377 18.4698 5.96726 18.6074 6.62299C18.7661 7.3443 18.5968 8.0527 18.1206 8.66544Z" fill="currentColor"></path>
                         </svg>
                     </i>
-                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Email Compose">EC</i>
+                    <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Set Status Mahasiswa" data-bs-placement="right">
+                        STS </i>
                     <span class="item-name">Set Status MHS</span>
                 </a>
             </li>
