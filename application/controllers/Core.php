@@ -1298,13 +1298,31 @@ class Core extends CI_Controller
         $i = 1;
         $output = "";
         foreach ($data as $get) {
+            $perhitungan = $get['perhitungan'] == 0 ? "Nilai Tertinggi" : "Nilai Terbaru";
             $output .= "<tr>";
             $output .= "<td>" . $i++ . "</td>";
-            $output .= "<td>" . $get['semester_berlaku_aktif'] . "</td>";
-            $output .= "<td>" . $get['semester_krs'] . "</td>";
+            $output .= "<td>" . $get['nama_semester'] . "</td>";
             $output .= "<td>" . $get['batas_sks_krs'] . "</td>";
+            $output .= "<td>" . $perhitungan . "</td>";
             $status = $get['status_setting'] == 1 ? "Aktif" : "Non-Aktif";
             $output .= "<td>" . $status . "</td>";
+            $output .= "</tr>";
+        }
+        echo $output;
+    }
+
+    public function data_prodi_setting()
+    {
+        $data = $this->mcore->getAllMulti('master_prodi')->result_array();
+        $output = "";
+        foreach ($data as $get) {
+            $output .= "<tr>";
+            $output .= "<td class='text-center'>" . $get['kode_program_studi'] . "</td>";
+            $output .= "<td class='text-center'>" . $get['nama_program_studi'] . "</td>";
+            $output .= "<td class='text-center'></td>";
+            $output .= "<td class='text-center'></td>";
+            $output .= "<td class='text-center'></td>";
+            $output .= "<td class='text-center'></td>";
             $output .= "</tr>";
         }
         echo $output;

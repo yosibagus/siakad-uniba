@@ -1,44 +1,51 @@
-<div id="ruangan-list" class="content-inner pb-0 container-fluid">
-    <form class="card mb-2" id="form-setting" method="POST">
-        <div class="card-body">
-            <h5 class="card-title">Setting Global</h5>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="semester_berlaku_aktif">Semester Berlaku Aktif</label>
-                        <input type="text" name="semester_berlaku_aktif" id="semester_berlaku_aktif" class="form-control">
-                        </>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="semester_krs">Semester KRS</label>
-                        <input type="text" name="semester_krs" id="semester_krs" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="batas_sks_krs">Batas SKS KRS</label>
-                        <input type="text" name="batas_sks_krs" id="batas_sks_krs" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <button class="btn btn-primary">Simpan Setting</button>
-        </div>
-    </form>
-
+<div class="content-inner pb-0 container-fluid">
     <div class="card">
         <div class="card-body">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="flex-grow-1 bd-highlight">
+                    <h5 class="card-title mb-0">Setting Global</h5>
+                    <span>Pengaturan periode semester, penilaian, KRS dan KHS yang sedang dibuka.</span>
+                </div>
+                <div class="bd-highlight">
+                    <a href="#ubah_setting" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah Setting</a>
+                </div>
+            </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-sm">
+                <table class="table table-sm">
                     <thead>
                         <th width="10">No</th>
                         <th>Semester Berlaku Aktif</th>
-                        <th>Semester KRS</th>
                         <th>Batas SKS KRS</th>
+                        <th>Perhitungan Matakuliah Mengulang</th>
                         <th>Status</th>
                     </thead>
                     <tbody id="tmp-setting"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="flex-grow-1 bd-highlight">
+                    <h5 class="card-title mb-0">Manajemen Fitur</h5>
+                    <span>Pengaturan untuk buka dan tutup fitur tertentu.</span>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: middle; text-align:center;" width="20%">Kode Prodi</th>
+                            <th style="vertical-align: middle; text-align:center;" width="40%">Nama Prodi</th>
+                            <th width="10%" class="text-center">Buka<br>KRS</th>
+                            <th width="10%" class="text-center">Buka<br>Penilaian</th>
+                            <th width="10%" class="text-center">Buka<br>KHS</th>
+                            <th width="10%" class="text-center">Buka<br>Kuisioner</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tmp-fitur"></tbody>
                 </table>
             </div>
         </div>
@@ -56,7 +63,6 @@
                 data: data,
                 dataType: 'json',
                 success: function(data) {
-                    //console.log(data);
                     $.toast({
                         heading: 'Success',
                         text: 'Data Berhasil Ditambahkan',
@@ -74,8 +80,16 @@
             url: "<?= base_url('core/data_setting') ?>",
             dataType: "html",
             success: function(data) {
-                // console.log(data);
                 $("#tmp-setting").html(data);
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "<?= base_url('core/data_prodi_setting') ?>",
+            dataType: "html",
+            success: function(data) {
+                $("#tmp-fitur").html(data);
             }
         })
     })

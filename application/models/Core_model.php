@@ -7,7 +7,7 @@ class Core_model extends CI_Model
     public function getSemesterAktif()
     {
         $data = $this->db->query("SELECT * FROM settings where status_setting = 1")->row_array();
-        return $data['semester_krs'];
+        return $data['id_semester'];
     }
 
     public function getAllMulti($table)
@@ -310,7 +310,7 @@ class Core_model extends CI_Model
         $this->db->join('master_matkul', 'master_matkul.id_matkul = master_matkuls.id_matkul', 'left');
         $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
         $this->db->where('perkuliahan_mahasiswa.nim', $nim);
-        $this->db->where('perkuliahan_kelas.semester_perkuliahan', $semester);
+        $this->db->where('perkuliahan_kelas.id_semester', $semester);
         $this->db->where('master_matkul.id_prodi', $id_prodi);
         $this->db->order_by('master_matkul.semester', 'asc');
         return $this->db->get();
@@ -327,7 +327,7 @@ class Core_model extends CI_Model
         $this->db->join('master_matkul', 'master_matkul.id_matkul = master_matkuls.id_matkul', 'left');
         $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
         $this->db->where('perkuliahan_mahasiswa.nim', $nim);
-        $this->db->where('perkuliahan_kelas.semester_perkuliahan', $semester);
+        $this->db->where('perkuliahan_kelas.id_semester', $semester);
         $this->db->where('master_matkul.id_prodi', $id_prodi);
         $this->db->order_by('master_matkul.semester', 'asc');
         return $this->db->get();
@@ -414,7 +414,11 @@ class Core_model extends CI_Model
 
     public function getDataSetting()
     {
-        return $this->db->get('settings');
+        $this->db->select('*');
+        $this->db->from('settings');
+        $this->db->join('master_semester', 'master_semester.id_semester = settings.id_semester');
+        $this->db->where('status_setting', '1');
+        return $this->db->get();
     }
 
     public function getSemester($id = null)
