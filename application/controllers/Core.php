@@ -1319,10 +1319,10 @@ class Core extends CI_Controller
             $output .= "<tr>";
             $output .= "<td class='text-center'>" . $get['kode_program_studi'] . "</td>";
             $output .= "<td class='text-center'>" . $get['nama_program_studi'] . "</td>";
-            $output .= "<td class='text-center'></td>";
-            $output .= "<td class='text-center'></td>";
-            $output .= "<td class='text-center'></td>";
-            $output .= "<td class='text-center'></td>";
+            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></input></td>";
+            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></td>";
+            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></td>";
+            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></td>";
             $output .= "</tr>";
         }
         echo $output;

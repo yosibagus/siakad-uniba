@@ -12,8 +12,7 @@
 <div class="content-inner pb-0 container-fluid">
     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
-    vertical-align: top;
-    background: #fff; color:#3c3c3c;">
+    vertical-align: top; color:#3c3c3c;">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
@@ -72,11 +71,10 @@
     </div>
     <div class="card" id="content-utama" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
-    vertical-align: top;
-    background: #fff; color:#3c3c3c; display:none;">
+    vertical-align: top;color:#3c3c3c; display:none;">
         <div class="card-body px-0 pt-0">
             <div class="table-responsive">
-                <table class="table table-bordered w-100" id="table-nilai-mhs-krs" style="color:black;">
+                <table class="table table-bordered w-100" id="table-nilai-mhs-krs">
                     <thead>
                         <tr class="q-tr">
                             <th class="align-middle" width="10" rowspan="2" style="text-align: center;"><strong>No</strong></th>

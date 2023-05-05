@@ -17,8 +17,7 @@
     <input type="text" value="<?= $id_perkuliahan ?>" id="token" name="token" hidden>
     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
-    vertical-align: top;
-    background: #fff; color:#3c3c3c;">
+    vertical-align: top; color:#3c3c3c;">
         <div class="card-body">
             <!-- <div class="row">
                 <div class="col-md-6">
@@ -78,8 +77,7 @@
 
     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
     border-radius: 4px;
-    vertical-align: top;
-    background: #fff; color:#3c3c3c;">
+    vertical-align: top; color:#3c3c3c;">
         <div class="card-body px-0">
             <div class="table-responsive">
                 <table class="table table-bordered text-black" id="table-nilai-mhs-krs">
