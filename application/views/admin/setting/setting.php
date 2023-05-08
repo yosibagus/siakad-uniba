@@ -7,7 +7,7 @@
                     <span>Pengaturan periode semester, penilaian, KRS dan KHS yang sedang dibuka.</span>
                 </div>
                 <div class="bd-highlight">
-                    <a href="#ubah_setting" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah Setting</a>
+                    <a href="#/ubah_setting" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah Setting</a>
                 </div>
             </div>
             <div class="table-responsive">

@@ -1356,6 +1356,15 @@ class Core extends CI_Controller
 
         echo $html;
     }
+
+    public function data_pilih_semester()
+    {
+        $semester = $this->mcore->getSemester()->result_array();
+        echo "<option value=''></option>";
+        foreach ($semester as $get) {
+            echo "<option value='" . $get['id_semester'] . "'>" . $get['nama_semester'] . "</option>";
+        }
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

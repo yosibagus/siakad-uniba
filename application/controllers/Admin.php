@@ -243,6 +243,11 @@ class Admin extends CI_Controller
 
         return $data;
     }
+
+    public function ubah_setting()
+    {
+        $this->load->view('admin/setting/setting_edit');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */
