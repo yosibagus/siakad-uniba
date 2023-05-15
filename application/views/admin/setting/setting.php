@@ -30,7 +30,7 @@
             <div class="d-flex bd-highlight mb-3">
                 <div class="flex-grow-1 bd-highlight">
                     <h5 class="card-title mb-0">Manajemen Fitur</h5>
-                    <span>Pengaturan untuk buka dan tutup fitur tertentu.</span>
+                    <span>Pengaturan untuk buka dan tutup fitur tertentu. </span>
                 </div>
             </div>
             <div class="table-responsive">
@@ -42,10 +42,12 @@
                             <th width="10%" class="text-center">Buka<br>KRS</th>
                             <th width="10%" class="text-center">Buka<br>Penilaian</th>
                             <th width="10%" class="text-center">Buka<br>KHS</th>
-                            <th width="10%" class="text-center">Buka<br>Kuisioner</th>
+                            <th width="10%" class="text-center">Buka<br>Kuisioner </th>
                         </tr>
                     </thead>
-                    <tbody id="tmp-fitur"></tbody>
+                    <tbody id="tmp-fitur">
+
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -70,10 +72,11 @@
                         icon: 'success',
                         position: 'top-right'
                     })
-
                 }
             });
         });
+
+        loadfitur();
 
         $.ajax({
             type: "GET",
@@ -84,13 +87,48 @@
             }
         });
 
-        $.ajax({
-            type: "GET",
-            url: "<?= base_url('core/data_prodi_setting') ?>",
-            dataType: "html",
-            success: function(data) {
-                $("#tmp-fitur").html(data);
-            }
-        })
+        function loadfitur() {
+            $.ajax({
+                type: "GET",
+                url: "<?= base_url('core/data_prodi_setting') ?>",
+                dataType: "html",
+                success: function(data) {
+                    $("#tmp-fitur").html(data);
+                }
+            });
+        }
+
+        $(document).on('click', '.buka-krs', function() {
+            var id_prodi = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('core/update_akses_global') ?>",
+                data: {
+                    id_prodi: id_prodi
+                },
+                dataType: "json",
+                success: function(data) {
+                    var pemberitahuan = '';
+                    var icon = '';
+                    if (data.pesan == 1) {
+                        pemberitahuan = "di Aktifkan";
+                        icon = 'success';
+                    } else {
+                        pemberitahuan = "di Nonaktifkan";
+                        icon = 'warning';
+                    }
+
+                    $.toast({
+                        heading: 'Setting Global',
+                        text: 'Fitur Berhasil ' + pemberitahuan,
+                        showHideTransition: 'slide',
+                        icon: icon,
+                        position: 'top-right',
+                        loader: false,
+                    })
+                }
+            })
+        });
+
     })
 </script>

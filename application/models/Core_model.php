@@ -10,6 +10,20 @@ class Core_model extends CI_Model
         return $data['id_semester'];
     }
 
+    public function getAllSetting()
+    {
+        $this->db->select('*');
+        $this->db->from('setting_akses');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = setting_akses.id_prodi');
+        return $this->db->get();
+    }
+
+    public function update_akses($id, $tipestatus, $status)
+    {
+        $this->db->where('id_prodi', $id);
+        $this->db->update('setting_akses', [$tipestatus => $status]);
+    }
+
     public function getAllMulti($table)
     {
         return $this->db->get($table);

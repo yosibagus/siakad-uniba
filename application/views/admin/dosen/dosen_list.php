@@ -83,8 +83,6 @@
                                 position: 'top-right'
                             });
 
-                            tampil_data();
-                            $('#myTable').DataTable();
                         },
                         error: function(response) {
                             console.log(response.responseText);

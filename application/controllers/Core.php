@@ -1313,19 +1313,60 @@ class Core extends CI_Controller
 
     public function data_prodi_setting()
     {
-        $data = $this->mcore->getAllMulti('master_prodi')->result_array();
+        $data = $this->mcore->getAllSetting()->result_array();
         $output = "";
         foreach ($data as $get) {
+            $cek_krs = $get['open_krs'] == 1 ? 'checked' : '';
+            $cek_penilaian = $get['open_penilaian'] == 1 ? 'checked' : '';
+            $cek_khs = $get['open_khs'] == 1 ? 'checked' : '';
+            $cek_kuisioner = $get['open_kuisioner'] == 1 ? 'checked' : '';
+
             $output .= "<tr>";
             $output .= "<td class='text-center'>" . $get['kode_program_studi'] . "</td>";
             $output .= "<td class='text-center'>" . $get['nama_program_studi'] . "</td>";
-            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></input></td>";
-            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></td>";
-            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></td>";
-            $output .= "<td class='text-center'><input type='checkbox' style='padding:8px;' class='form-check-input'></td>";
+            $output .= "<td class='text-center'>
+                <div class='form-check form-switch d-flex justify-content-center'>
+                    <input class='form-check-input buka-krs' style='padding:8px; cursor:pointer' type='checkbox' role='switch' id='" . $get['id_prodi'] . "' " . $cek_krs . ">
+                    <label class='form-check-label' for='buka'></label>
+                </div>
+            </td>";
+            $output .= "<td class='text-center d-flex justify-content-center'>
+                <div class='form-check form-switch'>
+                    <input class='form-check-input buka-penilaian' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_penilaian . ">
+                    <label class='form-check-label' for=''></label>
+                </div>
+            </td>";
+            $output .= "<td class='text-center'>
+                <div class='form-check form-switch d-flex justify-content-center'>
+                    <input class='form-check-input buka-khs' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_khs . ">
+                    <label class='form-check-label' for=''></label>
+                </div>
+            </td>";
+            $output .= "<td class='text-center'>
+                <div class='form-check form-switch d-flex justify-content-center'>
+                    <input class='form-check-input buka-kuisioner' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_kuisioner . ">
+                    <label class='form-check-label' for=''></label>
+                </div>
+            </td>";
             $output .= "</tr>";
         }
         echo $output;
+    }
+
+    public function update_akses_global()
+    {
+
+        $cek = $this->db->get_where('setting_akses', ['id_prodi' => $_POST['id_prodi']])->row_array();
+
+        if ($cek['open_krs'] == 1) {
+            $pesan = 0;
+            $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 0);
+        } else {
+            $pesan = 1;
+            $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 1);
+        }
+
+        echo json_encode(['pesan' => $pesan]);
     }
 
     public function data_semester()

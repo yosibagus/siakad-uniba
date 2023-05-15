@@ -122,7 +122,9 @@ class Admin extends CI_Controller
 
     public function global_setting()
     {
-        $this->load->view('admin/setting/setting');
+        $this->load->model('Core_model', 'mcore');
+        $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
+        $this->load->view('admin/setting/setting', $data);
     }
 
     public function daftar_user()
