@@ -148,7 +148,18 @@ class Core extends CI_Controller
     public function data_prodi()
     {
         $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
-        $this->load->view('core/table_prodi', $data);
+        // $this->load->view('core/table_prodi', $data);
+        $html = "";
+        $i = 1;
+        foreach ($data['prodi'] as $get) {
+            $html .= '<tr>';
+            $html .= '<td>' . $i++ . '</td>';
+            $html .= '<td>' . $get['kode_program_studi'] . '</td>';
+            $html .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $html .= '<td>' . $get['nama_jenjang_pendidikan'] . '</td>';
+            $html .= '</tr>';
+        }
+        echo $html;
     }
 
     public function data_mahasiswa()
@@ -344,8 +355,22 @@ class Core extends CI_Controller
 
     public function data_perkuliahan_dosen()
     {
-        $data['dosen'] = $this->mcore->getDosenPerkuliahan($_GET['token'])->result_array();
-        $this->load->view('core/table_perkuliahan_dosen', $data);
+        $data = $this->mcore->getDosenPerkuliahan($_GET['token'])->result_array();
+        $html = "";
+        $i = 1;
+        foreach ($data as $get) {
+            $html .= '<tr class="text-center">';
+            $html .= '<td>' . $i++ . '</td>';
+            $html .= '<td>' . $get['nidn'] . '</td>';
+            $html .= '<td>' . $get['nama_dosen'] . '</td>';
+            $html .= '<td>' . $get['bobot_sks'] . '</td>';
+            $html .= '<td>' . $get['jumlah_rencana_pertemuan'] . '</td>';
+            $html .= '<td>' . $get['jumlah_rencana_pertemuan'] . '</td>';
+            $html .= '<td>' . $get['jenis_evaluasi'] . '</td>';
+            $html .= '<td></td>';
+            $html .= '</tr>';
+        }
+        echo $html;
     }
 
     public function aktifitas_dosen()
@@ -1326,25 +1351,25 @@ class Core extends CI_Controller
             $output .= "<td class='text-center'>" . $get['nama_program_studi'] . "</td>";
             $output .= "<td class='text-center'>
                 <div class='form-check form-switch d-flex justify-content-center'>
-                    <input class='form-check-input buka-krs' style='padding:8px; cursor:pointer' type='checkbox' role='switch' id='" . $get['id_prodi'] . "' " . $cek_krs . ">
+                    <input class='form-check-input buka-akses' tipe='krs' style='padding:8px; cursor:pointer' type='checkbox' role='switch' id='" . $get['id_prodi'] . "' " . $cek_krs . ">
                     <label class='form-check-label' for='buka'></label>
                 </div>
             </td>";
             $output .= "<td class='text-center d-flex justify-content-center'>
                 <div class='form-check form-switch'>
-                    <input class='form-check-input buka-penilaian' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_penilaian . ">
+                    <input class='form-check-input buka-akses' tipe='penilaian' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_penilaian . ">
                     <label class='form-check-label' for=''></label>
                 </div>
             </td>";
             $output .= "<td class='text-center'>
                 <div class='form-check form-switch d-flex justify-content-center'>
-                    <input class='form-check-input buka-khs' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_khs . ">
+                    <input class='form-check-input buka-akses' tipe='khs' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_khs . ">
                     <label class='form-check-label' for=''></label>
                 </div>
             </td>";
             $output .= "<td class='text-center'>
                 <div class='form-check form-switch d-flex justify-content-center'>
-                    <input class='form-check-input buka-kuisioner' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_kuisioner . ">
+                    <input class='form-check-input buka-akses' tipe='kuisioner' type='checkbox' style='padding:8px; cursor:pointer' role='switch' id='" . $get['id_prodi'] . "' " . $cek_kuisioner . ">
                     <label class='form-check-label' for=''></label>
                 </div>
             </td>";
@@ -1358,12 +1383,40 @@ class Core extends CI_Controller
 
         $cek = $this->db->get_where('setting_akses', ['id_prodi' => $_POST['id_prodi']])->row_array();
 
-        if ($cek['open_krs'] == 1) {
-            $pesan = 0;
-            $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 0);
+        $tipe = $this->input->post('tipe');
+
+        if ($tipe == 'krs') {
+            if ($cek['open_krs'] == 1) {
+                $pesan = 0;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 0);
+            } else {
+                $pesan = 1;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 1);
+            }
+        } else if ($tipe == 'penilaian') {
+            if ($cek['open_penilaian'] == 1) {
+                $pesan = 0;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_penilaian', 0);
+            } else {
+                $pesan = 1;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_penilaian', 1);
+            }
+        } else if ($tipe == 'khs') {
+            if ($cek['open_khs'] == 1) {
+                $pesan = 0;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_khs', 0);
+            } else {
+                $pesan = 1;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_khs', 1);
+            }
         } else {
-            $pesan = 1;
-            $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 1);
+            if ($cek['open_kuisioner'] == 1) {
+                $pesan = 0;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_kuisioner', 0);
+            } else {
+                $pesan = 1;
+                $this->mcore->update_akses($_POST['id_prodi'], 'open_kuisioner', 1);
+            }
         }
 
         echo json_encode(['pesan' => $pesan]);

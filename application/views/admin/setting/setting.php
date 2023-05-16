@@ -98,13 +98,15 @@
             });
         }
 
-        $(document).on('click', '.buka-krs', function() {
+        $(document).on('click', '.buka-akses', function() {
             var id_prodi = $(this).attr('id');
+            var tipe = $(this).attr('tipe');
             $.ajax({
                 type: "POST",
                 url: "<?= base_url('core/update_akses_global') ?>",
                 data: {
-                    id_prodi: id_prodi
+                    id_prodi: id_prodi,
+                    tipe: tipe
                 },
                 dataType: "json",
                 success: function(data) {
