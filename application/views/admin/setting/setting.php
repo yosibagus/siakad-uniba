@@ -102,7 +102,8 @@
             var id_prodi = $(this).attr('id');
             var tipe = $(this).attr('tipe');
             $.ajax({
-                type: "POST",
+                type: "GET",
+                cache: false,
                 url: "<?= base_url('core/update_akses_global') ?>",
                 data: {
                     id_prodi: id_prodi,
@@ -110,24 +111,7 @@
                 },
                 dataType: "json",
                 success: function(data) {
-                    var pemberitahuan = '';
-                    var icon = '';
-                    if (data.pesan == 1) {
-                        pemberitahuan = "di Aktifkan";
-                        icon = 'success';
-                    } else {
-                        pemberitahuan = "di Nonaktifkan";
-                        icon = 'warning';
-                    }
-
-                    $.toast({
-                        heading: 'Setting Global',
-                        text: 'Fitur Berhasil ' + pemberitahuan,
-                        showHideTransition: 'slide',
-                        icon: icon,
-                        position: 'top-right',
-                        loader: false,
-                    })
+                    location.reload(true);
                 }
             })
         });

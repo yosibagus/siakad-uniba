@@ -32,7 +32,8 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary">Simpan Setting</button>
+            <button class="btn btn-primary btn-sm">Simpan Setting</button>
+            <a href="<?= base_url('#/global_setting') ?>" class="btn btn-danger btn-sm">Kembali</a>
         </div>
     </form>
 </div>

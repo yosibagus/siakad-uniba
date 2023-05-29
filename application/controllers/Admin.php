@@ -117,6 +117,7 @@ class Admin extends CI_Controller
         $data['token'] = $id;
         $this->load->model('Core_model', 'mcore');
         $data['detail'] = $this->mcore->getKelasPerkuliahanDetail($id)->row_array();
+        $data['semester_aktif'] = $this->mcore->getSemesterAktif() == $data['detail']['id_semester'] ? 1 : 0;
         $this->load->view('admin/perkulihan/detail_nilai_perkuliahan', $data);
     }
 

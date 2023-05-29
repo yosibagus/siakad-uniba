@@ -9,12 +9,17 @@
     <div class="card-body">
         <div class="d-flex bd-highlight mb-2">
             <div class="pt-2 flex-grow-1 bd-highlight">
-                <h3 class="mb-0">Kelas Perkulihan</h3>
+                <h3 class="mb-0">Kelas Perkulihan <?= $semester_aktif ?></h3>
             </div>
             <div class="p-2 bd-highlight">
                 <a href="#kelas_perkuliahan_tambah" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-plus"></i> Tambah</a>
-                <a href="" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
-                <button type="button" class="btn btn-danger btn-sm wi-50 text-white hapus-data" id="<?= $detail['id_perkuliahan_kelas'] ?>"><i class="bi bi-trash"></i> Hapus</button>
+                <?php if ($semester_aktif > 0) : ?>
+                    <a href="" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
+                    <button type="button" class="btn btn-danger btn-sm wi-50 text-white hapus-data" id="<?= $detail['id_perkuliahan_kelas'] ?>"><i class="bi bi-trash"></i> Hapus</button>
+                <?php else : ?>
+                    <button type="button" style="background: #f69e6b" class="btn btn-sm wi-50 text-white ubah-disable"><i class="bi bi-pencil-square"></i> Ubah</button>
+                    <button type="button" style="background: #d67a6f" class="btn btn-sm wi-50 text-white hapus-disable"><i class="bi bi-trash"></i> Hapus</button>
+                <?php endif; ?>
             </div>
             <div class="p-2 bd-highlight">
                 <a href="#kelas_perkuliahan" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
@@ -31,10 +36,6 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="id_prodi">Program Studi <span class="text-danger">*</span></label>
-                        <!-- <select disabled style="width: 100%;" required name="id_prodi" id="id_prodi" class="form-control form-control-sm">
-                            <option value=""></option>
-                            <option value="" selected><?= $detail['id_prodi'] ?></option>
-                        </select> -->
                         <input type="text" class="form-control form-ku" value="S1 <?= $detail['nama_prodi'] ?>" disabled>
                         <small class="text-danger" id="m-prodi"><i></i></small>
                     </div>
@@ -69,7 +70,7 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                        <label for="id_gedung">Gedung <span class="text-danger">*</span></label>0
+                        <label for="id_gedung">Gedung <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" disabled value="<?= $detail['nama_gedung'] . " | " . $detail['nama_ruangan'] ?>">
                         <small class="text-danger" id="m-gedung"><i></i></small>
                     </div>
@@ -132,7 +133,9 @@
             <div class="tab-pane fade show active" id="nav-home-11" role="tabpanel" aria-labelledby="nav-home-11-tab">
                 <!-- DOSEN -->
                 <div class="p-3">
-                    <button class="btn btn-info btn-sm text-white mb-2" id="tambah-form"><i class="bi bi-plus-lg"></i> Aktifitas Mengajar Dosen</button>
+                    <?php if ($semester_aktif > 0) : ?>
+                        <button class="btn btn-info btn-sm text-white mb-2" id="tambah-form"><i class="bi bi-plus-lg"></i> Aktifitas Mengajar Dosen</button>
+                    <?php endif; ?>
 
                     <div class="d-flex bd-highlight">
                         <div class="pt-2 flex-grow-1 bd-highlight">
@@ -220,29 +223,32 @@
             <div class="tab-pane fade" id="nav-profile-11" role="tabpanel" aria-labelledby="nav-profile-11-tab">
                 <div class="p-4">
                     <!-- tambah data mahasiswa kelas -->
-                    <div class="card" style="background: #e0f7fa; box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);">
-                        <div class="card-body text-black">
-                            <form action="" method="post" id="form-krs">
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td><label for="nim_mhs">NIM/NAMA</label></td>
-                                        <td>:</td>
-                                        <td>
-                                            <input type="text" require class="form-control" placeholder="Mahasiswa" id="nim_mhs" name="nim_mhs">
-                                            <input type="text" hidden name="id_mhs" id="id_mhs">
-                                            <input type="text" hidden name="id_perkuliahan_kelas" id="id_perkuliahan_kelas" value="<?= $detail['id_perkuliahan_kelas'] ?>">
-                                        </td>
-                                        <td>
-                                            &nbsp;
-                                            &nbsp;
-                                            <button type="submit" class="btn btn-info btn-sm"><i class="bi bi-check-lg"></i> Tambah Mahasiswa</button>
-                                            <a href="#kolektif_mahasiswa/<?= $detail['token'] ?>" class="btn btn-info btn-sm"><i class="bi bi-list-check"></i> Input Kolektif</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
+                    <?php if ($semester_aktif > 0) : ?>
+                        <div class="card" style="background: #e0f7fa; box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);">
+                            <div class="card-body text-black">
+                                <form action="" method="post" id="form-krs">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td><label for="nim_mhs">NIM/NAMA</label></td>
+                                            <td>:</td>
+                                            <td>
+                                                <input type="text" require class="form-control" placeholder="Mahasiswa" id="nim_mhs" name="nim_mhs">
+                                                <input type="text" hidden name="id_mhs" id="id_mhs">
+                                                <input type="text" hidden name="id_perkuliahan_kelas" id="id_perkuliahan_kelas" value="<?= $detail['id_perkuliahan_kelas'] ?>">
+                                            </td>
+                                            <td>
+                                                &nbsp;
+                                                &nbsp;
+                                                <button type="submit" class="btn btn-info btn-sm"><i class="bi bi-check-lg"></i> Tambah Mahasiswa</button>
+                                                <a href="#kolektif_mahasiswa/<?= $detail['token'] ?>" class="btn btn-info btn-sm"><i class="bi bi-list-check"></i> Input Kolektif</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
+
 
                     <!-- tabel mahasiswa kelas -->
                     <div class="card" style="box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);">
@@ -375,6 +381,28 @@
             }
         })
 
+    });
+
+    $(document).on('click', '.hapus-disable', function() {
+        $.toast({
+            heading: 'Tidak Bisa Dihapus',
+            text: 'Periode Sudah Ditutup',
+            showHideTransition: 'slide',
+            loader: false,
+            icon: 'error',
+            position: 'top-right'
+        });
+    });
+
+    $(document).on('click', '.ubah-disable', function() {
+        $.toast({
+            heading: 'Tidak Bisa Diubah',
+            text: 'Periode Sudah Ditutup',
+            showHideTransition: 'slide',
+            loader: false,
+            icon: 'error',
+            position: 'top-right'
+        });
     });
 </script>
 

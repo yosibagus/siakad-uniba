@@ -52,7 +52,9 @@
             <h4 class="mb-0">Input Nilai</h4>
         </div>
         <div class="p-2 bd-highlight">
-            <a href="#/ubah_nilai/<?= $detail['id_perkuliahan_kelas'] ?>" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
+            <?php if ($semester_aktif > 0) : ?>
+                <a href="#/ubah_nilai/<?= $detail['id_perkuliahan_kelas'] ?>" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
+            <?php endif; ?>
         </div>
         <div class="p-2 bd-highlight">
             <?php if ($this->session->userdata('level_operator') == 'dosen') : ?>

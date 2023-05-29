@@ -343,6 +343,7 @@ class Core extends CI_Controller
         $data['gedung'] = $this->mcore->getAllMulti('master_gedung')->result_array();
         $data['gedung'] = $this->mcore->ruanganByGedung()->result_array();
         $data['dosen'] = $this->mcore->getAllMulti('master_dosen')->result_array();
+        $data['semester_aktif'] = $this->mcore->getSemesterAktif() == $data['detail']['id_semester'] ? 1 : 0;
         $this->load->view('core/detail_perkuliahan_kelas', $data);
     }
 
@@ -1380,42 +1381,42 @@ class Core extends CI_Controller
 
     public function update_akses_global()
     {
+        $idprodi = $_GET['id_prodi'];
+        $cek = $this->db->get_where('setting_akses', ['id_prodi' => $idprodi])->row_array();
 
-        $cek = $this->db->get_where('setting_akses', ['id_prodi' => $_POST['id_prodi']])->row_array();
-
-        $tipe = $this->input->post('tipe');
+        $tipe = $_GET['tipe'];
 
         if ($tipe == 'krs') {
             if ($cek['open_krs'] == 1) {
                 $pesan = 0;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 0);
+                $this->mcore->update_akses($idprodi, 'open_krs', 0);
             } else {
                 $pesan = 1;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_krs', 1);
+                $this->mcore->update_akses($idprodi, 'open_krs', 1);
             }
         } else if ($tipe == 'penilaian') {
             if ($cek['open_penilaian'] == 1) {
                 $pesan = 0;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_penilaian', 0);
+                $this->mcore->update_akses($idprodi, 'open_penilaian', 0);
             } else {
                 $pesan = 1;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_penilaian', 1);
+                $this->mcore->update_akses($idprodi, 'open_penilaian', 1);
             }
         } else if ($tipe == 'khs') {
             if ($cek['open_khs'] == 1) {
                 $pesan = 0;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_khs', 0);
+                $this->mcore->update_akses($idprodi, 'open_khs', 0);
             } else {
                 $pesan = 1;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_khs', 1);
+                $this->mcore->update_akses($idprodi, 'open_khs', 1);
             }
         } else {
             if ($cek['open_kuisioner'] == 1) {
                 $pesan = 0;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_kuisioner', 0);
+                $this->mcore->update_akses($idprodi, 'open_kuisioner', 0);
             } else {
                 $pesan = 1;
-                $this->mcore->update_akses($_POST['id_prodi'], 'open_kuisioner', 1);
+                $this->mcore->update_akses($idprodi, 'open_kuisioner', 1);
             }
         }
 
