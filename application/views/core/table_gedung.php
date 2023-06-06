@@ -2,7 +2,10 @@
     <div class="card-body">
         <div class="d-flex bd-highlight mb-3">
             <div class="flex-grow-1 bd-highlight">
-                <h4 class="mb-0 mt-2">Data Gedung</h4>
+                <div class="header-title mb-4">
+                    <h4 class="card-title mb-0">Data Gedung</h4>
+                    <span>List Data Gedung</span>
+                </div>
             </div>
             <div class="bd-highlight">
                 <a href="#" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-plus"></i> Tambah</a>

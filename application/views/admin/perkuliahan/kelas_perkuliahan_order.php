@@ -22,6 +22,7 @@
                     <thead>
                         <tr class="bg-primary text-white">
                             <th width="10">No</th>
+                            <th>Aksi</th>
                             <th>Semester</th>
                             <th>Kode MK</th>
                             <th>Mata Kuliah</th>
@@ -54,6 +55,9 @@
                     data: data,
                     columns: [{
                             'data': 'no'
+                        },
+                        {
+                            'data': 'aksi'
                         },
                         {
                             'data': 'semester_perkuliahan'

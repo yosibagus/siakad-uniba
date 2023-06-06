@@ -1279,6 +1279,7 @@ class Core extends CI_Controller
         foreach ($data as $get) {
             $output[] = [
                 'no' => $i++,
+                'aksi' => '<a href="' . base_url('#/detail_nilai_perkuliahan/') . $get['token'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Input Nilai</a>',
                 'semester_perkuliahan' => $get['semester_perkuliahan'],
                 'kode_mata_kuliah' => '<a href="' . base_url('#/detail_nilai_perkuliahan/') . $get['token'] . '">' . $get['kode_mata_kuliah'] . '</a>',
                 'nama_mata_kuliah' => $get['nama_mata_kuliah'],

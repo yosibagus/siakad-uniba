@@ -153,7 +153,7 @@
                                     </label>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown border-end pe-3 d-none d-xl-block">
+                            <!-- <li class="nav-item dropdown border-end pe-3 d-none d-xl-block">
                                 <div class="form-group input-group mb-0 search-input">
                                     <input type="text" class="form-control" placeholder="Search...">
                                     <span class="input-group-text">
@@ -165,7 +165,7 @@
                                         </svg>
                                     </span>
                                 </div>
-                            </li>
+                            </li> -->
                             <li class="nav-item dropdown iq-responsive-menu border-end d-block d-xl-none">
                                 <div class="btn btn-sm bg-body" id="navbarDropdown-search-11" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

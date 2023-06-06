@@ -423,6 +423,8 @@ class Core_model extends CI_Model
         $this->db->join('perkuliahan_dosen', 'perkuliahan_dosen.id_perkuliahan_kelas = perkuliahan_kelas.id_perkuliahan_kelas', 'left');
         $this->db->join('master_dosen', 'master_dosen.id_dosen = perkuliahan_dosen.id_dosen', 'left');
         $this->db->where('perkuliahan_dosen.id_dosen', $id_dosen);
+        $this->db->where('perkuliahan_kelas.id_semester', $this->getSemesterAktif());
+
         return $this->db->get();
     }
 
