@@ -53,8 +53,6 @@ class Api extends CI_Controller
         }
 
         // $this->db->insert_batch('master_semester', $result);
-
-
         echo json_encode($data);
     }
 
@@ -96,6 +94,7 @@ class Api extends CI_Controller
 
     public function getDosen()
     {
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',

@@ -23,13 +23,11 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
     $(document).ready(function() {
         $('#tableMahasiswa').DataTable({
-            // "responsive": true,
             "processing": true,
             "serverSide": true,
             "order": [],
@@ -37,7 +35,6 @@
                 [20, 50, 100, -1],
                 [20, 50, 100, "All"]
             ],
-            // "fixedHeader": true,
             "ajax": {
                 "url": "<?= base_url('core/data_mahasiswa') ?>",
                 "type": "post"
