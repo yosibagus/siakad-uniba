@@ -10,6 +10,17 @@ class Core_model extends CI_Model
         return $data['id_semester'];
     }
 
+    public function semesterDetail()
+    {
+        $semester = $this->getSemesterAktif();
+        $this->db->select('*');
+        $this->db->from('master_semester');
+        $this->db->where('id_semester', $semester);
+        return $this->db->get()->row_array();
+
+        //return $this->db->get_where('master_semester', ['id_semester', $semester])->row_array();
+    }
+
     public function getAllSetting()
     {
         $this->db->select('*');
@@ -48,7 +59,6 @@ class Core_model extends CI_Model
         $this->db->join('master_prodi', 'master_mahasiswa.id_prodi = master_prodi.id_prodi');
         $this->db->where('nim', $nim);
         return $this->db->get();
-        // return $this->db->get_where('master_mahasiswa', ['nim' => $nim]);
     }
 
     public function detailKurikulum_matkul($id)
@@ -100,6 +110,7 @@ class Core_model extends CI_Model
         $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
         $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
         $this->db->join('master_gedung', 'master_gedung.id_gedung = master_ruangan.id_gedung', 'left');
+        $this->db->join('master_semester', 'master_semester.id_semester = perkuliahan_kelas.id_semester', 'left');
         $this->db->where('perkuliahan_kelas.token', $token);
         $get = $this->db->get();
         return $get;

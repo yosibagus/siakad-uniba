@@ -4,8 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class ServerSide_Perkuliahan_model extends CI_Model
 {
 
+    public function getSemesterAktif()
+    {
+        $data = $this->db->query("SELECT * FROM settings where status_setting = 1")->row_array();
+        return $data['id_semester'];
+    }
+
     // serverside dataperkuliahan kelas
-    var $column_order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
+    var $column_order_perkuliahan = array('master_semester.nama_semester', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
     var $order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
 
 
@@ -21,28 +27,45 @@ class ServerSide_Perkuliahan_model extends CI_Model
 
     private function _get_data_query_perkuliahan()
     {
-        $this->db->select('perkuliahan_kelas.semester_perkuliahan, perkuliahan_dosen.id_dosen, master_dosen.nama_dosen, master_matkuls.kode_mata_kuliah, master_matkuls.nama_mata_kuliah, perkuliahan_kelas.nama_kelas, perkuliahan_kelas.kuota_kelas, master_gedung.nama_gedung, master_ruangan.nama_ruangan, perkuliahan_kelas.id_perkuliahan_kelas, perkuliahan_kelas.token, perkuliahan_kelas.hari, perkuliahan_kelas.jam_awal, perkuliahan_kelas.jam_akhir, master_matkuls.sks_mata_kuliah');
+        $semester = $this->getSemesterAktif();
+        $this->db->select('master_semester.nama_semester, perkuliahan_dosen.id_dosen, master_dosen.nama_dosen, master_matkuls.kode_mata_kuliah, master_matkuls.nama_mata_kuliah, perkuliahan_kelas.nama_kelas, perkuliahan_kelas.kuota_kelas, master_gedung.nama_gedung, master_ruangan.nama_ruangan, perkuliahan_kelas.id_perkuliahan_kelas, perkuliahan_kelas.token, perkuliahan_kelas.hari, perkuliahan_kelas.jam_awal, perkuliahan_kelas.jam_akhir, master_matkuls.sks_mata_kuliah, master_semester.id_semester');
         $this->db->from('perkuliahan_kelas');
-        $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi', 'left');
-        $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul', 'left');
+        $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi');
+        $this->db->join('master_matkuls', 'perkuliahan_kelas.id_matkul = master_matkuls.id_matkul');
         $this->db->join('master_ruangan', 'perkuliahan_kelas.id_ruangan = master_ruangan.id_ruangan', 'left');
         $this->db->join('master_gedung', 'master_gedung.id_gedung = master_ruangan.id_gedung', 'left');
         $this->db->join('perkuliahan_dosen', 'perkuliahan_dosen.id_perkuliahan_kelas = perkuliahan_kelas.id_perkuliahan_kelas', 'left');
         $this->db->join('master_dosen', 'master_dosen.id_dosen = perkuliahan_dosen.id_dosen', 'left');
-        if (isset($_POST['search']['value'])) {
-            $this->db->like('semester_perkuliahan', $_POST['search']['value']);
-            $this->db->or_like('kode_mata_kuliah', $_POST['search']['value']);
-            $this->db->or_like('nama_mata_kuliah', $_POST['search']['value']);
-            $this->db->or_like('nama_kelas', $_POST['search']['value']);
-            $this->db->or_like('nama_ruangan', $_POST['search']['value']);
-            $this->db->or_like('kuota_kelas', $_POST['search']['value']);
-            $this->db->or_like('jam_awal', $_POST['search']['value']);
-            $this->db->or_like('nama_dosen', $_POST['search']['value']);
+        $this->db->join('master_semester', 'master_semester.id_semester = perkuliahan_kelas.id_semester', 'left');
+        $this->db->where('master_semester.id_semester', $this->getSemesterAktif());
+
+        $i = 0;
+
+        foreach ($this->column_order_perkuliahan as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_order_perkuliahan) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
         }
-        if (isset($_POST['order'])) {
-            $this->db->order_by($this->order_perkuliahan[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_perkuliahan[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else {
-            $this->db->order_by('semester_perkuliahan', 'DESC');
+            $order = $this->order;
+            $this->db->order_by('master_semester.id_semester', 'DESC');
         }
     }
 
@@ -56,6 +79,7 @@ class ServerSide_Perkuliahan_model extends CI_Model
     public function count_all_data_perkuliahan()
     {
         $this->db->from('perkuliahan_kelas');
+        $this->db->where('id_semester', $this->getSemesterAktif());
         return $this->db->count_all_results();
     }
 

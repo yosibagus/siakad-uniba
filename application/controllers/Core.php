@@ -215,7 +215,7 @@ class Core extends CI_Controller
 
             $row = array();
             $row[] = ++$no;
-            $row[] = $result->semester_perkuliahan;
+            $row[] = $result->nama_semester;
             $row[] = '<a href="' . base_url('#detail_perkuliahan/') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
             $row[] = $result->nama_mata_kuliah;
             $row[] = $result->nama_kelas;
@@ -542,7 +542,7 @@ class Core extends CI_Controller
         foreach ($results as $result) {
             $row = array();
             $row[] = ++$no;
-            $row[] = $result->semester_perkuliahan;
+            $row[] = $result->nama_semester;
             $row[] = '<a href="' . base_url('#detail_nilai_perkuliahan/') . $result->token . '">' . $result->kode_mata_kuliah . '</a>';
             $row[] = $result->nama_mata_kuliah;
             $row[] = $result->nama_kelas;

@@ -38,6 +38,9 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+                    <div class="card-header">
+                        Semester Aktif : <?= $aktif['nama_semester'] ?>
+                    </div>
                     <div class="card-body px-0 pb-0">
                         <div class="table-responsive">
                             <table id="table-perkuliahan" class="display expandable-table table table-striped table-sm" style="width:100%">

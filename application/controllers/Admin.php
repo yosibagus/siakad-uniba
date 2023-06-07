@@ -81,7 +81,11 @@ class Admin extends CI_Controller
 
     public function kelas_perkuliahan()
     {
-        $this->load->view('admin/perkulihan/kelas_perkuliahan_list');
+        $this->load->model('Core_model', 'mcore');
+        $data['aktif'] = $this->mcore->semesterDetail();
+        // var_dump($data);
+        // die();
+        $this->load->view('admin/perkulihan/kelas_perkuliahan_list', $data);
     }
 
     public function kelas_perkuliahan_tambah()
