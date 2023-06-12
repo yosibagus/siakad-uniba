@@ -98,6 +98,7 @@
     function btnFilter() {
         var id = $("#id_semester").val();
         window.location.href = "<?= base_url('#/kelas_perkuliahan/') ?>" + id;
+        location.reload();
     }
 
     $(document).ready(function() {
@@ -107,11 +108,11 @@
             "processing": true,
             "serverSide": true,
             "order": [],
-            // "fixedHeader": true,
-            // "lengthMenu": [
-            //     [10, 25, 50, 100, -1],
-            //     [10, 25, 50, 100, "All"]
-            // ],
+            "fixedHeader": true,
+            "lengthMenu": [
+                [25, 50, 100, -1],
+                [25, 50, 100, "All"]
+            ],
             "ajax": {
                 "url": "<?= base_url('core/data_perkuliahan/') . $semester ?>",
                 "type": "post"
