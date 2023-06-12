@@ -39,7 +39,31 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        Semester Aktif : <?= $aktif['nama_semester'] ?>
+                        Filter Semester : <?= $aktif['nama_semester'] ?> <br>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-filter"></i> Filter
+                        </button>
+
+                        <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Filter Perkuliahan List</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="id_semester">Pilih Semester</label>
+                                            <select name="id_semester" id="id_semester" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a type="button" onclick="btnFilter()" class="btn btn-primary"><i class="bi bi-filter"></i> Terapkan Filter</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body px-0 pb-0">
                         <div class="table-responsive">
@@ -71,6 +95,11 @@
 </div>
 
 <script>
+    function btnFilter() {
+        var id = $("#id_semester").val();
+        window.location.href = "<?= base_url('#/kelas_perkuliahan/') ?>" + id;
+    }
+
     $(document).ready(function() {
         $("#judul").html("SIAKAD - Kelas Perkuliahan");
         $('#table-perkuliahan').DataTable({
@@ -84,7 +113,7 @@
             //     [10, 25, 50, 100, "All"]
             // ],
             "ajax": {
-                "url": "<?= base_url('core/data_perkuliahan') ?>",
+                "url": "<?= base_url('core/data_perkuliahan/') . $semester ?>",
                 "type": "post"
             },
             "columDefs": [{
@@ -92,5 +121,14 @@
                 "orderable": false
             }]
         });
+
+        $.ajax({
+            type: "GET",
+            url: "<?= base_url('core/data_pilih_semester') ?>",
+            dataType: "html",
+            success: function(data) {
+                $("#id_semester").html(data);
+            }
+        })
     });
 </script>

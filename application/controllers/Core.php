@@ -200,11 +200,11 @@ class Core extends CI_Controller
         echo json_encode($data);
     }
 
-    public function data_perkuliahan()
+    public function data_perkuliahan($semester = null)
     {
         // error_reporting(0);
         $this->load->model('ServerSide_Perkuliahan_model', 'mperkuliahan');
-        $results = $this->mperkuliahan->getDataPerkuliahan();
+        $results = $this->mperkuliahan->getDataPerkuliahan($semester);
         $data = [];
         $no = $_POST['start'];
 
@@ -229,8 +229,8 @@ class Core extends CI_Controller
 
         $output = array(
             'draw' => $_POST['draw'],
-            'recordsTotal' => $this->mperkuliahan->count_all_data_perkuliahan(),
-            'recordsFiltered' => $this->mperkuliahan->count_filtered_data_perkuliahan(),
+            'recordsTotal' => $this->mperkuliahan->count_all_data_perkuliahan($semester),
+            'recordsFiltered' => $this->mperkuliahan->count_filtered_data_perkuliahan($semester),
             'data' => $data
         );
 

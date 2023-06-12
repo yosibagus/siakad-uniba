@@ -10,15 +10,17 @@ class Core_model extends CI_Model
         return $data['id_semester'];
     }
 
-    public function semesterDetail()
+    public function semesterDetail($semester = null)
     {
-        $semester = $this->getSemesterAktif();
+        if (empty($semester)) {
+            $filter = $this->getSemesterAktif();
+        } else {
+            $filter = $semester;
+        }
         $this->db->select('*');
         $this->db->from('master_semester');
-        $this->db->where('id_semester', $semester);
+        $this->db->where('id_semester', $filter);
         return $this->db->get()->row_array();
-
-        //return $this->db->get_where('master_semester', ['id_semester', $semester])->row_array();
     }
 
     public function getAllSetting()

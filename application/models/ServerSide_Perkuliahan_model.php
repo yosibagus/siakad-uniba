@@ -1,4 +1,7 @@
 <?php
+
+use PhpParser\Node\NullableType;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class ServerSide_Perkuliahan_model extends CI_Model
@@ -15,9 +18,9 @@ class ServerSide_Perkuliahan_model extends CI_Model
     var $order_perkuliahan = array('perkuliahan_kelas.semester_perkuliahan', 'master_matkuls.kode_mata_kuliah', 'master_matkuls.nama_mata_kuliah', 'perkuliahan_kelas.nama_kelas', 'perkuliahan_kelas.kuota_kelas', 'master_ruangan.nama_ruangan', 'perkuliahan_kelas.jam_awal');
 
 
-    public function getDataPerkuliahan()
+    public function getDataPerkuliahan($semester = null)
     {
-        $this->_get_data_query_perkuliahan();
+        $this->_get_data_query_perkuliahan($semester);
         if ($_POST['length'] != -1) {
             $this->db->limit($_POST['length'], $_POST['start']);
         }
@@ -25,9 +28,8 @@ class ServerSide_Perkuliahan_model extends CI_Model
         return $query->result();
     }
 
-    private function _get_data_query_perkuliahan()
+    private function _get_data_query_perkuliahan($semester = null)
     {
-        $semester = $this->getSemesterAktif();
         $this->db->select('master_semester.nama_semester, perkuliahan_dosen.id_dosen, master_dosen.nama_dosen, master_matkuls.kode_mata_kuliah, master_matkuls.nama_mata_kuliah, perkuliahan_kelas.nama_kelas, perkuliahan_kelas.kuota_kelas, master_gedung.nama_gedung, master_ruangan.nama_ruangan, perkuliahan_kelas.id_perkuliahan_kelas, perkuliahan_kelas.token, perkuliahan_kelas.hari, perkuliahan_kelas.jam_awal, perkuliahan_kelas.jam_akhir, master_matkuls.sks_mata_kuliah, master_semester.id_semester');
         $this->db->from('perkuliahan_kelas');
         $this->db->join('master_prodi', 'perkuliahan_kelas.id_prodi = master_prodi.id_prodi');
@@ -37,7 +39,11 @@ class ServerSide_Perkuliahan_model extends CI_Model
         $this->db->join('perkuliahan_dosen', 'perkuliahan_dosen.id_perkuliahan_kelas = perkuliahan_kelas.id_perkuliahan_kelas', 'left');
         $this->db->join('master_dosen', 'master_dosen.id_dosen = perkuliahan_dosen.id_dosen', 'left');
         $this->db->join('master_semester', 'master_semester.id_semester = perkuliahan_kelas.id_semester', 'left');
-        $this->db->where('master_semester.id_semester', $this->getSemesterAktif());
+        if (empty($semester)) {
+            $this->db->where('master_semester.id_semester', $this->getSemesterAktif());
+        } else {
+            $this->db->where('master_semester.id_semester', $semester);
+        }
 
         $i = 0;
 
@@ -69,17 +75,21 @@ class ServerSide_Perkuliahan_model extends CI_Model
         }
     }
 
-    public function count_filtered_data_perkuliahan()
+    public function count_filtered_data_perkuliahan($semester = null)
     {
-        $this->_get_data_query_perkuliahan();
+        $this->_get_data_query_perkuliahan($semester);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all_data_perkuliahan()
+    public function count_all_data_perkuliahan($semester = null)
     {
         $this->db->from('perkuliahan_kelas');
-        $this->db->where('id_semester', $this->getSemesterAktif());
+        if (empty($semester)) {
+            $this->db->where('id_semester', $this->getSemesterAktif());
+        } else {
+            $this->db->where('id_semester', $semester);
+        }
         return $this->db->count_all_results();
     }
 
