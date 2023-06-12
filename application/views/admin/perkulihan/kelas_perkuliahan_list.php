@@ -39,16 +39,24 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        Filter Semester : <?= $aktif['nama_semester'] ?> <br>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="bi bi-filter"></i> Filter
-                        </button>
 
-                        <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="d-flex bd-highlight">
+                            <div class="flex-grow-1 bd-highlight">
+                                <div class="header-title mb-4">
+                                    Filter Semester : <?= $aktif['nama_semester'] ?>
+                                </div>
+                            </div>
+                            <div class="bd-highlight">
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="bi bi-filter"></i> Filter Perkuliahan
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal modal-lg fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Filter Perkuliahan List</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="bi bi-table"></i> Filter Perkuliahan List</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -58,14 +66,14 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Batal</button>
                                         <a type="button" onclick="btnFilter()" class="btn btn-primary"><i class="bi bi-filter"></i> Terapkan Filter</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body px-0 pb-0">
+                    <div class="card-body px-0 pb-0 pt-0">
                         <div class="table-responsive">
                             <table id="table-perkuliahan" class="display expandable-table table table-striped table-sm" style="width:100%">
                                 <thead>
