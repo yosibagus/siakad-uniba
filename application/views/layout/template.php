@@ -53,12 +53,14 @@
         }
     </style>
 
-    <script src="<?= base_url('assets/admin/') ?>assets/js/core/libs.min.js"></script>
+    <script src="<?= base_url('assets/admin/assets/js/core/libs.min.js') ?>"></script>
     <script src="<?= base_url('assets/jquery-validation/dist/jquery.validate.min.js') ?>"></script>
     <script src="<?= base_url('assets/jquery-toast/dist/jquery.toast.min.js'); ?>"></script>
     <script src="<?= base_url('assets/sweetalert/dist/sweetalert2.all.min.js') ?>"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/fh-3.2.4/r-2.3.0/sp-2.0.2/sl-1.4.0/datatables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body class="">
@@ -904,32 +906,19 @@
         </div>
     </div>
 
-    <!-- Plugin Scripts -->
-    <!-- Tour plugin Start -->
     <script src="<?= base_url('assets/admin/') ?>assets/vendor/sheperd/dist/js/sheperd.min.js"></script>
     <script src="<?= base_url('assets/admin/') ?>assets/js/plugins/tour.js" defer></script>
-    <!-- Flatpickr Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
     <script src="<?= base_url('assets/admin/') ?>assets/js/plugins/flatpickr.js" defer></script>
-    <!-- Slider-tab Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/plugins/slider-tabs.js"></script>
-    <!-- Select2 Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/plugins/select2.js" defer></script>
-    <!-- Lodash Utility -->
     <script src="<?= base_url('assets/admin/') ?>assets/vendor/lodash/lodash.min.js"></script>
-    <!-- Utilities Functions -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/iqonic-script/utility.min.js"></script>
-    <!-- Settings Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/iqonic-script/setting.min.js"></script>
-    <!-- Settings Init Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/setting-init.js"></script>
-    <!-- External Library Bundle Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/core/external.min.js"></script>
-    <!-- Widgetchart Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/charts/widgetcharts28b5.js?v=2.0.0" defer></script>
-    <!-- Dashboard Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/charts/dashboard28b5.js?v=2.0.0" defer></script>
-    <!-- Hopeui Script -->
     <script src="<?= base_url('assets/admin/') ?>assets/js/hope-ui28b5.js?v=2.0.0" defer></script>
     <script src="<?= base_url('assets/admin/') ?>assets/js/hope-uipro28b5.js?v=2.0.0" defer></script>
     <script src="<?= base_url('assets/admin/') ?>assets/js/sidebar28b5.js?v=2.0.0" defer></script>

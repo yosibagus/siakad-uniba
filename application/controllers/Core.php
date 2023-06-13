@@ -1461,6 +1461,36 @@ class Core extends CI_Controller
             echo "<option value='" . $get['id_semester'] . "'>" . $get['nama_semester'] . "</option>";
         }
     }
+
+    public function jumlah_mhs()
+    {
+        $jurusan = $this->mcore->getAllMulti('master_prodi')->result_array();
+
+        foreach ($jurusan as $get) {
+            echo '
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 align-middle" data-select2-id="select2-data-13-rktn">
+                <div class="d-flex flex-column align-middle">
+                    <span style="font-size: 14px"><img src="' . base_url('assets/logoprodi/') . $get['logo'] . '" width="20"> &nbsp;' . $get['nama_program_studi'] . '</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center rounded flex-wrap gap-3" data-select2-id="select2-data-12-k20k">
+                    <span class="card-judul">' . $this->mcore->getMhsByJurusan($get['id_prodi'])->num_rows() . '</span>
+                </div>
+            </div>
+            <hr>
+            ';
+        }
+    }
+
+    public function jumlah_dosen()
+    {
+        $data = [
+            'nidn' => $this->mcore->getJumlahDosen('nidn')->num_rows(),
+            'no_nidn' => $this->mcore->getJumlahDosen('')->num_rows(),
+            'total' => $this->mcore->getJumlahDosen('nidn')->num_rows() + $this->mcore->getJumlahDosen('')->num_rows()
+        ];
+
+        echo json_encode($data);
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

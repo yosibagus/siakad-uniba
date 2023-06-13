@@ -23,6 +23,14 @@ class Core_model extends CI_Model
         return $this->db->get()->row_array();
     }
 
+    public function getMhsByJurusan($id_jurusan)
+    {
+        $this->db->select('id_mahasiswa');
+        $this->db->from('master_mahasiswa');
+        $this->db->where('id_prodi', $id_jurusan);
+        return $this->db->get();
+    }
+
     public function getAllSetting()
     {
         $this->db->select('*');
@@ -35,6 +43,18 @@ class Core_model extends CI_Model
     {
         $this->db->where('id_prodi', $id);
         $this->db->update('setting_akses', [$tipestatus => $status]);
+    }
+
+    public function getJumlahDosen($tipe = null)
+    {
+        $this->db->select('id_dosen');
+        $this->db->from('master_dosen');
+        if ($tipe == 'nidn') {
+            $this->db->where('nidn !=', '');
+        } else {
+            $this->db->where('nidn', '');
+        }
+        return $this->db->get();
     }
 
     public function getAllMulti($table)

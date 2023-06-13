@@ -22,7 +22,9 @@ class Admin extends CI_Controller
         if ($this->session->userdata('level_operator') == "dosen") {
             $this->load->view('admin/home/home_dosen');
         } else {
-            $this->load->view('admin/home/home');
+            $this->load->model('Core_model', 'mcore');
+            $data['total_mahasiswa'] = $this->mcore->getAllMulti('master_mahasiswa')->num_rows();
+            $this->load->view('admin/home/home', $data);
         }
     }
 
