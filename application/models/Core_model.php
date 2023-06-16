@@ -74,6 +74,11 @@ class Core_model extends CI_Model
         return $data;
     }
 
+    public function infoLogin($id)
+    {
+        return $this->db->get_where('tb_akun', ['id_akun' => $id]);
+    }
+
     public function infoMahasiswa($nim)
     {
         $this->db->select('*');

@@ -1491,6 +1491,69 @@ class Core extends CI_Controller
 
         echo json_encode($data);
     }
+
+    private function get_client_ip_2()
+    {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if (isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'IP tidak dikenali';
+        return $ipaddress;
+    }
+
+    public function get_client_browser()
+    {
+        $browser = '';
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'Netscape'))
+            $browser = 'Netscape';
+        else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox'))
+            $browser = 'Firefox';
+        else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome'))
+            $browser = 'Chrome';
+        else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera'))
+            $browser = 'Opera';
+        else if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'))
+            $browser = 'Internet Explorer';
+        else
+            $browser = 'Other';
+        $data = [
+            'browser' => $browser,
+            'ipaddress' => $this->get_client_ip_2()
+        ];
+
+        return $data;
+    }
+
+
+    public function info_login()
+    {
+        $id = $_GET['id'];
+        $data = $this->mcore->infoLogin($id)->row_array();
+        $ip = $this->get_client_browser();
+
+        $row = [
+            'username_akun' => $data['username_akun'],
+            'nama_akun' => $data['nama_akun'],
+            'role' => $data['role'],
+            'last_login' => $data['last_login'],
+            'email_akun' => $data['email_akun'],
+            'browser' => $ip['browser'],
+            'ip' => $ip['ipaddress'],
+        ];
+
+        echo json_encode($row);
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */
