@@ -7,7 +7,6 @@
 </style>
 <div class="content-inner container-fluid pb-0" id="page_layout">
 
-
     <div class="row">
         <div class="col-lg-8 col-md-12">
             <div class="card">
@@ -56,7 +55,7 @@
                             <span style="font-size:10px;">Tahun Ajaran</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center rounded flex-wrap gap-3" data-select2-id="select2-data-12-k20k">
-                            <span class="card-judul" style="font-size: 20px"><i class="bi bi-check" style="color:green;"></i> 2023/2024 Ganjil</span>
+                            <span class="card-judul" style="font-size: 20px"><i class="bi bi-check" style="color:green;"></i> <?= $semester_aktif['nama_semester'] ?></span>
                         </div>
                     </div>
                 </div>

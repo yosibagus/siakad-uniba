@@ -25,7 +25,7 @@
                         <tr>
                             <th>Semester</th>
                             <th>:</th>
-                            <th><?= $detail['semester_perkuliahan'] ?></th>
+                            <th><?= $detail['nama_semester'] ?></th>
                         </tr>
                     </table>
                 </div>

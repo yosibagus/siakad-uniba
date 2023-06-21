@@ -27,7 +27,7 @@
                 <span class="item-name">Daftar User</span>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link " href="">
                 <i class="icon" data-bs-toggle="tooltip" title="Data Pimpinan dan Operator" data-bs-placement="right">
                     <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +39,7 @@
                 <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Data Pimpinan & Operator" data-bs-placement="right">PO</i>
                 <span class="item-name">Pimpinan & Operator</span>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link " href="#/generate_mahasiswa">
                 <i class="icon">

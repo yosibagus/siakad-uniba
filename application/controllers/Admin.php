@@ -24,6 +24,7 @@ class Admin extends CI_Controller
         } else {
             $this->load->model('Core_model', 'mcore');
             $data['total_mahasiswa'] = $this->mcore->getAllMulti('master_mahasiswa')->num_rows();
+            $data['semester_aktif'] = $this->mcore->semesterDetail($this->mcore->getSemesterAktif());
             $this->load->view('admin/home/home', $data);
         }
     }
