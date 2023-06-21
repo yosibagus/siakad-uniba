@@ -255,6 +255,18 @@ class Admin extends CI_Controller
     {
         $this->load->view('admin/setting/setting_edit');
     }
+
+    public function set_mahasiswa($id = null)
+    {
+        if (empty($id)) {
+            $this->load->view('admin/mahasiswa/mahasiswa_set');
+        } else {
+            $this->load->model('Core_model', 'mcore');
+            $data['id_prodi'] = $id;
+            $data['prodi'] = $this->mcore->getDetailProdi($id)->row_array();
+            $this->load->view('admin/mahasiswa/mahasiswa_set_action', $data);
+        }
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

@@ -79,6 +79,21 @@ class Core_model extends CI_Model
         return $this->db->get_where('tb_akun', ['id_akun' => $id]);
     }
 
+    public function getDetailProdi($id_prodi)
+    {
+        return $this->db->get_where('master_prodi', ['id_prodi' => $id_prodi]);
+    }
+
+    public function getJumlahMhsAngkatan($id_prodi)
+    {
+        $this->db->select('count(master_mahasiswa.id_mahasiswa) as jumlahMhsPeriode, master_mahasiswa.id_periode, master_semester.nama_semester');
+        $this->db->from('master_mahasiswa');
+        $this->db->join('master_semester', 'master_semester.id_semester = master_mahasiswa.id_periode');
+        $this->db->where('master_mahasiswa.id_prodi', $id_prodi);
+        $this->db->group_by('master_mahasiswa.id_periode');
+        return $this->db->get();
+    }
+
     public function infoMahasiswa($nim)
     {
         $this->db->select('*');

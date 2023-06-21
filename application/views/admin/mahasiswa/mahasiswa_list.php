@@ -27,6 +27,7 @@
 
 <script>
     $(document).ready(function() {
+        $("#judul").html("SIAKAD - Mahasiswa");
         $('#tableMahasiswa').DataTable({
             "processing": true,
             "serverSide": true,

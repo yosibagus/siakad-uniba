@@ -1554,6 +1554,46 @@ class Core extends CI_Controller
 
         echo json_encode($row);
     }
+
+    public function jurusan_set_data()
+    {
+        $jurusan = $this->mcore->getAllMulti('master_prodi')->result_array();
+
+        $i = 1;
+        $html = "";
+
+        foreach ($jurusan as $get) {
+
+            $html .= '<tr>';
+            $html .= '<td class="text-center">' . $i++ . '</td>';
+            $html .= '<td class="text-center">' . $get['kode_program_studi'] . '</td>';
+            $html .= '<td>' . $get['nama_jenjang_pendidikan'] . " " . $get['nama_program_studi'] . '</td>';
+            $html .= '<td></td>';
+            $html .= '<td><a href="#/set_mahasiswa/' . $get['id_prodi'] . '" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Set Mahasiswa</a></td>';
+            $html .= '</tr>';
+        }
+
+        echo $html;
+    }
+
+    public function set_mhs_prodi()
+    {
+        $id = $_GET['id'];
+
+        $prodi = $this->mcore->getJumlahMhsAngkatan($id)->result_array();
+        $html = "";
+        $i = 1;
+        foreach ($prodi as $get) {
+            $html .= '<tr>';
+            $html .= '<td>' . $i++ . '</td>';
+            $html .= '<td>' . $get['nama_semester'] . '</td>';
+            $html .= '<td class="text-center">' . $get['jumlahMhsPeriode'] . '</td>';
+            $html .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_mahasiswa[]" id="id_mahasiswa[]" value=""></td>';
+            $html .= '</tr>';
+        }
+
+        echo $html;
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */
