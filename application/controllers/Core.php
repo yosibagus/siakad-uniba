@@ -1594,6 +1594,62 @@ class Core extends CI_Controller
 
         echo $html;
     }
+
+    public function tambah_user_action()
+    {
+
+        $username_akun = $this->input->post('username_akun');
+        $password_akun = $this->input->post('password_akun');
+        $email_akun = $this->input->post('email_akun');
+        $nama_akun = $this->input->post('nama_akun');
+        $role = $this->input->post('role');
+
+        $ekstensi_diperbolehkan    = array('png', 'jpg');
+        $nama = $_FILES['foto_akun']['name'];
+        $x = explode('.', $nama);
+        $ekstensi = strtolower(end($x));
+        $ukuran    = $_FILES['foto_akun']['size'];
+        $file_tmp = $_FILES['foto_akun']['tmp_name'];
+
+        $this->load->helper('string');
+
+        if (empty($nama)) {
+            $data = [
+                'id_user' =>  random_string('md5'),
+                'username_akun' => $username_akun,
+                'password_akun' => md5($password_akun),
+                'hint' => $password_akun,
+                'email_akun' => $email_akun,
+                'nama_akun' => $nama_akun,
+                'role' => $role
+            ];
+            $this->mcore->inputMulti('tb_akun', $data);
+        } else {
+            if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+                if ($ukuran < 5044070) {
+                    move_uploaded_file($file_tmp, './assets/foto_akun/' . $nama);
+                    $pesan = 'ok';
+                    $data = [
+                        'id_user' =>  random_string('md5'),
+                        'username_akun' => $username_akun,
+                        'password_akun' => md5($password_akun),
+                        'hint' => $password_akun,
+                        'email_akun' => $email_akun,
+                        'nama_akun' => $nama_akun,
+                        'role' => $role,
+                        'foto_akun' => $nama
+                    ];
+                    $this->mcore->inputMulti('tb_akun', $data);
+                } else {
+                    $pesan = 'oversize';
+                }
+            } else {
+                $pesan = 'error';
+            }
+        }
+
+        echo json_encode(['pesan' => $pesan]);
+    }
 }
 
 /* End of file Core.php and path \application\controllers\Core.php */

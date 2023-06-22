@@ -6,7 +6,7 @@
                 <span>Menampilkan dan mengelola user beserta hak akses untuk mengakses sistem</span>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="#/daftar_user_tambah" class="text-center btn btn-primary d-flex gap-2" data-bs-toggle="modal" data-bs-target="#new-permission">
+                <a href="#/tambah_user" class="text-center btn btn-primary d-flex gap-2">
                     <svg width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>

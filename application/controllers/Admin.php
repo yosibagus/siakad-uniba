@@ -137,6 +137,11 @@ class Admin extends CI_Controller
         $this->load->view('admin/user/daftar_user');
     }
 
+    public function tambah_user()
+    {
+        $this->load->view('admin/user/tambah_user');
+    }
+
     public function generate_mahasiswa()
     {
         $this->load->view('admin/user/generate_mahasiswa');
