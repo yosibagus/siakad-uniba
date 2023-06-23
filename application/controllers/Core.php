@@ -1555,46 +1555,6 @@ class Core extends CI_Controller
         echo json_encode($row);
     }
 
-    public function jurusan_set_data()
-    {
-        $jurusan = $this->mcore->getAllMulti('master_prodi')->result_array();
-
-        $i = 1;
-        $html = "";
-
-        foreach ($jurusan as $get) {
-
-            $html .= '<tr>';
-            $html .= '<td class="text-center">' . $i++ . '</td>';
-            $html .= '<td class="text-center">' . $get['kode_program_studi'] . '</td>';
-            $html .= '<td>' . $get['nama_jenjang_pendidikan'] . " " . $get['nama_program_studi'] . '</td>';
-            $html .= '<td></td>';
-            $html .= '<td><a href="#/set_mahasiswa/' . $get['id_prodi'] . '" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Set Mahasiswa</a></td>';
-            $html .= '</tr>';
-        }
-
-        echo $html;
-    }
-
-    public function set_mhs_prodi()
-    {
-        $id = $_GET['id'];
-
-        $prodi = $this->mcore->getJumlahMhsAngkatan($id)->result_array();
-        $html = "";
-        $i = 1;
-        foreach ($prodi as $get) {
-            $html .= '<tr>';
-            $html .= '<td>' . $i++ . '</td>';
-            $html .= '<td>' . $get['nama_semester'] . '</td>';
-            $html .= '<td class="text-center">' . $get['jumlahMhsPeriode'] . '</td>';
-            $html .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_mahasiswa[]" id="id_mahasiswa[]" value=""></td>';
-            $html .= '</tr>';
-        }
-
-        echo $html;
-    }
-
     public function tambah_user_action()
     {
 
@@ -1649,6 +1609,82 @@ class Core extends CI_Controller
         }
 
         echo json_encode(['pesan' => $pesan]);
+    }
+
+    public function jurusan_set_data()
+    {
+        $jurusan = $this->mcore->getAllMulti('master_prodi')->result_array();
+
+        $i = 1;
+        $html = "";
+
+
+        foreach ($jurusan as $get) {
+
+            $html .= '<tr>';
+            $html .= '<td class="text-center">' . $i++ . '</td>';
+            $html .= '<td class="text-center">' . $get['kode_program_studi'] . '</td>';
+            $html .= '<td>' . $get['nama_jenjang_pendidikan'] . " " . $get['nama_program_studi'] . '</td>';
+            $nonaktif = $this->mcore->getJumlahMhsNonAktif($get['id_prodi']);
+            $html .= '<td>' . $nonaktif['total_non_aktif'] . '</td>';
+
+            $cek = $nonaktif['total_non_aktif'] == 0 ? '<i class="bi bi-check-circle"></i>' : '<a href="#/set_mahasiswa/' . $get['id_prodi'] . '" class="btn btn-primary btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Set Mahasiswa</a>';
+
+            $html .= '<td class="text-center">' . $cek . '</td>';
+            $html .= '</tr>';
+        }
+
+        echo $html;
+    }
+
+    public function set_mhs_prodi()
+    {
+        $id = $_GET['id'];
+
+        $prodi = $this->mcore->getJumlahMhsAngkatan($id)->result_array();
+        $html = "";
+        $i = 1;
+        foreach ($prodi as $get) {
+            $html .= '<tr>';
+            $html .= '<td class="text-center">' . $i++ . '</td>';
+            $html .= '<td class="text-center">' . $get['angkatan'] . '</td>';
+            $html .= '<td class="text-center">' . $get['jumlahMhsPeriode'] . '</td>';
+
+            $nonaktif = $this->mcore->getJumlahMhsProdiNonAktif($id, $get['angkatan']);
+
+            $cek = $nonaktif['total_non_aktif'] == 0 ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<input type="checkbox" style="padding:8px;" class="form-check-input" name="id_angkatan[]" id="id_angkatan[]" value="' . $get['angkatan'] . '">';
+
+            $html .= '<td class="text-center">' . $nonaktif['total_non_aktif'] . '</td>';
+            $html .= '<td class="text-center">' . $cek . '</td>';
+            $html .= '</tr>';
+        }
+
+        echo $html;
+    }
+
+    public function update_status_mahasiswa($id_prodi)
+    {
+        $id_angkatan = $_POST['id_angkatan'];
+
+        $i = 0;
+
+        foreach ($id_angkatan as $get) {
+            $mhs = $this->mcore->getMhsByJurusan_Angkatan($id_prodi, $_POST['id_angkatan'][$i])->result_array();
+
+            foreach ($mhs as $get) {
+                $data[] = [
+                    'id_mahasiswa' => $get['id_mahasiswa'],
+                    'id_prodi' => $id_prodi,
+                    'id_semester' => $this->mcore->getSemesterAktif(),
+                    'status_set' => 0
+                ];
+            }
+            $i++;
+        }
+
+        $this->db->insert_batch('mahasiswa_set', $data);
+
+        echo json_encode($data);
     }
 }
 

@@ -18,7 +18,7 @@
                             <th class="text-center">Kode Prodi</th>
                             <th>Program Studi</th>
                             <th>Jumlah Belum Diset</th>
-                            <th>Action</th>
+                            <th width="10" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tmp-set"></tbody>
@@ -41,7 +41,6 @@
                 url: "<?= base_url('core/jurusan_set_data') ?>",
                 dataType: "html",
                 success: function(data) {
-                    console.log(data);
                     $("#tmp-set").html(data);
                 }
             })

@@ -1,10 +1,16 @@
 <div class="content-inner pb-0 container-fluid">
-    <div class="card">
+    <form method="POST" action="" class="card" id="form-update-status">
         <div class="card-body">
-            <div class="d-flex bd-highlight mb-3">
+            <div class="d-flex bd-highlight mb-4">
                 <div class="flex-grow-1 bd-highlight">
                     <h5 class="card-title mb-0">Ubah Status Mahasiswa </h5>
                     <span>Program Studi <?= $prodi['nama_program_studi'] ?></span>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <button type="submit" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-check-lg"></i> Simpan</button>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <a href="#/set_mahasiswa" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -14,16 +20,15 @@
                             <th width="10">No</th>
                             <th class="text-center">Periode Masuk</th>
                             <th class="text-center">Jumlah Mahasiswa</th>
+                            <th class="text-center">Belum di Set</th>
                             <th class="text-center">Set Non Aktif</th>
                         </tr>
                     </thead>
                     <tbody id="tmp-set-mhs"></tbody>
                 </table>
-
-                <button class="btn btn-primary btn-sm">Simpan</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
@@ -33,8 +38,6 @@
         var id = "<?= $id_prodi ?>";
 
         setMhsJurusan();
-
-        console.log(id);
 
         function setMhsJurusan() {
             $.ajax({
@@ -49,5 +52,27 @@
                 }
             })
         }
+
+        $("#form-update-status").on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "<?= base_url('core/update_status_mahasiswa/') ?>" + id,
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(data) {
+                    $.toast({
+                        heading: 'Success',
+                        text: 'Proses berhasil di jalankan',
+                        showHideTransition: 'slide',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+
+                    window.location.href = "<?= base_url('#/set_mahasiswa') ?>"
+                }
+            });
+        })
+
     })
 </script>

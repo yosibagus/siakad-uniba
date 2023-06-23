@@ -31,6 +31,17 @@ class Core_model extends CI_Model
         return $this->db->get();
     }
 
+    public function getMhsByJurusan_Angkatan($idprodi, $angkatan)
+    {
+        $this->db->select('*');
+        $this->db->from('master_mahasiswa');
+        $this->db->join('master_prodi', 'master_prodi.id_prodi = master_mahasiswa.id_prodi', 'left');
+        $this->db->join('master_semester', 'master_semester.id_semester = master_mahasiswa.id_periode', 'left');
+        $this->db->where('master_mahasiswa.id_prodi', $idprodi);
+        $this->db->where('master_semester.id_tahun_ajaran', $angkatan);
+        return $this->db->get();
+    }
+
     public function getAllSetting()
     {
         $this->db->select('*');
@@ -86,11 +97,11 @@ class Core_model extends CI_Model
 
     public function getJumlahMhsAngkatan($id_prodi)
     {
-        $this->db->select('count(master_mahasiswa.id_mahasiswa) as jumlahMhsPeriode, master_mahasiswa.id_periode, master_semester.nama_semester');
+        $this->db->select('count(master_mahasiswa.id_mahasiswa) as jumlahMhsPeriode, master_mahasiswa.id_periode, master_semester.nama_semester, master_semester.id_tahun_ajaran as angkatan');
         $this->db->from('master_mahasiswa');
         $this->db->join('master_semester', 'master_semester.id_semester = master_mahasiswa.id_periode');
         $this->db->where('master_mahasiswa.id_prodi', $id_prodi);
-        $this->db->group_by('master_mahasiswa.id_periode');
+        $this->db->group_by('master_semester.id_tahun_ajaran');
         return $this->db->get();
     }
 
@@ -543,6 +554,26 @@ class Core_model extends CI_Model
         $this->db->where('perkuliahan_mahasiswa.nim', $nim);
         $this->db->order_by('master_matkul.semester', 'asc');
         return $this->db->get();
+    }
+
+    public function getJumlahMhsNonAktif($id_prodi)
+    {
+        $semester = $this->getSemesterAktif();
+
+        $data = $this->db->query("SELECT COUNT(id_mahasiswa) as total_non_aktif, id_prodi FROM master_mahasiswa WHERE 
+        id_mahasiswa NOT IN (SELECT id_mahasiswa FROM mahasiswa_set where id_semester = '$semester') 
+        AND id_prodi = '$id_prodi'")->row_array();
+
+        return ['id_prodi' => $data['id_prodi'], 'total_non_aktif' => $data['total_non_aktif']];
+    }
+
+    public function getJumlahMhsProdiNonAktif($id_prodi, $angkatan)
+    {
+        $semester = $this->getSemesterAktif();
+
+        $data = $this->db->query("SELECT COUNT(master_mahasiswa.id_mahasiswa) AS total_non_aktif, master_mahasiswa.id_prodi FROM master_mahasiswa JOIN master_semester ON master_semester.id_semester = master_mahasiswa.id_periode WHERE master_mahasiswa.id_mahasiswa NOT IN( SELECT id_mahasiswa FROM mahasiswa_set WHERE id_semester = '$semester' ) AND master_mahasiswa.id_prodi = '$id_prodi' AND master_semester.id_tahun_ajaran = '$angkatan'")->row_array();
+
+        return ['total_non_aktif' => $data['total_non_aktif']];
     }
 }
 
