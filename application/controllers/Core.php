@@ -1618,7 +1618,6 @@ class Core extends CI_Controller
         $i = 1;
         $html = "";
 
-
         foreach ($jurusan as $get) {
 
             $html .= '<tr>';

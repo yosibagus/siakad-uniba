@@ -16,7 +16,7 @@
     </a>
     <ul class="sub-nav collapse" id="keuangan-master" data-bs-parent="#sidebar-menu">
         <li class="nav-item">
-            <a class="nav-link " href="#/dosen">
+            <a class="nav-link " href="#/pembayaran">
                 <i class="icon" data-bs-toggle="tooltip" title="Tagihan" data-bs-placement="right">
                     <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <g>
@@ -30,7 +30,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="#/dosen">
+            <a class="nav-link " href="#/pembayaran">
                 <i class="icon">
                     <svg class="icon-10" width="10" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <g>

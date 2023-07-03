@@ -120,27 +120,6 @@
             })
         })
 
-        // tampilData();
-
-        // $('#tableGDosen').DataTable({
-        //     "lengthMenu": [
-        //         [10, 25, 50, -1],
-        //         [10, 25, 50, "All"]
-        //     ]
-        // });
-
-        // function tampilData() {
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "<?= base_url('core/getDataDosenGenerate') ?>",
-        //         async: false,
-        //         success: function(data) {
-        //             // console.log(data);
-        //             $("#tmp-user-dosen").html(data);
-        //         }
-        //     })
-        // }
-
         $("#form-generate-dosen").on('submit', function(e) {
             e.preventDefault();
             $.ajax({

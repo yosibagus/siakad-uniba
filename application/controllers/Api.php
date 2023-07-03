@@ -6,78 +6,39 @@ class Api extends CI_Controller
 
     public function index()
     {
-        echo "Halaman APi Integrasi PDDIKTI";
+        echo "halaman api integrasi NEO FEEDER PDDIKTI";
     }
 
-    private function curl($url)
+    private function linkApi()
     {
-        //strtotime(time)
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        return $output;
+        return "http://localhost:3003/ws/live2.php?=&=";
     }
 
-    public function getSemester()
+    private function getToken()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING       => '',
-            CURLOPT_MAXREDIRS      => 10,
-            CURLOPT_TIMEOUT        => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST  => 'POST',
-            CURLOPT_POSTFIELDS     => '{
-				"act":"GetSemester",
-				"token" : "' . $this->getToken() . '",
-				"username":"071098",
-				"password":"m4dh4ry"
-			}',
-
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $data = json_decode($response, true);
-
-        foreach ($data['data'] as $get) {
-            $result[] = $get;
-        }
-
-        // $this->db->insert_batch('master_semester', $result);
-        echo json_encode($data);
-    }
-
-    public function getToken()
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetToken",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -92,30 +53,176 @@ class Api extends CI_Controller
         // $this->db->insert_batch('master_kurikulum', $result);
     }
 
+    public function getListMahasiswa($id_prodi)
+    {
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+				"act":"GetListMahasiswa",
+                "filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
+				"token" : "' . $this->getToken() . '",
+				"username":"071098",
+				"password":"m4dh4ry"
+			    }',
+
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        foreach ($data['data'] as $get) {
+            if ($get['id_mahasiswa'] == '30d654fd-2c32-4842-8006-56f05c7188a9') { } else {
+                $result[] = [
+                    'id_mahasiswa' => $get['id_mahasiswa'],
+                    'nama_mahasiswa' => $get['nama_mahasiswa'],
+                    'jenis_kelamin' => $get['jenis_kelamin'],
+                    'tanggal_lahir' => $get['tanggal_lahir'],
+                    'id_perguruan_tinggi' => $get['id_perguruan_tinggi'],
+                    'nipd' => $get['nipd'],
+                    'nama_agama' => $get['nama_agama'],
+                    'id_prodi' => $get['id_prodi'],
+                    'nama_status_mahasiswa' => $get['nama_status_mahasiswa'],
+                    'nim' => $get['nim'],
+                    'id_periode' => $get['id_periode'],
+                    'nama_periode_masuk' => $get['nama_periode_masuk'],
+                    'id_registrasi_mahasiswa' => $get['id_registrasi_mahasiswa']
+                ];
+            }
+        }
+
+        // $this->db->insert_batch('master_mahasiswa', $result);
+        echo json_encode($result);
+    }
+
+    public function getAktivitasKuliah($id_prodi)
+    {
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'http://192.168.250.3:3003/ws/live2.php?=&=',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+				"act":"GetAktivitasKuliahMahasiswa",
+                "filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
+				"token" : "' . $this->getToken() . '",
+				"username":"071098",
+				"password":"m4dh4ry"
+			}',
+
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        foreach ($data['data'] as $get) {
+            $result[] = [
+                'id_mahasiswa' => $get['id_mahasiswa'],
+                'id_semester' => $get['id_semester'],
+                'id_prodi' => $get['id_prodi'],
+                'ips' => $get['ips'],
+                'ipk' => $get['ipk'],
+                'sks_semester' => $get['sks_semester'],
+                'sks_total' => $get['sks_total'],
+                'biaya_kuliah_smt' => $get['biaya_kuliah_smt']
+            ];
+        }
+
+        // $this->db->insert_batch('mahasiswa_aktivitas', $result);
+        echo json_encode($result);
+    }
+
+    public function getSemester()
+    {
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
+				"act":"GetSemester",
+				"token" : "' . $this->getToken() . '",
+				"username":"071098",
+				"password":"m4dh4ry"
+			}',
+
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $data = json_decode($response, true);
+
+        foreach ($data['data'] as $get) {
+            $result[] = $get;
+        }
+
+        // $this->db->insert_batch('master_semester', $result);
+        echo json_encode($data);
+    }
+
     public function getDosen()
     {
-
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING       => '',
-            CURLOPT_MAXREDIRS      => 10,
-            CURLOPT_TIMEOUT        => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST  => 'POST',
-            CURLOPT_POSTFIELDS     => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetListDosen",
 				"token" : "' . $this->getToken() . '",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -142,26 +249,29 @@ class Api extends CI_Controller
     public function getKurikulum()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING       => '',
-            CURLOPT_MAXREDIRS      => 10,
-            CURLOPT_TIMEOUT        => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST  => 'POST',
-            CURLOPT_POSTFIELDS     => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetListKurikulum",
 				"token" : "' . $this->getToken() . '",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -178,26 +288,29 @@ class Api extends CI_Controller
     public function getMatakuliah()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL            => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING       => '',
-            CURLOPT_MAXREDIRS      => 10,
-            CURLOPT_TIMEOUT        => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST  => 'POST',
-            CURLOPT_POSTFIELDS     => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetListMataKuliah",
 				"token" : "' . $this->getToken() . '",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -214,26 +327,29 @@ class Api extends CI_Controller
     public function getMatkulKurikulum()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetMatkulKurikulum",
 				"token" : "' . $this->getToken() . '",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -249,19 +365,20 @@ class Api extends CI_Controller
 
     public function getkelasPerkuliahan($id_prodi)
     {
-        // $id_prodi = $_GET['id'];
         // "filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetListKelasKuliah",
 				"filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
 				"token" : "' . $this->getToken() . '",
@@ -269,10 +386,11 @@ class Api extends CI_Controller
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -287,7 +405,6 @@ class Api extends CI_Controller
                 'id_prodi' => $data['data'][$i]['id_prodi'],
                 'id_matkul' => $data['data'][$i]['id_matkul'],
                 'id_semester' => $data['data'][$i]['id_semester'],
-                'semester_perkuliahan' => $data['data'][$i]['nama_semester'],
                 'nama_kelas' => $data['data'][$i]['nama_kelas_kuliah'],
                 'id_ruangan' => '',
                 'jam_awal' => '',
@@ -305,26 +422,29 @@ class Api extends CI_Controller
     public function getDosenKelasPerkuliahan()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetDosenPengajarKelasKuliah",
 				"token" : "' . $this->getToken() . '",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -348,16 +468,18 @@ class Api extends CI_Controller
     {
         // $id_prodi = "125de1a4-d11b-4e90-b9c6-0c1d89be4a8e";
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetKRSMahasiswa",
 				"filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
 				"token" : "' . $this->getToken() . '",
@@ -365,10 +487,11 @@ class Api extends CI_Controller
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -388,18 +511,19 @@ class Api extends CI_Controller
 
     public function getNilai($id_prodi)
     {
-        // $id_prodi = "d1cc4baf-4926-42da-ac18-63398da29f5a";
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $this->linkApi(),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetDetailNilaiPerkuliahanKelas",
 				"filter" : "id_prodi=' . "'" . $id_prodi . "'" . '",
 				"token" : "' . $this->getToken() . '",
@@ -407,10 +531,11 @@ class Api extends CI_Controller
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -467,34 +592,35 @@ class Api extends CI_Controller
     public function getSkalaNilai()
     {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '{
 				"act":"GetListSkalaNilaiProdi",
 				"token" : "' . $this->getToken() . '",
 				"username":"071098",
 				"password":"m4dh4ry"
 			}',
 
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json'
-            ),
-        ));
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
         $data = json_decode($response, true);
 
         echo json_encode($data['data']);
-        // file_put_contents('./assets/getSkalaNilai.json', serialize(json_encode($data)));
-        // $this->db->insert_batch('tb_skalanilai', $data['data']);
     }
 }
 

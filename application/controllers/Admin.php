@@ -272,6 +272,11 @@ class Admin extends CI_Controller
             $this->load->view('admin/mahasiswa/mahasiswa_set_action', $data);
         }
     }
+
+    public function pembayaran()
+    {
+        $this->load->view('admin/keuangan/pembayaran');
+    }
 }
 
 /* End of file Admin.php and path \application\controllers\Admin.php */

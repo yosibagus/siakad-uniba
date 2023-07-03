@@ -116,7 +116,7 @@
             "processing": true,
             "serverSide": true,
             "order": [],
-            "fixedHeader": true,
+            // "fixedHeader": true,
             "lengthMenu": [
                 [25, 50, 100, -1],
                 [25, 50, 100, "All"]
