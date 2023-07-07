@@ -216,11 +216,11 @@
         data: {
             labels: ['NIDN', 'NO NIDN'],
             datasets: [{
-                    label: "IPS",
+                    label: "Total",
                     backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(54, 162, 235, 0.2)'],
                     borderColor: ['rgba(255, 159, 64, 0.2)', 'rgba(54, 162, 235, 0.2)'],
                     borderWidth: 2,
-                    data: ['10', '20'],
+                    data: ['56', '0'],
                     fill: false,
                     pointStyle: 'circle',
                     pointRadius: 10,

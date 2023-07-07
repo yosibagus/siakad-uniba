@@ -19,10 +19,14 @@ class Admin extends CI_Controller
 
     public function home()
     {
+        $this->load->model('Core_model', 'mcore');
         if ($this->session->userdata('level_operator') == "dosen") {
-            $this->load->view('admin/home/home_dosen');
+            $dosen = $this->session->userdata('id_user');
+            $role = $this->session->userdata('level_operator');
+            $data['total_kelas_perkuliahan'] = $this->mcore->getKelasPerkuliahanDosen($dosen)->num_rows();
+            $data['total_perwalian'] = $this->mcore->getDosenWaliMahasiswa($dosen, $role)->num_rows();
+            $this->load->view('admin/home/home_dosen', $data);
         } else {
-            $this->load->model('Core_model', 'mcore');
             $data['total_mahasiswa'] = $this->mcore->getAllMulti('master_mahasiswa')->num_rows();
             $data['semester_aktif'] = $this->mcore->semesterDetail($this->mcore->getSemesterAktif());
             $this->load->view('admin/home/home', $data);

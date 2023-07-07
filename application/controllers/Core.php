@@ -313,14 +313,13 @@ class Core extends CI_Controller
     {
         $this->load->helper('string');
         $token = random_string('md5');
-
+        $semester = $this->mcore->getSemesterAktif();
         $data = [
             'id_perkuliahan_kelas' => random_string('alnum'),
             'token' => $token,
             'id_prodi' => $this->input->post('id_prodi'),
             'id_matkul' => $this->input->post('id_matkul'),
-            'id_semester' => 20222,
-            'semester_perkuliahan' => '2022/2023 Genap',
+            'id_semester' => $semester,
             'id_ruangan' => $this->input->post('id_ruangan'),
             'nama_kelas' => $this->input->post('nama_kelas'),
             'hari' => $this->input->post('hari'),
@@ -836,11 +835,11 @@ class Core extends CI_Controller
 
     public function krs_semester()
     {
-        $data = $this->mcore->getAllMulti('settings')->result_array();
+        $data = $this->mcore->getKrsSemester()->result_array();
 
         $output = '<option value=""></option>';
         foreach ($data as $get) {
-            $output .= '<option value="' . $get["semester_krs"] . '">' . $get["semester_krs"] . '</option>';
+            $output .= '<option value="' . $get["id_semester"] . '">' . $get["nama_semester"] . '</option>';
         }
 
         echo $output;
@@ -1102,7 +1101,7 @@ class Core extends CI_Controller
     public function data_dosen_wali_mhs()
     {
         $id = $this->session->userdata('id_user');
-        $role = $this->session->userdata('role');
+        $role = $this->session->userdata('level_operator');
         $data = $this->mcore->getDosenWaliMahasiswa($id, $role)->result_array();
         $i = 1;
         foreach ($data as $get) {
@@ -1118,6 +1117,7 @@ class Core extends CI_Controller
             ];
         };
         $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+        // echo json_encode($output);
     }
 
     public function detail_info_mhs()
@@ -1275,12 +1275,14 @@ class Core extends CI_Controller
     {
         $dosen = $this->session->userdata('id_user');
         $data = $this->mcore->getKelasPerkuliahanDosen($dosen)->result_array();
+
         $i = 1;
+        $output = [];
         foreach ($data as $get) {
             $output[] = [
                 'no' => $i++,
                 'aksi' => '<a href="' . base_url('#/detail_nilai_perkuliahan/') . $get['token'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Input Nilai</a>',
-                'semester_perkuliahan' => $get['semester_perkuliahan'],
+                'semester_perkuliahan' => $get['id_semester'],
                 'kode_mata_kuliah' => '<a href="' . base_url('#/detail_nilai_perkuliahan/') . $get['token'] . '">' . $get['kode_mata_kuliah'] . '</a>',
                 'nama_mata_kuliah' => $get['nama_mata_kuliah'],
                 'nama_kelas' => $get['nama_kelas'],
@@ -1289,7 +1291,8 @@ class Core extends CI_Controller
             ];
         }
 
-        $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+        // $this->output->set_content_type('aplication/json')->set_output(json_encode($output));
+        echo json_encode($output);
     }
 
     public function aktif_menu()

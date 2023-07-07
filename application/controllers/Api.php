@@ -203,7 +203,7 @@ class Api extends CI_Controller
         curl_setopt_array(
             $curl,
             array(
-                CURLOPT_URL => 'http://localhost:3003/ws/live2.php?=&=',
+                CURLOPT_URL => $this->linkApi(),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -237,7 +237,8 @@ class Api extends CI_Controller
                 'jenis_kelamin' => $get['jenis_kelamin'],
                 'nama_agama' => $get['nama_agama'],
                 'tanggal_lahir' => $get['tanggal_lahir'],
-                'status' => $get['nama_status_aktif']
+                'status' => $get['nama_status_aktif'],
+                'jabatan_dosen' => 'DOSEN'
             ];
         }
 

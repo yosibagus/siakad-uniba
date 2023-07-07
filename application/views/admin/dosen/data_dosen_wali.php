@@ -44,7 +44,8 @@
 
         $('#tableWali').DataTable();
 
-        // $("#judul").html("SIAKAD - Data Kurikulum");
+        $("#judul").html("SIAKAD - Dosen Wali");
+
         function tampilData() {
             $.ajax({
                 url: "<?= base_url('core/data_dosen_wali') ?>",

@@ -13,7 +13,12 @@
                     <button type="submit" class="btn btn-info btn-sm wi-50 text-white"><i class="bi bi-check-lg"></i> Simpan</button>
                 </div>
                 <div class="p-2 bd-highlight">
-                    <a href="#kelas_perkuliahan" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
+                    <?php if ($this->session->userdata('level_operator') == "dosen") : ?>
+                        <a href="#kelas_perkuliahan_order" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
+                    <?php else : ?>
+                        <a href="#kelas_perkuliahan" class="btn btn-success btn-sm wi-50 text-white"><i class="bi bi-list-ul"></i> Daftar</a>
+
+                    <?php endif; ?>
                 </div>
             </div>
 

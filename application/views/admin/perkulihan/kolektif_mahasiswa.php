@@ -29,7 +29,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Semester</label>
-                            <input class="form-control" type="text" disabled value="<?= $detail['semester_perkuliahan'] ?>">
+                            <input class="form-control" type="text" disabled value="<?= $detail['id_semester'] ?>">
                         </div>
                     </div>
                     <div class="col-md-6">

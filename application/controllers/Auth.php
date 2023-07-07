@@ -12,6 +12,7 @@ class Auth extends CI_Controller
 
     public function index()
     {
+        error_reporting(0);
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
@@ -24,7 +25,7 @@ class Auth extends CI_Controller
             $cek = $this->mauth->loginAdminValidatin($username, $password)->num_rows();
             if ($cek > 0) {
                 $get = $this->mauth->loginAdminValidatin($username, $password)->row_array();
-
+                $tipe = $this->db->get_where('master_dosen', ['id_dosen' => $get['id_user']])->row_array();
                 if ($get['role'] == 'mahasiswa') {
                     echo "Bukan Role Anda, Kunjungi siakad.unibamadura.ac.id";
                 } else {
@@ -33,7 +34,8 @@ class Auth extends CI_Controller
                         'id_user' => $get['id_user'],
                         'nama_operator' => $get['username_akun'],
                         'nama_akun' => $get['nama_akun'],
-                        'level_operator' => $get['role']
+                        'level_operator' => $get['role'],
+                        'tipe' => $tipe['jabatan_dosen']
                     );
 
                     $this->session->set_userdata($array);

@@ -1,6 +1,6 @@
 <div class="content-inner container-fluid pb-0" id="page_layout">
 
-    <div class="card bg-transparent shadow-none border-0">
+    <!-- <div class="card bg-transparent shadow-none border-0">
         <div class="card-body p-0">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <div class="d-flex flex-column mb-4 mb-md-0">
@@ -36,10 +36,10 @@
                             <h6 class="mt-1 mb-0">50</h6>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-lg-4">
@@ -54,7 +54,7 @@
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.211 14.5565C10.111 14.9195 9.762 15.1515 9.384 15.1015C6.833 14.7455 4.395 13.8405 2.337 12.4815C2.126 12.3435 2 12.1075 2 11.8555V8.38949C2 6.28949 3.712 4.58149 5.817 4.58149H7.784C7.972 3.12949 9.202 2.00049 10.704 2.00049H13.286C14.787 2.00049 16.018 3.12949 16.206 4.58149H18.183C20.282 4.58149 21.99 6.28949 21.99 8.38949V11.8555C21.99 12.1075 21.863 12.3425 21.654 12.4815C19.592 13.8465 17.144 14.7555 14.576 15.1105C14.541 15.1155 14.507 15.1175 14.473 15.1175C14.134 15.1175 13.831 14.8885 13.746 14.5525C13.544 13.7565 12.821 13.1995 11.99 13.1995C11.148 13.1995 10.433 13.7445 10.211 14.5565ZM13.286 3.50049H10.704C10.031 3.50049 9.469 3.96049 9.301 4.58149H14.688C14.52 3.96049 13.958 3.50049 13.286 3.50049Z" fill="currentColor"></path>
                                 </svg>
                             </div>
-                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;">23</h4>
+                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;"><?= $total_kelas_perkuliahan ?></h4>
                             <p class="mb-0">Kelas Perkuliahan</p>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                                     <circle cx="18" cy="11.8999" r="1" fill="currentColor"></circle>
                                 </svg>
                             </div>
-                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;">100</h4>
-                            <p class="mb-0">Mahasiswa KRS</p>
+                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;"><?= $total_perwalian ?></h4>
+                            <p class="mb-0">Perwalian MHS</p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                                     <path d="M15.1052 12.8838C14.8142 13.1728 14.3432 13.1748 14.0512 12.8818L12.4622 11.2848V16.1118C12.4622 16.5228 12.1282 16.8568 11.7172 16.8568C11.3062 16.8568 10.9732 16.5228 10.9732 16.1118V11.2848L9.38223 12.8818C9.09223 13.1748 8.62023 13.1728 8.32923 12.8838C8.03823 12.5948 8.03723 12.1228 8.32723 11.8308L11.1892 8.95582C11.1902 8.95482 11.1902 8.95482 11.1902 8.95482C11.2582 8.88682 11.3402 8.83182 11.4302 8.79482C11.5202 8.75682 11.6182 8.73682 11.7172 8.73682C11.8172 8.73682 11.9152 8.75682 12.0052 8.79482C12.0942 8.83182 12.1752 8.88682 12.2432 8.95382C12.2442 8.95482 12.2452 8.95482 12.2452 8.95582L15.1072 11.8308C15.3972 12.1228 15.3972 12.5948 15.1052 12.8838Z" fill="currentColor"></path>
                                 </svg>
                             </div>
-                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;">100</h4>
+                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;">0</h4>
                             <p class="mb-0">Mahasiswa Dinilai</p>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                                 </svg>
                             </div>
                             <h4 class="mt-4 mb-2 counter" style="visibility: visible;">90</h4>
-                            <p class="mb-0">Mahasiswa</p>
+                            <p class="mb-0">Mahasiswa Belum Dinilai</p>
                         </div>
                     </div>
                 </div>

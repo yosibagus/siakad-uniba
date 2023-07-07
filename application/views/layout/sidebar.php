@@ -53,7 +53,8 @@
                 $this->load->view('layout/menu/laporan/laporan_sub_dosen');
             elseif ($level == 'dosen') :
                 // home
-                $this->load->view('layout/menu/home/sub_header');
+                $data['detail'] = $this->db->get_where('tb_akun', ['id_user' => $this->session->userdata('id_user')])->row_array();
+                $this->load->view('layout/menu/home/sub_header', $data);
                 $this->load->view('layout/menu/home/home_header');
                 $this->load->view('layout/menu/home/home_sub_dashboard');
                 //akademik
