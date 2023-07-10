@@ -166,7 +166,6 @@
                 url: "<?= base_url('core/input_generate_mahasiswa') ?>",
                 data: $(this).serialize(),
                 success: function(data) {
-                    // console.log(data);
                     $.toast({
                         heading: 'Success',
                         text: 'Mahasiswa berhasil ditambahkan',

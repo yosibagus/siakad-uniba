@@ -817,6 +817,71 @@ class Core extends CI_Controller
         echo json_encode($data);
     }
 
+    public function tampil_mhs_pembayaran()
+    {
+        $angkatan = $_GET['angkatan'];
+        $prodi = $_GET['prodi'];
+
+        if (empty($prodi)) {
+            $data = $this->mcore->select_kolektif_angkatan($angkatan)->result_array();
+        } else {
+            $data = $this->mcore->select_kolektif_prodi($angkatan, $prodi)->result_array();
+        }
+
+        $output = '';
+        $i = 1;
+        foreach ($data as $get) {
+            $output .= '<tr>';
+            $cek = $this->db->get_where('mahasiswa_set', ['id_mahasiswa' => $get['id_mahasiswa'], 'status_set' => 1])->num_rows();
+            if ($cek > 0) {
+                $output .= '<td class="text-center"><i class="bi bi-check-circle-fill text-success"></i></td>';
+            } else {
+                $output .= '<td class="text-center"><input type="checkbox" style="padding:8px;" class="form-check-input" name="id_mahasiswa[]" id="id_mahasiswa[]" value="' . $get['id_mahasiswa'] . '"></td>';
+            }
+            $output .= '<td class="text-center">' . $i++ . '</td>';
+            $output .= '<td class="fw-bold">' . $get['nim'] . '</td>';
+            $output .= '<td>' . $get['nama_mahasiswa'] . '</td>';
+            $output .= '<td>' . $get['nama_program_studi'] . '</td>';
+            $output .= '<td>' . substr($get['id_periode'], 0, 4) . '</td>';
+            $output .= '</tr>';
+        }
+
+        echo $output;
+    }
+
+    public function input_pembayaran_mahasiswa()
+    {
+        $id_mahasiswa = $_POST['id_mahasiswa'];
+        $i = 0;
+
+        foreach ($id_mahasiswa as $get) {
+            $id_mhs = $_POST['id_mahasiswa'][$i];
+            $getMhs = $this->db->get_where('master_mahasiswa', ['id_mahasiswa' => $id_mhs])->row_array();
+            $data[] = [
+                'id_mahasiswa' => $id_mhs,
+                'id_prodi' => $getMhs['id_prodi'],
+                'id_semester' => $this->mcore->getSemesterAktif(),
+                'status_set' => 1
+            ];
+            $i++;
+        }
+
+        $this->db->insert_batch('mahasiswa_set', $data);
+    }
+
+    public function update_setting()
+    {
+        $data = [
+            'id_semester' => $this->input->post('id_semester'),
+            'batas_sks_krs' => $this->input->post('batas_sks_krs'),
+            'perhitungan' => $this->input->post('perhitungan')
+        ];
+
+        // echo json_encode($data);
+
+        $this->db->update('settings', $data);
+    }
+
     public function autofill_dosen()
     {
         if (isset($_GET['term'])) {

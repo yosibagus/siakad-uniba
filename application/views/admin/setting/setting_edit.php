@@ -11,12 +11,6 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="semester_krs">Semester KRS</label>
-                        <input type="text" name="semester_krs" id="semester_krs" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                         <label for="batas_sks_krs">Batas SKS KRS</label>
                         <input type="text" name="batas_sks_krs" id="batas_sks_krs" class="form-control">
                     </div>
@@ -32,14 +26,38 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary btn-sm">Simpan Setting</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="simpanSetting()">Simpan Setting</button>
             <a href="<?= base_url('#/global_setting') ?>" class="btn btn-danger btn-sm">Kembali</a>
         </div>
     </form>
 </div>
-
-
 <script>
+    function simpanSetting() {
+        var id_semester = $("#id_semester").val();
+        var batas_sks_krs = $("#batas_sks_krs").val();
+        var perhitungan = $("#perhitungan").val();
+
+        $.ajax({
+            type: "POST",
+            data: {
+                id_semester: id_semester,
+                batas_sks_krs: batas_sks_krs,
+                perhitungan: perhitungan
+            },
+            url: "<?= base_url('core/update_setting') ?>",
+            success: function() {
+                $.toast({
+                    heading: 'Success',
+                    text: 'Setting Berhasil Diubah',
+                    showHideTransition: 'slide',
+                    icon: 'success',
+                    position: 'top-right'
+                });
+                window.location.href = "<?= base_url('#/global_setting') ?>";
+            }
+        })
+    }
+
     $(document).ready(function() {
 
         $('#id_semester').select2({
@@ -59,6 +77,6 @@
             success: function(data) {
                 $("#id_semester").html(data);
             }
-        })
+        });
     })
 </script>

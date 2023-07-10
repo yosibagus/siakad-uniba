@@ -26,7 +26,7 @@
                 </i>
                 <i class="sidenav-mini-icon" data-bs-toggle="tooltip" title="Tagihan" data-bs-placement="right">
                     TG </i>
-                <span class="item-name"> Tagihan </span>
+                <span class="item-name"> List Pembayaran </span>
             </a>
         </li>
         <li class="nav-item">

@@ -151,15 +151,13 @@
                 data: data,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
                     $.toast({
                         heading: 'Success',
                         text: 'Data Berhasil Ditambahkan',
                         showHideTransition: 'slide',
                         icon: 'success',
                         position: 'top-right'
-                    })
-                    // $('.toast').toast('show');
+                    });
                     window.location.href = '<?= base_url('#detail_perkuliahan/') ?>' + data.token;
                 }
             });
