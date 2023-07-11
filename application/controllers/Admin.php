@@ -100,7 +100,7 @@ class Admin extends CI_Controller
         $data['prodi'] = $this->mcore->getAllMulti('master_prodi')->result_array();
         $data['matkul'] = $this->mcore->getAllMulti('master_matkul')->result_array();
         $data['gedung'] = $this->mcore->getAllMulti('master_gedung')->result_array();
-        $data['semester'] = $this->mcore->getSemesterAktif();
+        $data['semester'] = $this->mcore->getSemesterAktifKuliah();
         $this->load->view('admin/perkulihan/kelas_perkuliahan_tambah', $data);
     }
 
@@ -128,6 +128,7 @@ class Admin extends CI_Controller
         $this->load->model('Core_model', 'mcore');
         $data['detail'] = $this->mcore->getKelasPerkuliahanDetail($id)->row_array();
         $data['semester_aktif'] = $this->mcore->getSemesterAktif() == $data['detail']['id_semester'] ? 1 : 0;
+        $data['fitur_nilai'] = $this->mcore->fitur_nilai_lock($data['detail']['id_prodi'])->row_array();
         $this->load->view('admin/perkulihan/detail_nilai_perkuliahan', $data);
     }
 

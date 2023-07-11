@@ -53,7 +53,11 @@
         </div>
         <div class="p-2 bd-highlight">
             <?php if ($semester_aktif > 0) : ?>
-                <a href="#/ubah_nilai/<?= $detail['id_perkuliahan_kelas'] ?>" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
+                <?php if ($fitur_nilai['open_penilaian'] > 0) : ?>
+                    <a href="#/ubah_nilai/<?= $detail['id_perkuliahan_kelas'] ?>" class="btn btn-warning btn-sm wi-50 text-white"><i class="bi bi-pencil-square"></i> Ubah</a>
+                <?php else : ?>
+                    <h6 class="text-warning">*Periode Penginputan nilai belum dibuka</h6>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
         <div class="p-2 bd-highlight">

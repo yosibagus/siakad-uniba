@@ -98,8 +98,8 @@
                                     <circle opacity="0.4" cx="19.5" cy="4.5" r="2.5" fill="currentColor"></circle>
                                 </svg>
                             </div>
-                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;">90</h4>
-                            <p class="mb-0">Mahasiswa Belum Dinilai</p>
+                            <h4 class="mt-4 mb-2 counter" style="visibility: visible;">0</h4>
+                            <p class="mb-0">MHS Belum Dinilai</p>
                         </div>
                     </div>
                 </div>

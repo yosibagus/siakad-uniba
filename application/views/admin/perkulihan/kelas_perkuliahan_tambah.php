@@ -44,7 +44,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
                             <label for="semester_perkuliahan">Semester <span class="text-danger">*</span></label>
-                            <input required type="text" value="<?= $semester ?>" readonly class="form-control form-ku" name="semester_perkuliahan" id="semester_perkuliahan">
+                            <input required type="text" style="background: #e3e3e3;" value="<?= $semester ?>" readonly class="form-control form-ku" name="semester_perkuliahan" id="semester_perkuliahan">
                             <small class="text-danger" id="m-semester"><i></i></small>
                         </div>
                     </div>
